@@ -13,8 +13,6 @@ public class Distraction : MonoBehaviour
         {
             IsOccupied = true;
             OccupyingDog = col.transform.parent.GetComponent<Dog>();
-             col.transform.parent.GetComponent<Dog>().IsMoving = false;
-            //OccupyingDog.SetDistraction(this);
         }
     }
 
@@ -24,8 +22,6 @@ public class Distraction : MonoBehaviour
         {
             IsOccupied = false;
             OccupyingDog = null;
-            //col.transform.parent.GetComponent<Dog>().IsMoving = true;
-            //OccupyingDog.SetDistraction(this);
         }
     }
 }

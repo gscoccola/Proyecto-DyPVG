@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour
+public class PersistentSingleton<T> : MonoBehaviour
 {
     public static T Instance { get; private set; }
 
@@ -13,6 +13,8 @@ public class Singleton<T> : MonoBehaviour
         else
         {
             Instance = GetComponent<T>();
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
+

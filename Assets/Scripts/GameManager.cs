@@ -4,8 +4,14 @@ using UnityEngine.AI;
 public class GameManager : Singleton<GameManager>
 {
     public GameState CurrentState { get; private set; }
-    [SerializeField] private Dog[] Dogs;
-    [SerializeField] private Vector3 Target;
+    private Dog[] Dogs;
+    private Vector3 Target;
+
+    private new void Awake()
+    {
+        base.Awake();
+        Dogs = FindObjectsByType<Dog>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+    }
 
     private void Start()
     {

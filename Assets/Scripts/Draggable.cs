@@ -28,9 +28,6 @@ public class Draggable : MonoBehaviour
     {
         if (!IsSelected || !IsSelectable) return;
         Vector3 newPos = _camera.ScreenToWorldPoint(Input.mousePosition);
-        /*newPos = new Vector3(Mathf.Clamp(0f, -_cameraBounds.x, _cameraBounds.x), 
-            Mathf.Clamp(newPos.y, -_cameraBounds.y, _cameraBounds.y), 0f);
-        newPos += _initialRelativePos;*/
 
         transform.position = new Vector3(
             newPos.x,
