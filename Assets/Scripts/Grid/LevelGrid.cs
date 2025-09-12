@@ -7,9 +7,7 @@ using UnityEngine.Tilemaps;
 public class LevelGrid : Singleton<LevelGrid>
 {
     [Header("References")]
-    [SerializeField] private Tilemap _tilemap;
-    [SerializeField] private GameObject _walkableMarker;
-    [SerializeField] private GameObject _nonWalkableMarker;
+    [SerializeField] private Tilemap _wallTilemap;
 
 
     private TileType[,] _tileTypeGrid;
@@ -20,15 +18,16 @@ public class LevelGrid : Singleton<LevelGrid>
     private new void Awake()
     {
         base.Awake();
-        ProcessTilemap();
+        GenerateMovementGrid();
     }
 
-    private void ProcessTilemap()
+    private void GenerateMovementGrid()
     {
-        _cellSize = _tilemap.cellSize.x;
+        _cellSize = _wallTilemap.cellSize.x;
+        Debug.Log(_cellSize);
         _cellSizeInverse = 1f / _cellSize;
-        _bounds = _tilemap.cellBounds;
-        TileBase[] allTiles = _tilemap.GetTilesBlock(_bounds);
+        _bounds = _wallTilemap.cellBounds;
+        TileBase[] allTiles = _wallTilemap.GetTilesBlock(_bounds);
         _tileTypeGrid = new TileType[_bounds.size.x, _bounds.size.y];
 
         for (int x = 0; x < _bounds.size.x; x++)
@@ -38,16 +37,10 @@ public class LevelGrid : Singleton<LevelGrid>
                 TileBase tile = allTiles[x + y * _bounds.size.x];
                 if (tile != null)
                 {
-                    Instantiate(_nonWalkableMarker,
-                        GridToWorldPos(new Vector2Int(x,y)),
-                        Quaternion.identity);
                     _tileTypeGrid[x, y] = TileType.Wall;
                 }
                 else
                 {
-                    Instantiate(_walkableMarker,
-                        GridToWorldPos(new Vector2Int(x, y)),
-                        Quaternion.identity);
                     _tileTypeGrid[x, y] = TileType.Walkable;
                 }
             }
@@ -64,7 +57,9 @@ public class LevelGrid : Singleton<LevelGrid>
                 if (traversableTileTypes.Contains(_tileTypeGrid[x, y])) traversableTilemap[new Vector2Int(x,y)] = 1f;
             }
         }
-        return new Pathfinder2D(traversableTilemap, NodeConnectionType.RectangleNoDiagonals).FindPath(origin, target).Path;
+        List<Vector2Int> path = new Pathfinder2D(traversableTilemap, NodeConnectionType.RectangleNoDiagonals).FindPath(origin, target).Path;
+        //path.Add(target);
+        return path;
     }
 
     public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector3 origin, Vector3 target)
@@ -82,6 +77,11 @@ public class LevelGrid : Singleton<LevelGrid>
     {
         return new Vector3(gridPosition.x * _cellSize + _bounds.x,
             gridPosition.y * _cellSize + _bounds.y, 0f);
+    }
+
+    public Vector3 SnapToGrid(Vector3 worldPos)
+    {
+        return GridToWorldPos(WorldToGridPos(worldPos));
     }
 }
 

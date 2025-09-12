@@ -1,29 +1,29 @@
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Dog : MonoBehaviour, IRevertable
+public class Dog : MonoBehaviour, IRevertable, IActionable
 {
 
     [Header("Parameters")]
     [SerializeField] private DogType Type;
 
-
-
     [Header("References")]
     [SerializeField] private GameObject _pathMaker;
     [SerializeField] private GameObject _target;
-    [SerializeField] private GameObject _body;
 
     [Header("Debug")]
-    [SerializeField, ReadOnly] private DogState _currentState;
+    [SerializeField, ReadOnly] public DogState CurrentState;
     [SerializeField, ReadOnly] private Vector2Int _gridPosition;
 
 
     private FiniteStateMachine<DogState> _stateMachine;
-
+    private MarkerManager _markerManager;
+    private GridMovement _gridMovement;
+    private Vector3 _initialPos;
 
     private void Awake()
     {
+        _gridMovement = GetComponent<GridMovement>();
+        _markerManager = GetComponent<MarkerManager>();
         _stateMachine = new FiniteStateMachine<DogState>();
         _stateMachine.AddState(DogState.Stopped, new DogStopped(this, _stateMachine));
         _stateMachine.AddState(DogState.MovingToTarget, new DogMovingToTarget(this, _stateMachine));
@@ -33,6 +33,8 @@ public class Dog : MonoBehaviour, IRevertable
 
     private void Start()
     {
+        transform.position = LevelGrid.Instance.SnapToGrid(transform.position);
+        _initialPos = transform.position;
         _stateMachine.ChangeState(DogState.Stopped);
     }
 
@@ -43,18 +45,28 @@ public class Dog : MonoBehaviour, IRevertable
 
     public void Revert()
     {
-        _stateMachine.ChangeState(DogState.Idle);
+        _stateMachine.ChangeState(DogState.Stopped);
+        _gridMovement.Stop();
+        transform.position = _initialPos;
+        _markerManager.ClearAllMarkers();
     }
 
-    public void StartMovement()
+    public void BeginAction()
     {
-        _stateMachine.ChangeState(DogState.Stopped);
+        
         var path = LevelGrid.Instance.CalculatePath(new TileType[] { TileType.Walkable },
-            _body.transform.position, _target.transform.position);
-        foreach (var tile in path)
+            transform.position, _target.transform.position);
+        if (path.Count == 0)
         {
-            Instantiate(_pathMaker, LevelGrid.Instance.GridToWorldPos(tile), Quaternion.identity);
+            _stateMachine.ChangeState(DogState.Idle);
+            return;
         }
+        _stateMachine.ChangeState(DogState.MovingToTarget);
+        foreach (var tilePos in path)
+        {
+            _markerManager.AddMarker(tilePos, Color.yellow);
+        }
+        _gridMovement.SetPath(path);
     }
 }
 

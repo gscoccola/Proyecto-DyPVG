@@ -15,7 +15,7 @@ public class DogMovingToTarget : IState<DogState>
 
     public void OnEnter(params object[] parameters)
     {
-
+        _dog.CurrentState = DogState.MovingToTarget;
     }
 
     public void OnExit()

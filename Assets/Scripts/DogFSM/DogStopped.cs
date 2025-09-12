@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class DogIdle : IState<DogState>
+public class DogStopped : IState<DogState>
 {
 
     private FiniteStateMachine<DogState> _stateMachine;
     private Dog _dog;
 
-    public DogIdle(params object[] parameters)
+    public DogStopped(params object[] parameters)
     {
         _dog = (Dog)parameters[0];
         _stateMachine = (FiniteStateMachine<DogState>)parameters[1];
@@ -15,7 +15,7 @@ public class DogIdle : IState<DogState>
 
     public void OnEnter(params object[] parameters)
     {
-
+        _dog.CurrentState = DogState.Stopped;
     }
 
     public void OnExit()

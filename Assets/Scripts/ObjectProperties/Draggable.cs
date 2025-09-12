@@ -24,6 +24,11 @@ public class Draggable : MonoBehaviour
         IsSelectable = true;
     }
 
+    private void Start()
+    {
+        transform.position = LevelGrid.Instance.SnapToGrid(transform.position);
+    }
+
     private void OnMouseDrag()
     {
         if (!IsSelected || !IsSelectable) return;
@@ -40,6 +45,7 @@ public class Draggable : MonoBehaviour
     {
         OnMouseAction(false);
         OnDeSelected?.Invoke();
+        transform.position = LevelGrid.Instance.SnapToGrid(transform.position);
     }
 
     private void OnMouseDown()

@@ -1,16 +1,26 @@
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
     public GameState CurrentState { get; private set; }
-    private Dog[] Dogs;
+    private Dog[] _dogs;
+    private List<IRevertable> _revertables = new();
+    private List<IActionable> _actionables = new();
     private Vector3 Target;
 
     private new void Awake()
     {
         base.Awake();
-        Dogs = FindObjectsByType<Dog>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        _dogs = FindObjectsByType<Dog>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (GameObject gameObject in FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (gameObject.GetComponent<IRevertable>() != null) _revertables.Add(gameObject.GetComponent<IRevertable>());
+            if (gameObject.GetComponent<IActionable>() != null) _actionables.Add(gameObject.GetComponent<IActionable>());
+        }
     }
 
     private void Start()
@@ -22,9 +32,10 @@ public class GameManager : Singleton<GameManager>
     {
         if (CurrentState == GameState.Action) return;
         CurrentState = GameState.Action;
-        foreach (Dog dog in Dogs)
+
+        foreach (IActionable actionable in _actionables)
         {
-            dog.StartMovement();
+            actionable.BeginAction();
         }
     }
 
@@ -32,9 +43,10 @@ public class GameManager : Singleton<GameManager>
     {
         if (CurrentState == GameState.Planning) return;
         CurrentState = GameState.Planning;
-        foreach (Dog dog in Dogs)
+
+        foreach (IRevertable revertable in _revertables)
         {
-            dog.Revert();
+            revertable.Revert();
         }
     }
 }
