@@ -24,7 +24,6 @@ public class LevelGrid : Singleton<LevelGrid>
     private void GenerateMovementGrid()
     {
         _cellSize = _wallTilemap.cellSize.x;
-        Debug.Log(_cellSize);
         _cellSizeInverse = 1f / _cellSize;
         _bounds = _wallTilemap.cellBounds;
         TileBase[] allTiles = _wallTilemap.GetTilesBlock(_bounds);

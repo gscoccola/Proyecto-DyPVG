@@ -1,13 +1,12 @@
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameState CurrentState { get; private set; }
-    private Dog[] _dogs;
+    [Header("Debug")]
+    [SerializeField, ReadOnly] public GameState CurrentState { get; private set; }
+
+    //private Dog[] _dogs;
     private List<IRevertable> _revertables = new();
     private List<IActionable> _actionables = new();
     private Vector3 Target;
@@ -15,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     private new void Awake()
     {
         base.Awake();
-        _dogs = FindObjectsByType<Dog>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        //_dogs = FindObjectsByType<Dog>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (GameObject gameObject in FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             if (gameObject.GetComponent<IRevertable>() != null) _revertables.Add(gameObject.GetComponent<IRevertable>());

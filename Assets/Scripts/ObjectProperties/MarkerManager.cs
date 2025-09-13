@@ -15,16 +15,14 @@ public class MarkerManager : MonoBehaviour
 
     public void AddMarker(Vector3 worldPosition, Color color)
     {
-        GameObject marker = Instantiate(_markerPrefab, worldPosition, Quaternion.identity, transform);
+        GameObject marker = Instantiate(_markerPrefab, worldPosition, Quaternion.identity, _container);
         _markers.Add(marker);
         marker.GetComponent<SpriteRenderer>().color = color;
     }
 
     public void AddMarker(Vector2Int gridPosition, Color color)
     {
-        GameObject marker = Instantiate(_markerPrefab, LevelGrid.Instance.GridToWorldPos(gridPosition), Quaternion.identity, _container);
-        _markers.Add(marker);
-        marker.GetComponent<SpriteRenderer>().color = color;
+        AddMarker(LevelGrid.Instance.GridToWorldPos(gridPosition), color);
     }
 
     public void ClearAllMarkers()
