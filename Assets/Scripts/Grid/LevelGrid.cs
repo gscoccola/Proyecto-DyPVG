@@ -47,24 +47,25 @@ public class LevelGrid : Singleton<LevelGrid>
         }
     }
 
-    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector2Int origin, Vector2Int target)
+    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector2Int origin, Vector2Int target, Vector2Int excludedPoint)
     {
         Dictionary<Vector2Int, float> traversableTilemap = new Dictionary<Vector2Int, float>();
         for (int x = 0; x < _bounds.size.x; x++)
         {
             for (int y = 0; y < _bounds.size.y; y++)
             {
+                if (x== excludedPoint.x && y == excludedPoint.y) continue;
                 if (traversableTileTypes.Contains(_tileTypeGrid[x, y])) traversableTilemap[new Vector2Int(x,y)] = 1f;
             }
         }
-        List<Vector2Int> path = new Pathfinder2D(traversableTilemap, NodeConnectionType.RectangleNoDiagonals).FindPath(origin, target).Path;
-        path.Reverse();
-        return path;
+        Pathfinder2DResult result = new Pathfinder2D(traversableTilemap, NodeConnectionType.RectangleNoDiagonals).FindPath(origin, target);
+        result.Path.Reverse();
+        return result.Path;
     }
 
-    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector3 origin, Vector3 target)
+    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector3 origin, Vector3 target, Vector2Int excludedPoint)
     {
-        return CalculatePath(traversableTileTypes, WorldToGridPos(origin), WorldToGridPos(target));
+        return CalculatePath(traversableTileTypes, WorldToGridPos(origin), WorldToGridPos(target), excludedPoint);
     }
 
     public Vector2Int WorldToGridPos(Vector3 worldPosition)

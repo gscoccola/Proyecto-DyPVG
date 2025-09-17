@@ -809,6 +809,37 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &664410464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664410465}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &664410465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664410464}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &751767134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4354,7 +4385,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2112764244}
   - component: {fileID: 191884646}
-  - component: {fileID: 2112764245}
   - component: {fileID: 2112764247}
   - component: {fileID: 2112764249}
   - component: {fileID: 2112764246}
@@ -4382,20 +4412,6 @@ Transform:
   - {fileID: 1758135433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2112764245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112764243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0dbe7e71884ca4e9b7cbbc4648aa89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _markerPrefabs:
-  - {fileID: 1606664671233095643, guid: bfd7cbea793a3084c8f35fd18973b852, type: 3}
 --- !u!212 &2112764246
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4524,12 +4540,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef10b0fb5158154fb29e74d68e33713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allow180Turn: 0
+  _maxDistance: 32
   _straightMarkerPrefab: {fileID: 1606664671233095643, guid: bfd7cbea793a3084c8f35fd18973b852, type: 3}
   _curvedMarkerPrefab: {fileID: 1606664671233095643, guid: 301e8a64d6011b04ebfc9d09b426b0c9, type: 3}
   _arrowMarkerPrefab: {fileID: 1606664671233095643, guid: 8e1ddfe7ee0ff814b87177766b219941, type: 3}
   _path: []
-  _pathDirection: []
+  _excludedPos: {x: 800, y: 800}
   IsDrawingEnabled: 0
 --- !u!1 &2120632598
 GameObject:
@@ -4679,3 +4695,4 @@ SceneRoots:
   - {fileID: 417857314}
   - {fileID: 1283703737}
   - {fileID: 2112764244}
+  - {fileID: 664410465}
