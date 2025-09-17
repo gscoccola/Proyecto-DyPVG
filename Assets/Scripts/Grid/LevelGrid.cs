@@ -4,6 +4,7 @@ using KwaaktjePathfinder2D;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+// This class generates a grid representation of the level based on a Tilemap and provides pathfinding functionality.
 public class LevelGrid : Singleton<LevelGrid>
 {
     [Header("References")]
@@ -57,7 +58,7 @@ public class LevelGrid : Singleton<LevelGrid>
             }
         }
         List<Vector2Int> path = new Pathfinder2D(traversableTilemap, NodeConnectionType.RectangleNoDiagonals).FindPath(origin, target).Path;
-        //path.Add(target);
+        path.Reverse();
         return path;
     }
 

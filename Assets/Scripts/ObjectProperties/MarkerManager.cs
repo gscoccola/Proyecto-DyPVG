@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// This class manages the creation, storage, and removal of visual markers on the game grid.
 public class MarkerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _markerPrefab;
+    [SerializeField] private GameObject[] _markerPrefabs;
     private List<GameObject> _markers = new();
     private Transform _container;
 
@@ -13,16 +14,22 @@ public class MarkerManager : MonoBehaviour
         if (_container == null) _container = transform.parent;
     }
 
-    public void AddMarker(Vector3 worldPosition, Color color)
+    public void AddMarker(int index, Vector3 worldPosition, Color color)
     {
-        GameObject marker = Instantiate(_markerPrefab, worldPosition, Quaternion.identity, _container);
+        GameObject marker = Instantiate(_markerPrefabs[index], worldPosition, Quaternion.identity, _container);
         _markers.Add(marker);
         marker.GetComponent<SpriteRenderer>().color = color;
     }
 
-    public void AddMarker(Vector2Int gridPosition, Color color)
+    public void AddMarker(int index, Vector2Int gridPosition, Color color)
     {
-        AddMarker(LevelGrid.Instance.GridToWorldPos(gridPosition), color);
+        AddMarker(index, LevelGrid.Instance.GridToWorldPos(gridPosition), color);
+    }
+
+    public void DeleteLastMarker()
+    {
+        _markers.RemoveAt(_markers.Count - 1);
+        Destroy(_markers[_markers.Count - 1]);
     }
 
     public void ClearAllMarkers()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// This class handles the overall game state, switching between planning and action phases.
 public class GameManager : Singleton<GameManager>
 {
     [Header("Debug")]
@@ -47,6 +48,11 @@ public class GameManager : Singleton<GameManager>
         {
             revertable.Revert();
         }
+    }
+
+    public void ReloadLevel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }
 

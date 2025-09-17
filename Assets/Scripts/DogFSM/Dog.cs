@@ -51,28 +51,13 @@ public class Dog : MonoBehaviour, IRevertable, IActionable
         _stateMachine.ChangeState(DogState.Stopped);
         _gridMovement.Stop();
         transform.position = _initialPos;
-        _markerManager.ClearAllMarkers();
         PathDrawerComponent.IsDrawingEnabled = true;
     }
 
     public void BeginAction()
     {
         PathDrawerComponent.IsDrawingEnabled = false;
-        _gridMovement.SetPath(CurrentPath);
-        /*
-        var path = LevelGrid.Instance.CalculatePath(new TileType[] { TileType.Walkable },
-            transform.position, _target.transform.position);
-        if (path.Count == 0)
-        {
-            _stateMachine.ChangeState(DogState.Idle);
-            return;
-        }
-        _stateMachine.ChangeState(DogState.MovingToTarget);
-        foreach (var tilePos in path)
-        {
-            _markerManager.AddMarker(tilePos, Color.yellow);
-        }
-        _gridMovement.SetPath(path);*/
+        _gridMovement.MoveAlongPath(CurrentPath);
     }
 }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+// This component allows a GameObject to be dragged with the mouse and snapped to the grid.
 public class Draggable : MonoBehaviour
 {
     public bool IsSelectable = true;
