@@ -6,8 +6,8 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("Debug")]
     [SerializeField, ReadOnly] public GameState CurrentState { get; private set; }
+    [SerializeField, ReadOnly] public List<Distraction> DistractionList = new();
 
-    //private Dog[] _dogs;
     private List<IRevertable> _revertables = new();
     private List<IActionable> _actionables = new();
     private Vector3 Target;
@@ -15,11 +15,11 @@ public class GameManager : Singleton<GameManager>
     private new void Awake()
     {
         base.Awake();
-        //_dogs = FindObjectsByType<Dog>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (GameObject gameObject in FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             if (gameObject.GetComponent<IRevertable>() != null) _revertables.Add(gameObject.GetComponent<IRevertable>());
             if (gameObject.GetComponent<IActionable>() != null) _actionables.Add(gameObject.GetComponent<IActionable>());
+            if (gameObject.GetComponent<Distraction>() != null) DistractionList.Add(gameObject.GetComponent<Distraction>());
         }
     }
 

@@ -5,12 +5,18 @@ using System.Collections.Generic;
 public class PathDrawer : MonoBehaviour
 {
     [Header("Parameters")]
-    [SerializeField] private int _maxDistance;
+    [SerializeField] private DogSO DogParameters;
+
+    private int _maxDistance => DogParameters.MaxDistance;
+    private Vector3 _offset => DogParameters.PathOffset;
+    private Color _startColor => DogParameters.PathStartColor;
+    private Color _endColor => DogParameters.PathEndColor;
 
     [Header("References")]
     [SerializeField] private GameObject _straightMarkerPrefab;
     [SerializeField] private GameObject _curvedMarkerPrefab;
     [SerializeField] private GameObject _arrowMarkerPrefab;
+    [SerializeField] private GameObject _resumePathHitbox;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private List<Vector2Int> _path = new();
@@ -19,7 +25,7 @@ public class PathDrawer : MonoBehaviour
     private List<GameObject> _markers = new();
 
     [HideInInspector] public bool IsDrawingEnabled;
-    private bool _isDrawingPath;
+    [HideInInspector] public bool IsDrawingPath;
     private Dog _dog;
     private Vector2Int _currentMousePos;
     private Vector2Int _lastMousePos;
@@ -41,13 +47,22 @@ public class PathDrawer : MonoBehaviour
 
     private void Update()
     {
-        if (!_isDrawingPath) return;
-        
-        _currentMousePos = LevelGrid.Instance.WorldToGridPos(
-            _camera.ScreenToWorldPoint(Input.mousePosition)
-            );
+        if (!IsDrawingPath) return;
+        _currentMousePos = LevelGrid.Instance.WorldToGridPos(GetWorldPositionOnPlane(Input.mousePosition));
+        /*_currentMousePos = LevelGrid.Instance.WorldToGridPos(
+            _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10))
+            );*/
 
         if (_currentMousePos != _lastMousePos) GenerateSubPathToMouse();
+    }
+
+    public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+        Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, 0));
+        float distance;
+        xy.Raycast(ray, out distance);
+        return ray.GetPoint(distance);
     }
 
     private void OnMouseDown()
@@ -58,43 +73,51 @@ public class PathDrawer : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (!_isDrawingPath) return;
+        if (!IsDrawingPath) return;
         FinishPath();
     }
 
     private void GenerateSubPathToMouse()
     {
         if (_path.Count >= _maxDistance) return;
-        var path = LevelGrid.Instance.CalculatePath(new TileType[] { TileType.Walkable },
-            _lastMousePos, _currentMousePos, _excludedPos);
+        bool excludePoint = _path.Count > 0;
+        var path = LevelGrid.Instance.CalculatePath(_dog.TraversableTiles,
+            _lastMousePos, _currentMousePos, excludePoint, _excludedPos);
         if (path.Count == 0 || path.Count > 2 || path[0] == new Vector2(1, 0)) return;
         foreach (Vector2Int tile in path)
         {
             _path.Add(tile);
             _pathDir = _path.Count > 1 ? (tile - _path[_path.Count - 2]) : tile - _lastMousePos;
             _markerColorOffset += 1f/ _maxDistance;
-            AddMarker(tile, _pathDir, _lastPathDir, Color.yellow + new Color(_markerColorOffset, _markerColorOffset, _markerColorOffset));
+            AddMarker(tile, _pathDir, _lastPathDir, 
+                _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
             _lastPathDir = _pathDir;
         }
         _excludedPos = _lastMousePos;
         _lastMousePos = _currentMousePos;
+        _resumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_lastMousePos);
     }
 
     private void StartPath()
     {
-        ClearAllMarkers();
-        _isDrawingPath = true;
-        _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
-        _currentMousePos = _lastMousePos;
-        _lastPathDir = Vector2Int.zero;
-    }
-
-    private void FinishPath()
-    {
-        _isDrawingPath = false;
-        _dog.CurrentPath = new List<Vector2Int>(_path);
         _path.Clear();
         _markerColorOffset = 0f;
+        ClearAllMarkers();
+        _lastPathDir = Vector2Int.zero;
+        _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
+        _currentMousePos = _lastMousePos;
+        ResumePath();
+    }
+
+    public void ResumePath()
+    {
+        IsDrawingPath = true;
+    }
+
+    public void FinishPath()
+    {
+        IsDrawingPath = false;
+        _dog.DrawnPath = new List<Vector2Int>(_path);
     }
 
     private void AddMarker(Vector2Int position, Vector2Int pathDir, Vector2Int lastPathDir, Color color)
@@ -128,7 +151,7 @@ public class PathDrawer : MonoBehaviour
         }
 
         
-        _lastMarker = Instantiate(_arrowMarkerPrefab, LevelGrid.Instance.GridToWorldPos(position),
+        _lastMarker = Instantiate(_arrowMarkerPrefab, LevelGrid.Instance.GridToWorldPos(position) + _offset,
              Quaternion.LookRotation(Vector3.forward, new Vector3(-pathDir.y, pathDir.x, 0f)), _container);
         _lastMarker.GetComponent<SpriteRenderer>().color = color;
         _lastMarker.GetComponent<SpriteRenderer>().sortingOrder = _path.Count;

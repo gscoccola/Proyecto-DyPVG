@@ -9,6 +9,7 @@ public class LevelGrid : Singleton<LevelGrid>
 {
     [Header("References")]
     [SerializeField] private Tilemap _wallTilemap;
+    [SerializeField] private Tilemap _jumpableTilemap;
 
 
     private TileType[,] _tileTypeGrid;
@@ -27,17 +28,23 @@ public class LevelGrid : Singleton<LevelGrid>
         _cellSize = _wallTilemap.cellSize.x;
         _cellSizeInverse = 1f / _cellSize;
         _bounds = _wallTilemap.cellBounds;
-        TileBase[] allTiles = _wallTilemap.GetTilesBlock(_bounds);
+        TileBase[] wallTiles = _wallTilemap.GetTilesBlock(_bounds);
+        TileBase[] jumpableTiles = _jumpableTilemap.GetTilesBlock(_bounds);
         _tileTypeGrid = new TileType[_bounds.size.x, _bounds.size.y];
 
         for (int x = 0; x < _bounds.size.x; x++)
         {
             for (int y = 0; y < _bounds.size.y; y++)
             {
-                TileBase tile = allTiles[x + y * _bounds.size.x];
-                if (tile != null)
+                TileBase wallTile = wallTiles[x + y * _bounds.size.x];
+                TileBase jumpableTile = jumpableTiles[x + y * _bounds.size.x];
+                if (wallTile != null)
                 {
                     _tileTypeGrid[x, y] = TileType.Wall;
+                }
+                else if (jumpableTile != null)
+                {
+                    _tileTypeGrid[x, y] = TileType.Jumpable;
                 }
                 else
                 {
@@ -47,14 +54,15 @@ public class LevelGrid : Singleton<LevelGrid>
         }
     }
 
-    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector2Int origin, Vector2Int target, Vector2Int excludedPoint)
+    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector2Int origin, Vector2Int target,
+        bool excludePoint = false, Vector2Int excludedPoint = new Vector2Int())
     {
         Dictionary<Vector2Int, float> traversableTilemap = new Dictionary<Vector2Int, float>();
         for (int x = 0; x < _bounds.size.x; x++)
         {
             for (int y = 0; y < _bounds.size.y; y++)
             {
-                if (x== excludedPoint.x && y == excludedPoint.y) continue;
+                if (x== excludedPoint.x && y == excludedPoint.y && excludePoint) continue;
                 if (traversableTileTypes.Contains(_tileTypeGrid[x, y])) traversableTilemap[new Vector2Int(x,y)] = 1f;
             }
         }
@@ -63,9 +71,10 @@ public class LevelGrid : Singleton<LevelGrid>
         return result.Path;
     }
 
-    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector3 origin, Vector3 target, Vector2Int excludedPoint)
+    public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector3 origin, Vector3 target,
+        bool excludePoint = false,  Vector2Int excludedPoint = new Vector2Int())
     {
-        return CalculatePath(traversableTileTypes, WorldToGridPos(origin), WorldToGridPos(target), excludedPoint);
+        return CalculatePath(traversableTileTypes, WorldToGridPos(origin), WorldToGridPos(target), excludePoint, excludedPoint);
     }
 
     public Vector2Int WorldToGridPos(Vector3 worldPosition)

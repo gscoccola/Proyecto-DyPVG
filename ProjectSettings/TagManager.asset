@@ -47,5 +47,8 @@ TagManager:
   - name: Foreground
     uniqueID: 2168464727
     locked: 0
+  - name: Dogs
+    uniqueID: 1975844811
+    locked: 0
   m_RenderingLayers:
   - Default

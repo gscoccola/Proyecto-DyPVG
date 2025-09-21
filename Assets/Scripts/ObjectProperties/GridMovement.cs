@@ -5,7 +5,7 @@ using UnityEngine.Events;
 //This component moves the GameObject along a given path on the grid.
 public class GridMovement : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Parameters")]
     [SerializeField] private float _moveSpeed = 1f;
 
     [Header("Debug")]
@@ -14,7 +14,7 @@ public class GridMovement : MonoBehaviour
 
     private List<Vector2Int> _currentPath;
     private int _currentPathIndex;
-    private UnityEvent OnTileReached;
+    public UnityEvent OnTileReached;
     
     private void Start()
     {
@@ -27,15 +27,16 @@ public class GridMovement : MonoBehaviour
         if (_status == MovementStatus.Stopped) { return; }
         if (Vector3.Distance( transform.position, _currentTarget) < 0.05f)
         {
-            OnTileReached?.Invoke();
             if (_currentPathIndex == _currentPath.Count - 1)
             {
                 transform.position = _currentTarget;
                 _status = MovementStatus.Stopped;
+                OnTileReached?.Invoke();
                 return;
             }
             _currentPathIndex++;
             _currentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
+            OnTileReached?.Invoke();
         }
 
         transform.position = Vector3.MoveTowards(transform.position,
@@ -43,7 +44,7 @@ public class GridMovement : MonoBehaviour
             _moveSpeed * Time.deltaTime);
     }
 
-    public void MoveAlongPath(List<Vector2Int> path)
+    public void StartMovement(List<Vector2Int> path)
     {
         if (path.Count == 0) return;
         _currentPath = path;

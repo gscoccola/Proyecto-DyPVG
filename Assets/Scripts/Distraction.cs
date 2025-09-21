@@ -1,27 +1,24 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Distraction : MonoBehaviour
+public class Distraction : MonoBehaviour, IGridCollider
 {
-    /* public bool IsOccupied;
-     public Dog OccupyingDog;
+    public bool IsOccupied;
+    public Dog OccupyingDog;
+    public UnityEvent OnDistractionOccupied;
 
+    public void OnGridCollisionEnter(Transform other)
+    {
+        if (other.GetComponent<Dog>() == null) return;
+        IsOccupied = true;
+        OccupyingDog = other.GetComponent<Dog>();
+        OnDistractionOccupied?.Invoke();
+    }
 
-     private void OnTriggerEnter2D(Collider2D col)
-     {
-         if (col.transform.parent.GetComponent<Dog>() != null && !IsOccupied)
-         {
-             IsOccupied = true;
-             OccupyingDog = col.transform.parent.GetComponent<Dog>();
-         }
-     }
-
-     private void OnTriggerExit2D(Collider2D col)
-     {
-         if (col.transform.parent.GetComponent<Dog>() != null && IsOccupied)
-         {
-             IsOccupied = false;
-             OccupyingDog = null;
-         }
-     }*/
-
+    public void OnGridCollisionExit(Transform other)
+    {
+        if (other.GetComponent<Dog>() == null) return;
+        IsOccupied = false;
+        OccupyingDog = null;
+    }
 }
