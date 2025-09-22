@@ -10,6 +10,7 @@ public class LevelGrid : Singleton<LevelGrid>
     [Header("References")]
     [SerializeField] private Tilemap _wallTilemap;
     [SerializeField] private Tilemap _jumpableTilemap;
+    [SerializeField] private Tilemap _waterTilemap;
 
 
     private TileType[,] _tileTypeGrid;
@@ -29,7 +30,7 @@ public class LevelGrid : Singleton<LevelGrid>
         _cellSizeInverse = 1f / _cellSize;
         _bounds = _wallTilemap.cellBounds;
         TileBase[] wallTiles = _wallTilemap.GetTilesBlock(_bounds);
-        TileBase[] jumpableTiles = _jumpableTilemap.GetTilesBlock(_bounds);
+        TileBase[] jumpableTiles = _jumpableTilemap == null ? null : _jumpableTilemap.GetTilesBlock(_bounds);
         _tileTypeGrid = new TileType[_bounds.size.x, _bounds.size.y];
 
         for (int x = 0; x < _bounds.size.x; x++)
@@ -37,7 +38,7 @@ public class LevelGrid : Singleton<LevelGrid>
             for (int y = 0; y < _bounds.size.y; y++)
             {
                 TileBase wallTile = wallTiles[x + y * _bounds.size.x];
-                TileBase jumpableTile = jumpableTiles[x + y * _bounds.size.x];
+                TileBase jumpableTile = _jumpableTilemap == null ? null : jumpableTiles[x + y * _bounds.size.x];
                 if (wallTile != null)
                 {
                     _tileTypeGrid[x, y] = TileType.Wall;
@@ -100,4 +101,5 @@ public enum TileType
     Walkable,
     Wall,
     Jumpable,
+    Water,
 }

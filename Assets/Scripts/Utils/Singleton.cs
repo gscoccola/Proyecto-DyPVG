@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     public static T Instance { get; private set; }
 
@@ -8,6 +8,7 @@ public class Singleton<T> : MonoBehaviour
     {
         if (Instance != null)
         {
+            Instance = null;
             Destroy(gameObject);
         }
         else
