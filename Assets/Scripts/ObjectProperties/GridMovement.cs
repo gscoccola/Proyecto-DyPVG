@@ -15,6 +15,7 @@ public class GridMovement : MonoBehaviour
     private List<Vector2Int> _currentPath;
     private int _currentPathIndex;
     public UnityEvent OnTileReached;
+    public UnityEvent OnPathFinished;
     
     private void Start()
     {
@@ -27,16 +28,16 @@ public class GridMovement : MonoBehaviour
         if (_status == MovementStatus.Stopped) { return; }
         if (Vector3.Distance( transform.position, _currentTarget) < 0.05f)
         {
+            OnTileReached?.Invoke();
             if (_currentPathIndex == _currentPath.Count - 1)
             {
                 transform.position = _currentTarget;
                 _status = MovementStatus.Stopped;
-                OnTileReached?.Invoke();
+                OnPathFinished?.Invoke();
                 return;
             }
             _currentPathIndex++;
             _currentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
-            OnTileReached?.Invoke();
         }
 
         transform.position = Vector3.MoveTowards(transform.position,

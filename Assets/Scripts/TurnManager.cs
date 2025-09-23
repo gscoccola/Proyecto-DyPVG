@@ -1,16 +1,22 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 // This class handles the overall game state, switching between planning and action phases.
-public class GameManager : Singleton<GameManager>
+public class TurnManager : Singleton<TurnManager>
 {
     [Header("Debug")]
-    [SerializeField, ReadOnly] public GameState CurrentState { get; private set; }
-    [SerializeField, ReadOnly] public List<Distraction> DistractionList = new();
+    [ReadOnly] public IPathFollower ActiveDog;
+    [ReadOnly] public int CurrentTurnIndex = 0;
+    [ReadOnly] public int MaxReachedTurnIndex = 0;
+    [ReadOnly] public GameState CurrentState;
+    [ReadOnly] public List<Distraction> DistractionList = new();
 
     private List<IRevertable> _revertables = new();
     private List<IActionable> _actionables = new();
     private Vector3 Target;
+
+    public TextMeshProUGUI TurnText;
 
     private new void Awake()
     {
@@ -46,13 +52,49 @@ public class GameManager : Singleton<GameManager>
 
         foreach (IRevertable revertable in _revertables)
         {
-            revertable.Revert();
+            revertable.RevertToHistoryPoint(CurrentTurnIndex);
         }
     }
 
     public void ReloadLevel()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void TriggerNextTurn()
+    {
+        CurrentState = GameState.Planning;
+        CurrentTurnIndex++;
+        TurnText.text = $"Turn {CurrentTurnIndex + 1}";
+        MaxReachedTurnIndex = CurrentTurnIndex;
+        foreach (IRevertable revertable in _revertables)
+        {
+            revertable.SaveHistoryPoint(CurrentTurnIndex);
+        }
+    }
+
+    public void MoveBack()
+    {
+        if (CurrentTurnIndex == 0) return;
+        CurrentState = GameState.Planning;
+        foreach (IRevertable revertable in _revertables)
+        {
+            revertable.RevertToHistoryPoint(CurrentTurnIndex - 1);
+        }
+        CurrentTurnIndex--;
+        TurnText.text = $"Turn {CurrentTurnIndex + 1}";
+    }
+
+    public void MoveForward()
+    {
+        if (MaxReachedTurnIndex == CurrentTurnIndex) return;
+        CurrentState = GameState.Planning;
+        foreach (IRevertable revertable in _revertables)
+        {
+            revertable.RevertToHistoryPoint(CurrentTurnIndex + 1);
+        }
+        CurrentTurnIndex++;
+        TurnText.text = $"Turn {CurrentTurnIndex + 1}";
     }
 }
 

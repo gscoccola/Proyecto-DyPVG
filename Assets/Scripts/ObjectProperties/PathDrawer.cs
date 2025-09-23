@@ -26,7 +26,8 @@ public class PathDrawer : MonoBehaviour
 
     [HideInInspector] public bool IsDrawingEnabled;
     [HideInInspector] public bool IsDrawingPath;
-    private Dog _dog;
+    [HideInInspector] public IPathFollower PathFollower;
+
     private Vector2Int _currentMousePos;
     private Vector2Int _lastMousePos;
 
@@ -35,13 +36,10 @@ public class PathDrawer : MonoBehaviour
     private GameObject _lastMarker;
     private Transform _container;
 
-    private Camera _camera;
     private float _markerColorOffset = 0f;
 
     private void Awake()
     {
-        _camera = FindAnyObjectByType<Camera>();
-        _dog = GetComponent<Dog>();
         _container = GameObject.Find("Markers").transform;
     }
 
@@ -49,10 +47,6 @@ public class PathDrawer : MonoBehaviour
     {
         if (!IsDrawingPath) return;
         _currentMousePos = LevelGrid.Instance.WorldToGridPos(GetWorldPositionOnPlane(Input.mousePosition));
-        /*_currentMousePos = LevelGrid.Instance.WorldToGridPos(
-            _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10))
-            );*/
-
         if (_currentMousePos != _lastMousePos) GenerateSubPathToMouse();
     }
 
@@ -67,7 +61,12 @@ public class PathDrawer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!IsDrawingEnabled) return;
+        if (!IsDrawingEnabled) { Debug.Log("drawingDisabled"); return; }
+        if (TurnManager.Instance.ActiveDog != null && TurnManager.Instance.ActiveDog != PathFollower)
+        {
+            TurnManager.Instance.ActiveDog.SetDrawnPath(new List<Vector2Int>());
+            TurnManager.Instance.ActiveDog = PathFollower;
+        }
         StartPath();
     }
 
@@ -81,7 +80,7 @@ public class PathDrawer : MonoBehaviour
     {
         if (_path.Count >= _maxDistance) return;
         bool excludePoint = _path.Count > 0;
-        var path = LevelGrid.Instance.CalculatePath(_dog.TraversableTiles,
+        var path = LevelGrid.Instance.CalculatePath(PathFollower.TraversableTiles,
             _lastMousePos, _currentMousePos, excludePoint, _excludedPos);
         if (path.Count == 0 || path.Count > 2 || path[0] == new Vector2(1, 0)) return;
         foreach (Vector2Int tile in path)
@@ -100,14 +99,13 @@ public class PathDrawer : MonoBehaviour
 
     private void StartPath()
     {
-        _path.Clear();
-        _markerColorOffset = 0f;
-        ClearAllMarkers();
+        ClearPath();
         _lastPathDir = Vector2Int.zero;
         _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
         _currentMousePos = _lastMousePos;
         ResumePath();
     }
+
 
     public void ResumePath()
     {
@@ -117,7 +115,23 @@ public class PathDrawer : MonoBehaviour
     public void FinishPath()
     {
         IsDrawingPath = false;
-        _dog.DrawnPath = new List<Vector2Int>(_path);
+        PathFollower.SetDrawnPath(new List<Vector2Int>(_path));
+    }
+
+    public void RedrawFinishedPath(List<Vector2Int> path)
+    {
+        ClearPath();
+        _lastPathDir = Vector2Int.zero;
+        _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
+        foreach (Vector2Int tile in path)
+        {
+            _path.Add(tile);
+            _pathDir = _path.Count > 1 ? (tile - _path[_path.Count - 2]) : tile - _lastMousePos;
+            _markerColorOffset += 1f / _maxDistance;
+            AddMarker(tile, _pathDir, _lastPathDir,
+                _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
+            _lastPathDir = _pathDir;
+        }
     }
 
     private void AddMarker(Vector2Int position, Vector2Int pathDir, Vector2Int lastPathDir, Color color)
@@ -158,6 +172,14 @@ public class PathDrawer : MonoBehaviour
         _markers.Add(_lastMarker);
     }
 
+    public void ClearPath()
+    {
+        _path.Clear();
+        _lastMarker = null;
+        _markerColorOffset = 0f;
+        ClearAllMarkers();
+    }
+
     public void ClearAllMarkers()
     {
         foreach (GameObject marker in _markers)
@@ -167,3 +189,19 @@ public class PathDrawer : MonoBehaviour
         _markers.Clear();
     }
 }
+
+public interface IPathFollower
+{
+
+    public TileType[] TraversableTiles { get; set; }
+
+    public void SetDrawnPath(List<Vector2Int> path);
+}
+
+/*public interface IPathParameters
+{
+    public int MaxDistance { get; }
+    public Vector3 PathOffset { get; }
+    public Color PathStartColor { get; }
+    public Color PathEndColor { get; }
+}*/

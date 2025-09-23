@@ -280,7 +280,6 @@ MonoBehaviour:
   DogParameters: {fileID: 11400000, guid: 18adf2a5e6d4f4c4ca08e8d50a4d5d68, type: 2}
   CurrentState: 0
   _gridPosition: {x: 0, y: 0}
-  DrawnPath: []
   PathDrawerComponent: {fileID: 0}
 --- !u!114 &3617321176358988092
 MonoBehaviour:
@@ -315,10 +314,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e32c890894b954584f7e2aedca18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
+  _moveSpeed: 6
   _status: 0
   _currentTarget: {x: 0, y: 0, z: 0}
   OnTileReached:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPathFinished:
     m_PersistentCalls:
       m_Calls: []
 --- !u!212 &4567493828432435318

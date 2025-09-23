@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Dog Type", fileName = "New Dog SO")]
 
-public class DogSO : ScriptableObject
+public class DogSO : ScriptableObject//, IPathParameters
 {
     [Header("Parameters")]
     public string DogName;
