@@ -282,7 +282,8 @@ MonoBehaviour:
   DogParameters: {fileID: 11400000, guid: 3c7efef84af9d0b48a7d6dbad594f79a, type: 2}
   CurrentState: 0
   _gridPosition: {x: 0, y: 0}
-  DrawnPath: []
+  StatusHistory: []
+  DebugDrawnPath: []
   PathDrawerComponent: {fileID: 0}
 --- !u!114 &3849894164632119912
 MonoBehaviour:
@@ -299,7 +300,10 @@ MonoBehaviour:
   _moveSpeed: 3
   _status: 0
   _currentTarget: {x: 0, y: 0, z: 0}
-  OnTileReached:
+  OnNewTileReached:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLastTileReached:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &718559582963908192
@@ -314,13 +318,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef10b0fb5158154fb29e74d68e33713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DogParameters: {fileID: 11400000, guid: 3c7efef84af9d0b48a7d6dbad594f79a, type: 2}
   _straightMarkerPrefab: {fileID: 1606664671233095643, guid: bfd7cbea793a3084c8f35fd18973b852, type: 3}
   _curvedMarkerPrefab: {fileID: 1606664671233095643, guid: 301e8a64d6011b04ebfc9d09b426b0c9, type: 3}
   _arrowMarkerPrefab: {fileID: 1606664671233095643, guid: 8e1ddfe7ee0ff814b87177766b219941, type: 3}
-  _resumePathHitbox: {fileID: 4721910419931108266}
+  ResumePathHitbox: {fileID: 4721910419931108266}
   _path: []
-  _excludedPos: {x: 800, y: 800}
   IsDrawingEnabled: 0
   IsDrawingPath: 0
 --- !u!212 &7864012803763215964
@@ -408,7 +410,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

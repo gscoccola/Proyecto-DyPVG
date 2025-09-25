@@ -20,7 +20,7 @@ public class CollisionManager : Singleton<CollisionManager>
             if (gameObject.GetComponent<IGridCollider>() == null) continue;
             _colliders.Add(gameObject.GetComponent<Transform>());
             if (gameObject.GetComponent<GridMovement>() == null) continue;
-            gameObject.GetComponent<GridMovement>().OnTileReached.AddListener(()
+            gameObject.GetComponent<GridMovement>().OnNewTileReached.AddListener(()
                 => UpdateColliderCollisions(gameObject.GetComponent<Transform>()));
             
         }

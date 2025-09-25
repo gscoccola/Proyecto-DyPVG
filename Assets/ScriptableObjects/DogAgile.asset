@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0004efd9f00d5b4fb5da8117d68d855, type: 3}
   m_Name: DogAgile
   m_EditorClassIdentifier: 
-  DogName: Dog Agile
-  PathOffset: {x: 0, y: 0, z: 0}
-  PathEndColor: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
-  PathStartColor: {r: 1, g: 0.9345745, b: 0, a: 1}
-  TraversableTiles: 0000000002000000
-  MaxDistance: 32
-  Offset: {x: 0, y: 0, z: 0}
-  SeesDistractions: 1
-  DistractionDetectionDist: 4
+  _dogName: Agile
+  _pathOffset: {x: 0, y: 0, z: 0}
+  _pathEndColor: {r: 0.9987322, g: 1, b: 0, a: 1}
+  _pathStartColor: {r: 1, g: 0, b: 0, a: 1}
+  _traversableTiles: 0000000002000000
+  _maxDistance: 35
+  _seesDistractions: 1
+  _distractionDetectionDist: 4

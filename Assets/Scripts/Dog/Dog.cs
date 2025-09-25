@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+
+// This class represents a dog character that can move on a grid, follow paths, and interact with distractions.
 
 public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPathFollower
 {
@@ -14,7 +17,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [Header("Debug")]
     [SerializeField, ReadOnly] public DogState CurrentState;
     [SerializeField, ReadOnly] private Vector2Int _gridPosition;
-    [SerializeField, ReadOnly] private List<DogHistoryPoint> StatusHistory { get; set; } = new();
+    [SerializeField, ReadOnly] private List<DogHistoryPoint> StatusHistory = new();
     [ReadOnly] public List<Vector2Int> DrawnPath { get; set; } = new();
     [ReadOnly] public List<Vector2Int> DebugDrawnPath;
 
@@ -35,8 +38,9 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _stateMachine.AddState(DogState.MovingToTarget, new DogMovingToTarget(this, _stateMachine));
         _stateMachine.AddState(DogState.MovingToDistraction, new DogMovingToDistraction(this, _stateMachine));
         _stateMachine.AddState(DogState.Idle, new DogIdle(this, _stateMachine));
-        _gridMovement.OnTileReached.AddListener(CheckForDistractions);
-        _gridMovement.OnPathFinished.AddListener(OnTargetReached);
+        _gridMovement.OnNewTileReached.AddListener(CheckForDistractions);
+        _gridMovement.OnLastTileReached.AddListener(OnPathFinished);
+
     }
 
     private void LoadSO()
@@ -44,6 +48,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         TraversableTiles = DogParameters.TraversableTiles;
         _seesDistractions = DogParameters.SeesDistractions;
         _distractionDetectionDist = DogParameters.DistractionDetectionDist;
+        PathDrawerComponent.PathParameters = DogParameters;
     }
 
     private void Start()
@@ -52,12 +57,13 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _stateMachine.ChangeState(DogState.Stopped);
         PathDrawerComponent.IsDrawingEnabled = true;
         SaveHistoryPoint(0);
+        PathDrawerComponent.ResumePathHitbox.SetActive(false);
     }
 
 
     private void OnDestroy()
     {
-        _gridMovement.OnTileReached.RemoveListener(CheckForDistractions);
+        _gridMovement.OnNewTileReached.RemoveListener(CheckForDistractions);
     }
 
     private void Update()
@@ -67,18 +73,23 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         DebugDrawnPath = new List<Vector2Int>(DrawnPath);
     }
 
-    public void SaveHistoryPoint(int turnIndex)
+    public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
     {
         if (StatusHistory.Count < turnIndex) Debug.LogError("Trying to skip a turn in history");
-        if (StatusHistory.Count > turnIndex)
+        if (deleteFuturePoints && StatusHistory.Count > turnIndex)
             StatusHistory.RemoveRange(turnIndex, StatusHistory.Count - turnIndex);
-        StatusHistory.Add(new DogHistoryPoint(_gridPosition, DrawnPath));
+        StatusHistory.Add(new DogHistoryPoint(LevelGrid.Instance.WorldToGridPos(transform.position), DrawnPath));
+        PathDrawerComponent.IsDrawingEnabled = true;
     }
 
     public void SetDrawnPath(List<Vector2Int> path)
     {
+        TurnManager.Instance.SetActionButton(path.Count > 0);
+        if (path.Count == 0) PathDrawerComponent.ClearAllMarkers();
+        TurnManager.Instance.DeleteNextTurns();
         DrawnPath = new List<Vector2Int>(path);
         SaveHistoryPoint(TurnManager.Instance.CurrentTurnIndex);
+        PathDrawerComponent.ResumePathHitbox.SetActive(true);
     }
 
     public void RevertToHistoryPoint(int turnIndex)
@@ -87,7 +98,9 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _gridMovement.Stop();
         transform.position = LevelGrid.Instance.GridToWorldPos(StatusHistory[turnIndex].GridPosition);
         DrawnPath = new List<Vector2Int>(StatusHistory[turnIndex].DrawnPath);
+        PathDrawerComponent.ResumePathHitbox.SetActive(DrawnPath.Count > 0);
         PathDrawerComponent.IsDrawingEnabled = true;
+        if (DrawnPath.Count > 0) TurnManager.Instance.SetActionButton(true);
         if (turnIndex == TurnManager.Instance.CurrentTurnIndex) return;
 
         PathDrawerComponent.RedrawFinishedPath(DrawnPath);
@@ -95,7 +108,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void BeginAction()
     {
-        if (DrawnPath.Count == 0) return;
+        PathDrawerComponent.ResumePathHitbox.SetActive(false);
         PathDrawerComponent.IsDrawingEnabled = false;
         _gridMovement.StartMovement(DrawnPath);
         if (DrawnPath.Count > 0)
@@ -106,7 +119,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     public void CheckForDistractions()
     {
         if (!_seesDistractions || CurrentState == DogState.MovingToDistraction) return;
-        foreach (var distraction in TurnManager.Instance.DistractionList)
+        foreach (var distraction in LevelManager.Instance.DistractionList)
         {
             if (distraction.GetComponent<Distraction>() == null || distraction.GetComponent<Distraction>().IsOccupied) continue;
             if (Vector3.Distance(transform.position, distraction.transform.position) < _distractionDetectionDist)     
@@ -122,13 +135,14 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         }
     }
 
-    private void OnTargetReached()
+    private void OnPathFinished()
     {
+        PathDrawerComponent.ResumePathHitbox.SetActive(false);
         _stateMachine.ChangeState(DogState.Stopped);
         DrawnPath = new();
         PathDrawerComponent.ClearPath();
-        PathDrawerComponent.IsDrawingEnabled = true;
-        TurnManager.Instance.TriggerNextTurn();
+        //PathDrawerComponent.IsDrawingEnabled = true;
+        TurnManager.Instance.TriggerEndTurn();
     }
 
 
@@ -140,6 +154,11 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     public void OnGridCollisionExit(Transform other)
     {
         //if (other.GetComponent<Distraction>() == null) return;
+    }
+
+    public bool HasDrawnPath()
+    {
+        return DrawnPath.Count > 0;
     }
 }
 
@@ -157,6 +176,7 @@ public enum DogState
     Idle,
 }
 
+[Serializable]
 public class DogHistoryPoint
 {
     public Vector2Int GridPosition;

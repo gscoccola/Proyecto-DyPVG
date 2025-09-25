@@ -18,9 +18,7 @@ public class FiniteStateMachine<T> where T : Enum
     {
         if (!_allStates.ContainsKey(state))
         {
-#if UNITY_EDITOR
             Debug.LogWarning($"FSM: El estado {state} no existe.");
-#endif
             return;
         }
         _currentState?.OnExit();
@@ -32,9 +30,7 @@ public class FiniteStateMachine<T> where T : Enum
     {
         if (_allStates.ContainsKey(state))
         {
-#if UNITY_EDITOR
             Debug.LogWarning($"FSM: El estado {state} ya existe, será reemplazado.");
-#endif
         }
         _allStates[state] = value;
     }
@@ -43,9 +39,7 @@ public class FiniteStateMachine<T> where T : Enum
     {
         if (!_allStates.Remove(state))
         {
-#if UNITY_EDITOR
             Debug.LogWarning($"FSM: No se encontró el estado {state} para eliminar.");
-#endif
         }
     }
 
@@ -59,10 +53,8 @@ public class FiniteStateMachine<T> where T : Enum
     {
         if (!_allStates.ContainsKey(state))
         {
-#if UNITY_EDITOR
             Debug.LogWarning($"FSM: No se encontró el estado {state}.");
             return null;
-#endif
         }
         return _allStates[state];
     }

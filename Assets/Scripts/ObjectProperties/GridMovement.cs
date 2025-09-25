@@ -14,8 +14,8 @@ public class GridMovement : MonoBehaviour
 
     private List<Vector2Int> _currentPath;
     private int _currentPathIndex;
-    public UnityEvent OnTileReached;
-    public UnityEvent OnPathFinished;
+    public UnityEvent OnNewTileReached;
+    public UnityEvent OnLastTileReached;
     
     private void Start()
     {
@@ -28,12 +28,12 @@ public class GridMovement : MonoBehaviour
         if (_status == MovementStatus.Stopped) { return; }
         if (Vector3.Distance( transform.position, _currentTarget) < 0.05f)
         {
-            OnTileReached?.Invoke();
+            OnNewTileReached?.Invoke();
             if (_currentPathIndex == _currentPath.Count - 1)
             {
                 transform.position = _currentTarget;
                 _status = MovementStatus.Stopped;
-                OnPathFinished?.Invoke();
+                OnLastTileReached?.Invoke();
                 return;
             }
             _currentPathIndex++;

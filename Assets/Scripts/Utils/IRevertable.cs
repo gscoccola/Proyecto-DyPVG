@@ -1,10 +1,9 @@
-using System.Collections.Generic;
+// This interface is implemented by objects that can save their state each turn,
+// and then revert back to it.
 
 public interface IRevertable
 {
-    //public List<T> StatusHistory { get; set; }
-
-    public void SaveHistoryPoint(int turnIndex);
+    public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true);
 
     public void RevertToHistoryPoint(int turnIndex);
 

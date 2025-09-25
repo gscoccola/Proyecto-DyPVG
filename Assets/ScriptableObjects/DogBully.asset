@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0004efd9f00d5b4fb5da8117d68d855, type: 3}
   m_Name: DogBully
   m_EditorClassIdentifier: 
-  DogName: Dog Bully
-  PathOffset: {x: 0.2, y: 0.2, z: 0}
-  PathEndColor: {r: 0.043137252, g: 0.11650921, b: 1, a: 1}
-  PathStartColor: {r: 1, g: 0, b: 0.87355375, a: 1}
-  TraversableTiles: 00000000
-  MaxDistance: 20
-  SeesDistractions: 0
-  DistractionDetectionDist: 4
+  _dogName: Bully
+  _pathOffset: {x: 0.1, y: 0.1, z: 0}
+  _pathEndColor: {r: 0, g: 0.011921883, b: 1, a: 1}
+  _pathStartColor: {r: 1, g: 0, b: 0.69943285, a: 1}
+  _traversableTiles: 00000000
+  _maxDistance: 20
+  _seesDistractions: 0
+  _distractionDetectionDist: 0

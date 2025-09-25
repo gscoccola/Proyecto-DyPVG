@@ -1,32 +1,33 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// This component allows the player to draw a path for the Dog on the grid by clicking and dragging the mouse.
+// This component allows the player to draw a path on the grid by clicking and dragging the mouse.
 public class PathDrawer : MonoBehaviour
 {
     [Header("Parameters")]
-    [SerializeField] private DogSO DogParameters;
+    public IPathFollower PathFollower;
+    public IPathParametersSO PathParameters;
 
-    private int _maxDistance => DogParameters.MaxDistance;
-    private Vector3 _offset => DogParameters.PathOffset;
-    private Color _startColor => DogParameters.PathStartColor;
-    private Color _endColor => DogParameters.PathEndColor;
+    private int _maxDistance => PathParameters.MaxDistance;
+    private Vector3 _offset => PathParameters.PathOffset;
+    private Color _startColor => PathParameters.PathStartColor;
+    private Color _endColor => PathParameters.PathEndColor;
 
     [Header("References")]
     [SerializeField] private GameObject _straightMarkerPrefab;
     [SerializeField] private GameObject _curvedMarkerPrefab;
     [SerializeField] private GameObject _arrowMarkerPrefab;
-    [SerializeField] private GameObject _resumePathHitbox;
+    public GameObject ResumePathHitbox;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private List<Vector2Int> _path = new();
-    [SerializeField, ReadOnly] private Vector2Int _excludedPos = new Vector2Int(800, 800);
-
+    
+    
+    private Vector2Int _excludedPos = new Vector2Int(800, 800);
     private List<GameObject> _markers = new();
 
     [HideInInspector] public bool IsDrawingEnabled;
     [HideInInspector] public bool IsDrawingPath;
-    [HideInInspector] public IPathFollower PathFollower;
 
     private Vector2Int _currentMousePos;
     private Vector2Int _lastMousePos;
@@ -35,12 +36,12 @@ public class PathDrawer : MonoBehaviour
     private Vector2Int _lastPathDir;
     private GameObject _lastMarker;
     private Transform _container;
-
     private float _markerColorOffset = 0f;
 
     private void Awake()
     {
         _container = GameObject.Find("Markers").transform;
+        GetComponent<Collider2D>().isTrigger = false;
     }
 
     private void Update()
@@ -61,12 +62,8 @@ public class PathDrawer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!IsDrawingEnabled) { Debug.Log("drawingDisabled"); return; }
-        if (TurnManager.Instance.ActiveDog != null && TurnManager.Instance.ActiveDog != PathFollower)
-        {
-            TurnManager.Instance.ActiveDog.SetDrawnPath(new List<Vector2Int>());
-            TurnManager.Instance.ActiveDog = PathFollower;
-        }
+        if (!IsDrawingEnabled) { Debug.Log("DISABLED"); return; }
+        TurnManager.Instance.OnNewPathStarted(PathFollower);
         StartPath();
     }
 
@@ -94,7 +91,7 @@ public class PathDrawer : MonoBehaviour
         }
         _excludedPos = _lastMousePos;
         _lastMousePos = _currentMousePos;
-        _resumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_lastMousePos);
+        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_lastMousePos);
     }
 
     private void StartPath()
@@ -110,6 +107,7 @@ public class PathDrawer : MonoBehaviour
     public void ResumePath()
     {
         IsDrawingPath = true;
+        //TurnManager.Instance.OnNewPathStarted(PathFollower);
     }
 
     public void FinishPath()
@@ -123,6 +121,7 @@ public class PathDrawer : MonoBehaviour
         ClearPath();
         _lastPathDir = Vector2Int.zero;
         _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
+        if (path.Count == 0) return;
         foreach (Vector2Int tile in path)
         {
             _path.Add(tile);
@@ -132,6 +131,9 @@ public class PathDrawer : MonoBehaviour
                 _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
             _lastPathDir = _pathDir;
         }
+        _excludedPos = _path.Count > 1 ? path[path.Count - 2] : _lastMousePos;
+        _lastMousePos = path[path.Count - 1];
+        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(path[path.Count -1]);
     }
 
     private void AddMarker(Vector2Int position, Vector2Int pathDir, Vector2Int lastPathDir, Color color)
@@ -190,18 +192,6 @@ public class PathDrawer : MonoBehaviour
     }
 }
 
-public interface IPathFollower
-{
 
-    public TileType[] TraversableTiles { get; set; }
 
-    public void SetDrawnPath(List<Vector2Int> path);
-}
-
-/*public interface IPathParameters
-{
-    public int MaxDistance { get; }
-    public Vector3 PathOffset { get; }
-    public Color PathStartColor { get; }
-    public Color PathEndColor { get; }
-}*/
+/**/
