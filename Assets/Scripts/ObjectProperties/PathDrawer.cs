@@ -2,16 +2,15 @@ using UnityEngine;
 using System.Collections.Generic;
 
 // This component allows the player to draw a path on the grid by clicking and dragging the mouse.
+
 public class PathDrawer : MonoBehaviour
 {
     [Header("Parameters")]
     public IPathFollower PathFollower;
     public IPathParametersSO PathParameters;
 
-    private int _maxDistance => PathParameters.MaxDistance;
-    private Vector3 _offset => PathParameters.PathOffset;
-    private Color _startColor => PathParameters.PathStartColor;
-    private Color _endColor => PathParameters.PathEndColor;
+    [Header("Debug")]
+    [SerializeField, ReadOnly] private List<Vector2Int> _path = new();
 
     [Header("References")]
     [SerializeField] private GameObject _straightMarkerPrefab;
@@ -19,10 +18,11 @@ public class PathDrawer : MonoBehaviour
     [SerializeField] private GameObject _arrowMarkerPrefab;
     public GameObject ResumePathHitbox;
 
-    [Header("Debug")]
-    [SerializeField, ReadOnly] private List<Vector2Int> _path = new();
-    
-    
+    private int _maxDistance => PathParameters.MaxDistance;
+    private Vector3 _offset => PathParameters.PathOffset;
+    private Color _startColor => PathParameters.PathStartColor;
+    private Color _endColor => PathParameters.PathEndColor;
+
     private Vector2Int _excludedPos = new Vector2Int(800, 800);
     private List<GameObject> _markers = new();
 
@@ -38,11 +38,13 @@ public class PathDrawer : MonoBehaviour
     private Transform _container;
     private float _markerColorOffset = 0f;
 
+    #region SETUP
     private void Awake()
     {
         _container = GameObject.Find("Markers").transform;
         GetComponent<Collider2D>().isTrigger = false;
     }
+    #endregion
 
     private void Update()
     {
@@ -63,7 +65,7 @@ public class PathDrawer : MonoBehaviour
     private void OnMouseDown()
     {
         if (!IsDrawingEnabled) { Debug.Log("DISABLED"); return; }
-        TurnManager.Instance.OnNewPathStarted(PathFollower);
+        TurnManager.Instance.SetActiveFollower(PathFollower);
         StartPath();
     }
 
@@ -138,7 +140,6 @@ public class PathDrawer : MonoBehaviour
 
     private void AddMarker(Vector2Int position, Vector2Int pathDir, Vector2Int lastPathDir, Color color)
     {
-        
         if (_lastMarker != null)
         {
             if (lastPathDir == Vector2Int.zero || lastPathDir == pathDir)
@@ -191,7 +192,3 @@ public class PathDrawer : MonoBehaviour
         _markers.Clear();
     }
 }
-
-
-
-/**/

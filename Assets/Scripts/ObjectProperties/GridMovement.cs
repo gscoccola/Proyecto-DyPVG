@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 //This component moves the GameObject along a given path on the grid.
+// Only handles the movement, not the pathfinding or path drawing.
+
 public class GridMovement : MonoBehaviour
 {
     [Header("Parameters")]
@@ -14,8 +16,8 @@ public class GridMovement : MonoBehaviour
 
     private List<Vector2Int> _currentPath;
     private int _currentPathIndex;
-    public UnityEvent OnNewTileReached;
-    public UnityEvent OnLastTileReached;
+    [ReadOnly] public UnityEvent OnNewTileReached;
+    [ReadOnly] public UnityEvent OnLastTileReached;
     
     private void Start()
     {

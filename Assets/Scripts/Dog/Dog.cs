@@ -10,9 +10,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [Header("Parameters")]
     [SerializeField] private DogSO DogParameters;
 
-    public TileType[] TraversableTiles { get; set; }
-    private bool _seesDistractions;
-    private float _distractionDetectionDist;
+    
 
     [Header("Debug")]
     [SerializeField, ReadOnly] public DogState CurrentState;
@@ -25,6 +23,10 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [HideInInspector] public PathDrawer PathDrawerComponent;
     private FiniteStateMachine<DogState> _stateMachine;
     private GridMovement _gridMovement;
+
+    public TileType[] TraversableTiles { get; set; }
+    private bool _seesDistractions;
+    private float _distractionDetectionDist;
 
     private void Awake()
     {
@@ -84,9 +86,9 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void SetDrawnPath(List<Vector2Int> path)
     {
-        TurnManager.Instance.SetActionButton(path.Count > 0);
+        CanvasManager.Instance.SetActionButton(path.Count > 0);
         if (path.Count == 0) PathDrawerComponent.ClearAllMarkers();
-        TurnManager.Instance.DeleteNextTurns();
+        TurnManager.Instance.DeleteNextTurnData();
         DrawnPath = new List<Vector2Int>(path);
         SaveHistoryPoint(TurnManager.Instance.CurrentTurnIndex);
         PathDrawerComponent.ResumePathHitbox.SetActive(true);
@@ -100,7 +102,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         DrawnPath = new List<Vector2Int>(StatusHistory[turnIndex].DrawnPath);
         PathDrawerComponent.ResumePathHitbox.SetActive(DrawnPath.Count > 0);
         PathDrawerComponent.IsDrawingEnabled = true;
-        if (DrawnPath.Count > 0) TurnManager.Instance.SetActionButton(true);
+        if (DrawnPath.Count > 0) CanvasManager.Instance.SetActionButton(true);
         if (turnIndex == TurnManager.Instance.CurrentTurnIndex) return;
 
         PathDrawerComponent.RedrawFinishedPath(DrawnPath);

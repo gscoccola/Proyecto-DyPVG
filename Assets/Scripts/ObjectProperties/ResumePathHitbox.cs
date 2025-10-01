@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// This monobehaviour is attached to the path arrow tip, used to resume drawing a path. 
+
 public class ResumePathHitbox : MonoBehaviour
 {
     private PathDrawer _pathDrawer;

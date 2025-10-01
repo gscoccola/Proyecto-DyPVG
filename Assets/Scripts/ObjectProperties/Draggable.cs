@@ -4,8 +4,8 @@ using UnityEngine.Events;
 // This component allows a GameObject to be dragged with the mouse and snapped to the grid.
 public class Draggable : MonoBehaviour
 {
-    public bool IsSelectable = true;
-    public bool IsSelected { get; set; }
+    [ReadOnly] public bool IsSelectable = true;
+    [ReadOnly]  public bool IsSelected;
 
     //[SerializeField] private bool _centerOnMouse;
 
@@ -28,6 +28,7 @@ public class Draggable : MonoBehaviour
     private void Start()
     {
         transform.position = LevelGrid.Instance.SnapToGrid(transform.position);
+        Debug.LogError("Don't use in final build");
     }
 
     private void OnMouseDrag()

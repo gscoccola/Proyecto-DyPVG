@@ -3,9 +3,10 @@ using UnityEngine.Events;
 
 public class Distraction : MonoBehaviour, IGridCollider
 {
-    public bool IsOccupied;
-    public Dog OccupyingDog;
-    public UnityEvent OnDistractionOccupied;
+    [Header("Debug")]
+    [ReadOnly] public bool IsOccupied;
+    [ReadOnly] public Dog OccupyingDog;
+    [HideInInspector] public UnityEvent OnDistractionOccupied;
 
     public void OnGridCollisionEnter(Transform other)
     {
