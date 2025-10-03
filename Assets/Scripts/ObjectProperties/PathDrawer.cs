@@ -81,7 +81,7 @@ public class PathDrawer : MonoBehaviour
         bool excludePoint = _path.Count > 0;
         var path = LevelGrid.Instance.CalculatePath(PathFollower.TraversableTiles,
             _lastMousePos, _currentMousePos, excludePoint, _excludedPos);
-        if (path.Count == 0 || path.Count > 2 || path[0] == new Vector2(1, 0)) return;
+        if (path.Count == 0 || path.Count > 2/* || path[0] == new Vector2(1, 0)*/) return;
         foreach (Vector2Int tile in path)
         {
             _path.Add(tile);
