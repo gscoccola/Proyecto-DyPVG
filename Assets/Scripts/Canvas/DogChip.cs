@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIDraggable : MonoBehaviour, IDragHandler, IPointerClickHandler, IDropHandler
+public class DogChip : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     private RectTransform _rectTransform;
     private Canvas _canvas;
+
+    [Header("Debug")]
+    [ReadOnly] public int Order;
+    [ReadOnly] public IActionable Actionable;
+
 
     private void Awake()
     {
@@ -12,7 +17,7 @@ public class UIDraggable : MonoBehaviour, IDragHandler, IPointerClickHandler, ID
         _canvas = FindAnyObjectByType<Canvas>();
     }
 
-   
+
     public void OnDrag(PointerEventData eventData)
     {
         _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
@@ -23,9 +28,10 @@ public class UIDraggable : MonoBehaviour, IDragHandler, IPointerClickHandler, ID
         //throw new System.NotImplementedException();
     }
 
-    public void OnDrop(PointerEventData eventData)
+
+    public void OnEndDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
+        CanvasManager.Instance.OnChipDrop(this, Order);
     }
 
 }

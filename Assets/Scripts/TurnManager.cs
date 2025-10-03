@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 // This class handles the flow of game turns
 // It switches between planning and action phases,
@@ -12,11 +13,15 @@ public class TurnManager : Singleton<TurnManager>
     [ReadOnly] public int MaxReachedTurnIndex = 0;
     [ReadOnly] public GameState CurrentState;
 
+    private List<TurnOrder> _orderHistory = new();
+    private int _activeActionableIndex;
+
     private List<IRevertable> _revertables = new();
     private List<IActionable> _actionables = new();
-    public List<IPathFollower> ActiveFollowerHistory = new();
+    //public List<IPathFollower> ActiveFollowerHistory = new();
 
     #region SETUP
+
     private new void Awake()
     {
         base.Awake();
@@ -30,9 +35,8 @@ public class TurnManager : Singleton<TurnManager>
     private void Start()
     {
         CurrentState = GameState.Planning;
-        ActiveFollowerHistory.Add(null);
+        //ActiveFollowerHistory.Add(null);
     }
-
     #endregion
 
     #region CANVAS BUTTONS
@@ -67,11 +71,18 @@ public class TurnManager : Singleton<TurnManager>
     private void StartActionPhase()
     {
         CurrentState = GameState.Action;
-        foreach (IActionable actionable in _actionables)
-        {
-            actionable.BeginAction();
-        }
+        _activeActionableIndex = 0;
+        _orderHistory[CurrentTurnIndex].OrderedActionables[0].BeginAction();
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
+    }
+
+    public void TriggerNextActionable()
+    {
+        _activeActionableIndex++;
+        if (_activeActionableIndex >= _orderHistory[CurrentTurnIndex].OrderedActionables.Length)
+            TriggerEndTurn();
+
+        else _orderHistory[CurrentTurnIndex].OrderedActionables[_activeActionableIndex].BeginAction();
     }
 
     // Called when the action phase is interrupted maually
@@ -89,13 +100,14 @@ public class TurnManager : Singleton<TurnManager>
     public void TriggerEndTurn()
     {
         CurrentState = GameState.Planning;
+        _orderHistory.Add(_orderHistory[CurrentTurnIndex]);
         CurrentTurnIndex++;
         if (CurrentTurnIndex > MaxReachedTurnIndex) MaxReachedTurnIndex = CurrentTurnIndex;
         foreach (IRevertable revertable in _revertables)
         {
             revertable.SaveHistoryPoint(CurrentTurnIndex, false);
         }
-        ActiveFollowerHistory.Add(null);
+        //ActiveFollowerHistory.Add(null);
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
         CanvasManager.Instance.SetActionButton(false);
     }
@@ -114,12 +126,15 @@ public class TurnManager : Singleton<TurnManager>
         CollisionManager.Instance.UpdateAllCollisions();
         CurrentTurnIndex = index;
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
+        CanvasManager.Instance.SetChipOrder(_orderHistory[CurrentTurnIndex]);
     }
 
     public void DeleteNextTurnData()
     {
+        /*if (MaxReachedTurnIndex > CurrentTurnIndex)
+            ActiveFollowerHistory.RemoveRange(CurrentTurnIndex + 1, ActiveFollowerHistory.Count - CurrentTurnIndex - 1);*/
         if (MaxReachedTurnIndex > CurrentTurnIndex)
-            ActiveFollowerHistory.RemoveRange(CurrentTurnIndex + 1, ActiveFollowerHistory.Count - CurrentTurnIndex - 1);
+            _orderHistory.RemoveRange(CurrentTurnIndex + 1, _orderHistory.Count - CurrentTurnIndex - 1);
         MaxReachedTurnIndex = CurrentTurnIndex;
     }
     #endregion
@@ -127,7 +142,7 @@ public class TurnManager : Singleton<TurnManager>
     #region LOW LEVEL
 
     // Ensures that only one IPathFollower is active per turn
-    public void SetActiveFollower(IPathFollower newActiveFollower)
+    /*public void SetActiveFollower(IPathFollower newActiveFollower)
     {
         if (ActiveFollowerHistory[CurrentTurnIndex] == null)
         {
@@ -138,6 +153,14 @@ public class TurnManager : Singleton<TurnManager>
             ActiveFollowerHistory[CurrentTurnIndex].SetDrawnPath(new List<Vector2Int>());
             ActiveFollowerHistory[CurrentTurnIndex] = newActiveFollower;
         }
+    }*/
+
+    public void SetCurrentTurnOrder(TurnOrder turnOrder)
+    {
+        if (_orderHistory.Count - 1 < CurrentTurnIndex)
+            _orderHistory.Add(turnOrder);
+        else
+            _orderHistory[CurrentTurnIndex] = turnOrder;
     }
     #endregion
 }
@@ -146,4 +169,29 @@ public enum GameState
 {
     Planning,
     Action,
+}
+
+public class TurnOrder
+{
+    public IActionable[] OrderedActionables;
+
+    public TurnOrder(IActionable[] actionablesInOrder)
+    {
+        OrderedActionables = actionablesInOrder;
+    }
+
+    public TurnOrder(List<IActionable> actionablesInOrder)
+    {
+        OrderedActionables = actionablesInOrder.ToArray();
+    }
+
+    public string PrintOrder()
+    {
+        string order = "Turn Order: ";
+        foreach (IActionable actionable in OrderedActionables)
+        {
+            order += actionable.ToString() + " -> ";
+        }
+        return order;
+    }
 }

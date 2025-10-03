@@ -22,7 +22,7 @@ public class DogSO : ScriptableObject, IPathParametersSO
     [SerializeField] private bool _seesDistractions;
     [SerializeField] private float _distractionDetectionDist;
 
-
+    public string DogName => _dogName;
     public int MaxDistance => _maxDistance;
     public Vector3 PathOffset => _pathOffset;
     public Color PathStartColor => _pathStartColor;

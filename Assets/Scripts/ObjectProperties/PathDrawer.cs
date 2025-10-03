@@ -65,7 +65,7 @@ public class PathDrawer : MonoBehaviour
     private void OnMouseDown()
     {
         if (!IsDrawingEnabled) { Debug.Log("DISABLED"); return; }
-        TurnManager.Instance.SetActiveFollower(PathFollower);
+        //TurnManager.Instance.SetActiveFollower(PathFollower);
         StartPath();
     }
 
