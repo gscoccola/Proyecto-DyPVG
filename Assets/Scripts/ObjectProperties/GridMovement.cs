@@ -12,12 +12,14 @@ public class GridMovement : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private MovementStatus _status;
-    [SerializeField, ReadOnly] private Vector3 _currentTarget;
+    [ReadOnly] public Vector3 CurrentTarget;
+    [ReadOnly] public Vector2Int LastDirection;
 
     private List<Vector2Int> _currentPath;
     private int _currentPathIndex;
-    [ReadOnly] public UnityEvent OnNewTileReached;
-    [ReadOnly] public UnityEvent OnLastTileReached;
+    [HideInInspector] public UnityEvent OnNewTileReached;
+    [HideInInspector] public UnityEvent OnLastTileReached;
+    [HideInInspector] public UnityEvent OnTargetAcquired;
     
     private void Start()
     {
@@ -28,22 +30,24 @@ public class GridMovement : MonoBehaviour
     private void Update()
     {
         if (_status == MovementStatus.Stopped) { return; }
-        if (Vector3.Distance( transform.position, _currentTarget) < 0.05f)
+        if (Vector3.Distance( transform.position, CurrentTarget) < 0.05f)
         {
             OnNewTileReached?.Invoke();
             if (_currentPathIndex == _currentPath.Count - 1)
             {
-                transform.position = _currentTarget;
+                transform.position = CurrentTarget;
                 _status = MovementStatus.Stopped;
                 OnLastTileReached?.Invoke();
                 return;
             }
             _currentPathIndex++;
-            _currentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
+            LastDirection = _currentPath[_currentPathIndex] - _currentPath[_currentPathIndex - 1];
+            CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
+            OnTargetAcquired?.Invoke();
         }
 
         transform.position = Vector3.MoveTowards(transform.position,
-            _currentTarget,
+            CurrentTarget,
             _moveSpeed * Time.deltaTime);
     }
 
@@ -52,13 +56,22 @@ public class GridMovement : MonoBehaviour
         if (path.Count == 0) return;
         _currentPath = path;
         _currentPathIndex = 0;
-        _currentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
-        _status = MovementStatus.Moving; 
+        CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
+        _status = MovementStatus.Moving;
+        OnNewTileReached?.Invoke();
     }
 
     public void Stop()
     {
         _status = MovementStatus.Stopped;
+        _currentPath = new();
+        _currentPathIndex = 0;
+    }
+
+    public void EndPath()
+    {
+        Stop();
+        OnLastTileReached?.Invoke();
     }
 
 }

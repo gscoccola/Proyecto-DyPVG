@@ -7,7 +7,8 @@ using System;
 public class CollisionManager : Singleton<CollisionManager>
 {
     [Header("Debug")]
-    public List<Transform> _colliders = new();
+    public List<Transform> Colliders = new();
+    public List<Blocking> Blockings = new();
 
     private Dictionary<Tuple<Transform, Transform>, bool> _collisions = new();
 
@@ -21,7 +22,7 @@ public class CollisionManager : Singleton<CollisionManager>
 
     private void Start()
     {
-        UpdateAllCollisions(false);
+        UpdateAllCollisions();
     }
 
     // Populate list with all colliders in the scene
@@ -30,12 +31,17 @@ public class CollisionManager : Singleton<CollisionManager>
     {
         foreach (GameObject gameObject in FindObjectsByType<GameObject>(FindObjectsSortMode.None))
         {
+            if (gameObject.GetComponent<Blocking>() != null)
+                Blockings.Add(gameObject.GetComponent<Blocking>());
+
             if (gameObject.GetComponent<IGridCollider>() == null) continue;
-            _colliders.Add(gameObject.GetComponent<Transform>());
+            Colliders.Add(gameObject.GetComponent<Transform>());
 
             if (gameObject.GetComponent<GridMovement>() == null) continue;
             gameObject.GetComponent<GridMovement>().OnNewTileReached.AddListener(()
                 => UpdateColliderCollisions(gameObject.GetComponent<Transform>(), true, true));
+            gameObject.GetComponent<GridMovement>().OnTargetAcquired.AddListener(()
+                => CheckPreemptiveCollisions(gameObject.GetComponent<GridMovement>()));
             
         }
     }
@@ -45,16 +51,29 @@ public class CollisionManager : Singleton<CollisionManager>
 
     public void UpdateAllCollisions(bool invokeEvents = false)
     {
-        foreach (Transform col1 in _colliders)
+        foreach (Transform col1 in Colliders)
         {
             UpdateColliderCollisions(col1, invokeEvents);
         }
     }
 
-    private void UpdateColliderCollisions(Transform col1, bool invokeSelfEvent = false, bool invokeOtherEvent = false)
+    public void CheckPreemptiveCollisions(GridMovement gridMover)
+    {
+        
+        foreach (Blocking col2 in Blockings)
+        {
+            if (col2.IsEnabled && 
+                LevelGrid.Instance.WorldToGridPos(gridMover.CurrentTarget)
+                == LevelGrid.Instance.WorldToGridPos(col2.transform.position)
+                )
+                gridMover.EndPath();
+        }
+    }
+
+    public void UpdateColliderCollisions(Transform col1, bool invokeSelfEvent = false, bool invokeOtherEvent = false)
     {
         //if (invokeSelfEvent && invokeOtherEvent) Debug.Log("Updated cols for " + col1);
-        foreach (Transform col2 in _colliders)
+        foreach (Transform col2 in Colliders)
         {
             if (col1 == col2) continue;
             bool areColliding = LevelGrid.Instance.WorldToGridPos(col1.position) == LevelGrid.Instance.WorldToGridPos(col2.position);

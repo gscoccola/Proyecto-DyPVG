@@ -70,6 +70,7 @@ public class TurnManager : Singleton<TurnManager>
 
     private void StartActionPhase()
     {
+        
         CurrentState = GameState.Action;
         _activeActionableIndex = 0;
         _orderHistory[CurrentTurnIndex].OrderedActionables[0].BeginAction();
@@ -80,9 +81,13 @@ public class TurnManager : Singleton<TurnManager>
     {
         _activeActionableIndex++;
         if (_activeActionableIndex >= _orderHistory[CurrentTurnIndex].OrderedActionables.Length)
+        {
             TriggerEndTurn();
-
-        else _orderHistory[CurrentTurnIndex].OrderedActionables[_activeActionableIndex].BeginAction();
+        }
+        else
+        {
+            _orderHistory[CurrentTurnIndex].OrderedActionables[_activeActionableIndex].BeginAction();
+        }
     }
 
     // Called when the action phase is interrupted maually

@@ -17,6 +17,6 @@ MonoBehaviour:
   _pathEndColor: {r: 0, g: 0.011921883, b: 1, a: 1}
   _pathStartColor: {r: 1, g: 0, b: 0.69943285, a: 1}
   _traversableTiles: 00000000
-  _maxDistance: 20
+  _maxDistance: 9
   _seesDistractions: 0
   _distractionDetectionDist: 0

@@ -156,9 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'B
-
-'
+  m_text: W
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -244,7 +242,7 @@ GameObject:
   - component: {fileID: 7864012803763215964}
   - component: {fileID: 173538211963523334}
   m_Layer: 0
-  m_Name: Dog Bully
+  m_Name: Dog Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37eb94615b1a954aae35fe94be6745a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DogParameters: {fileID: 11400000, guid: 3c7efef84af9d0b48a7d6dbad594f79a, type: 2}
+  DogParameters: {fileID: 11400000, guid: b0f71c61983500741bf13a16821a607f, type: 2}
   CurrentState: 0
   _gridPosition: {x: 0, y: 0}
   StatusHistory: []
@@ -299,16 +297,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e32c890894b954584f7e2aedca18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 4
+  _moveSpeed: 3
   _status: 0
-  CurrentTarget: {x: 0, y: 0, z: 0}
+  _currentTarget: {x: 0, y: 0, z: 0}
   OnNewTileReached:
     m_PersistentCalls:
       m_Calls: []
   OnLastTileReached:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTargetAcquired:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &718559582963908192

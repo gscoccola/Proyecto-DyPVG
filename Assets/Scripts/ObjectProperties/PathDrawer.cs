@@ -64,7 +64,7 @@ public class PathDrawer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!IsDrawingEnabled) { Debug.Log("DISABLED"); return; }
+        if (!IsDrawingEnabled || TurnManager.Instance.CurrentState == GameState.Action)  { Debug.Log("DISABLED"); return; }
         //TurnManager.Instance.SetActiveFollower(PathFollower);
         StartPath();
     }
@@ -78,7 +78,7 @@ public class PathDrawer : MonoBehaviour
     private void GenerateSubPathToMouse()
     {
         if (_path.Count >= _maxDistance) return;
-        bool excludePoint = _path.Count > 0;
+        bool excludePoint = _path.Count > 1;
         var path = LevelGrid.Instance.CalculatePath(PathFollower.TraversableTiles,
             _lastMousePos, _currentMousePos, excludePoint, _excludedPos);
         if (path.Count == 0 || path.Count > 2/* || path[0] == new Vector2(1, 0)*/) return;
@@ -91,7 +91,7 @@ public class PathDrawer : MonoBehaviour
                 _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
             _lastPathDir = _pathDir;
         }
-        _excludedPos = _lastMousePos;
+        _excludedPos = path.Count > 1 ? path[path.Count - 2] : _lastMousePos;
         _lastMousePos = _currentMousePos;
         ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_lastMousePos);
     }
@@ -99,6 +99,7 @@ public class PathDrawer : MonoBehaviour
     private void StartPath()
     {
         ClearPath();
+        _path.Add(LevelGrid.Instance.WorldToGridPos(transform.position));
         _lastPathDir = Vector2Int.zero;
         _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
         _currentMousePos = _lastMousePos;

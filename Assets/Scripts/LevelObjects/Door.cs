@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class Distraction : MonoBehaviour, IGridCollider, IRevertable
+public class Door : MonoBehaviour, IGridCollider, IRevertable
 {
+    [Header("References")]
+    [SerializeField] private Blocking _blocking;
+
     [Header("Debug")]
     [ReadOnly] public bool IsDisabled;
-    [HideInInspector] public UnityEvent OnDistractionDisabled;
-    [HideInInspector] public List<bool> OccupiedHistory = new();
+    [HideInInspector] public UnityEvent OnDoorOpen;
+    [HideInInspector] public List<bool> OpenHistory = new();
 
     private SpriteRenderer _spriteRenderer;
 
@@ -15,10 +18,9 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
     private void Start()
     {
-        OccupiedHistory.Add(false);
+        OpenHistory.Add(false);
     }
 
     #region GRID COLLIDER INTERFACE
@@ -27,7 +29,7 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
     {
         if (other.GetComponent<Dog>() == null) return;
         Toggle(true);
-        OnDistractionDisabled?.Invoke();
+        OnDoorOpen?.Invoke();
     }
 
     public void OnGridCollisionExit(Transform other)
@@ -40,25 +42,28 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
-        Toggle(OccupiedHistory[turnIndex]);
+        Toggle(OpenHistory[turnIndex]);
     }
 
     public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
     {
         if (deleteFuturePoints)
         {
-            while (OccupiedHistory.Count > turnIndex)
-                OccupiedHistory.RemoveAt(OccupiedHistory.Count - 1);
+            while (OpenHistory.Count > turnIndex)
+                OpenHistory.RemoveAt(OpenHistory.Count - 1);
         }
-        if (OccupiedHistory.Count == turnIndex)
-            OccupiedHistory.Add(IsDisabled);
+        if (OpenHistory.Count == turnIndex)
+            OpenHistory.Add(IsDisabled);
         else
-            OccupiedHistory[turnIndex] = IsDisabled;
+            OpenHistory[turnIndex] = IsDisabled;
     }
     #endregion
 
     public void Toggle(bool disabled)
     {
+        _blocking.IsEnabled = !disabled;
+        _blocking.GetComponent<SpriteRenderer>().enabled = !disabled;
+        Vector2Int blockedPos = LevelGrid.Instance.WorldToGridPos(_blocking.transform.position);
         _spriteRenderer.enabled = !disabled;
         IsDisabled = disabled;
     }

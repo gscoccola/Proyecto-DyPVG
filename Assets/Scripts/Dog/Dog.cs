@@ -16,18 +16,21 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [SerializeField, ReadOnly] public DogState CurrentState;
     [SerializeField, ReadOnly] private Vector2Int _gridPosition;
     [SerializeField, ReadOnly] private List<DogHistoryPoint> StatusHistory = new();
-    [ReadOnly] public List<Vector2Int> DrawnPath { get; set; } = new();
+    [ReadOnly] public List<Vector2Int> Path { get; set; } = new();
     [ReadOnly] public List<Vector2Int> DebugDrawnPath;
-
+    [ReadOnly] public List<Transform> collidingList = new();
 
     [HideInInspector] public PathDrawer Drawer;
     [HideInInspector] public string Initial;
     private FiniteStateMachine<DogState> _stateMachine;
     private GridMovement _gridMovement;
+    private int _tilesSinceValidPos;
 
     public TileType[] TraversableTiles { get; set; }
+
     private bool _seesDistractions;
     private float _distractionDetectionDist;
+    private bool _isPathInterrupted;
 
     #region SETUP
 
@@ -44,8 +47,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _stateMachine.AddState(DogState.MovingToDistraction, new DogMovingToDistraction(this, _stateMachine));
         _stateMachine.AddState(DogState.Idle, new DogIdle(this, _stateMachine));
 
-        _gridMovement.OnNewTileReached.AddListener(CheckForDistractions);
-        _gridMovement.OnLastTileReached.AddListener(OnPathFinished);
+        _gridMovement.OnNewTileReached.AddListener(OnTileReached);
+        _gridMovement.OnLastTileReached.AddListener(() => OnPathFinished());
     }
 
     private void LoadSO()
@@ -84,10 +87,10 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void SetDrawnPath(List<Vector2Int> path)
     {
-        if (path.Count > 0) CanvasManager.Instance.SetActionButton(true);
-        if (path.Count == 0) Drawer.ClearAllMarkers();
+        if (path.Count > 1) CanvasManager.Instance.SetActionButton(true);
+        if (path.Count == 1) Drawer.ClearAllMarkers();
         TurnManager.Instance.DeleteNextTurnData();
-        DrawnPath = new List<Vector2Int>(path);
+        Path = new List<Vector2Int>(path);
         SaveHistoryPoint(TurnManager.Instance.CurrentTurnIndex);
         Drawer.ResumePathHitbox.SetActive(true);
     }
@@ -100,7 +103,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         if (StatusHistory.Count < turnIndex) Debug.LogError("Trying to skip a turn in history");
         if (deleteFuturePoints && StatusHistory.Count > turnIndex)
             StatusHistory.RemoveRange(turnIndex, StatusHistory.Count - turnIndex);
-        StatusHistory.Add(new DogHistoryPoint(LevelGrid.Instance.WorldToGridPos(transform.position), DrawnPath));
+        StatusHistory.Add(new DogHistoryPoint(LevelGrid.Instance.WorldToGridPos(transform.position), Path));
         Drawer.IsDrawingEnabled = true;
     }
 
@@ -109,13 +112,11 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _stateMachine.ChangeState(DogState.Stopped);
         _gridMovement.Stop();
         transform.position = LevelGrid.Instance.GridToWorldPos(StatusHistory[turnIndex].GridPosition);
-        DrawnPath = new List<Vector2Int>(StatusHistory[turnIndex].DrawnPath);
-        Drawer.ResumePathHitbox.SetActive(DrawnPath.Count > 0);
+        Path = new List<Vector2Int>(StatusHistory[turnIndex].DrawnPath);
+        Drawer.ResumePathHitbox.SetActive(Path.Count > 1);
         Drawer.IsDrawingEnabled = true;
-        if (DrawnPath.Count > 0) CanvasManager.Instance.SetActionButton(true);
-        //if (turnIndex == TurnManager.Instance.CurrentTurnIndex) return;
-
-        Drawer.RedrawFinishedPath(DrawnPath);
+        if (Path.Count > 1) CanvasManager.Instance.SetActionButton(true);
+        Drawer.RedrawFinishedPath(Path);
     }
     #endregion
 
@@ -125,8 +126,10 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     {
         Drawer.ResumePathHitbox.SetActive(false);
         Drawer.IsDrawingEnabled = false;
-        _gridMovement.StartMovement(DrawnPath);
-        if (DrawnPath.Count > 0)
+        _isPathInterrupted = false;
+        _gridMovement.StartMovement(Path);
+        if (_isPathInterrupted) return;
+        if (Path.Count > 1)
             _stateMachine.ChangeState(DogState.MovingToTarget);
         else
         {
@@ -140,49 +143,82 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void OnGridCollisionEnter(Transform other)
     {
-        //if (other.GetComponent<Distraction>() == null) return;
+        if (other.GetComponent<Distraction>() != null) return;
+        collidingList.Add(other);
     }
 
     public void OnGridCollisionExit(Transform other)
     {
-        //if (other.GetComponent<Distraction>() == null) return;
+        if (other.GetComponent<Distraction>() != null) return;
+        collidingList.Remove(other);
     }
     #endregion
 
-    public void CheckForDistractions()
+    public void OnTileReached()
+    {
+        CollisionManager.Instance.UpdateColliderCollisions(transform, true, true);
+        if (collidingList.Count == 0)
+        {
+            _tilesSinceValidPos = 0;
+        }
+        else
+            _tilesSinceValidPos++;
+        CheckForDistractions();
+    }
+
+    private void CheckForDistractions()
     {
         if (!_seesDistractions || CurrentState == DogState.MovingToDistraction) return;
         foreach (var distraction in LevelManager.Instance.DistractionList)
         {
-            if (distraction.GetComponent<Distraction>() == null || distraction.GetComponent<Distraction>().IsOccupied) continue;
-            if (Vector3.Distance(transform.position, distraction.transform.position) < _distractionDetectionDist)     
+            if (distraction.IsDisabled) continue;
+            if (Vector3.Distance(transform.position, distraction.transform.position) < _distractionDetectionDist)
             {
-                var path = LevelGrid.Instance.CalculatePath(TraversableTiles,_gridPosition,
+                _isPathInterrupted = true;
+                var path = LevelGrid.Instance.CalculatePath(TraversableTiles, _gridPosition,
                     LevelGrid.Instance.WorldToGridPos(distraction.transform.position));
-                if (path.Count == 0 || path.Count > _distractionDetectionDist) continue;
-
+                if (path.Count == 0 || path.Count > _distractionDetectionDist + 1) continue;
                 _stateMachine.ChangeState(DogState.MovingToDistraction, distraction);
+                path.RemoveAt(path.Count - 1);
+                if (path.Count == 0)
+                {
+                    //OnPathFinished(false);
+                    _gridMovement.EndPath();
+                    return;
+                }
                 _gridMovement.StartMovement(path);
+                Path = path;
                 return;
             }
         }
     }
 
-    private void OnPathFinished()
+    private void OnPathFinished(bool checkValidTile = true)
     {
+        Drawer.ClearPath();
+        if (Path.Count > 0 && !IsValidFinishTile())
+        {
+            List<Vector2Int> returnPath = new List<Vector2Int>(Path);
+            returnPath.RemoveRange(0, Path.Count - _tilesSinceValidPos - 1);
+            returnPath.Reverse();
+            _gridMovement.StartMovement(returnPath);
+            return;
+        }
         Drawer.ResumePathHitbox.SetActive(false);
         _stateMachine.ChangeState(DogState.Stopped);
-        DrawnPath = new();
-        Drawer.ClearPath();
+        Path = new();
         //PathDrawerComponent.IsDrawingEnabled = true;
         TurnManager.Instance.TriggerNextActionable();
     }
 
-
+    private bool IsValidFinishTile()
+    {
+        return collidingList.Count == 0;
+    }
 
     public bool HasDrawnPath()
     {
-        return DrawnPath.Count > 0;
+        return Path.Count > 1;
     }
 }
 
