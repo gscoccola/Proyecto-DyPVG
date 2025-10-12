@@ -50,7 +50,7 @@ public class CanvasManager : Singleton<CanvasManager>
             //_chipPlaceOffset += _chipPlaceSpacing;
             listIndex++;
         }
-        if (Chips.Count > listIndex + 1) Chips.RemoveRange(listIndex + 1, Chips.Count - (listIndex + 1));
+        if (ChipPlaces.Count > listIndex) ChipPlaces.RemoveRange(listIndex, ChipPlaces.Count - (listIndex));
 
         SetActionButton(false);
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
@@ -171,7 +171,6 @@ public class CanvasManager : Singleton<CanvasManager>
 
     private void TogglePopups(bool areActive)
     {
-        Debug.Log("Toggle popups: " + areActive);
         foreach (GameObject popup in _numberPopups)
         {
             popup.SetActive(areActive);
