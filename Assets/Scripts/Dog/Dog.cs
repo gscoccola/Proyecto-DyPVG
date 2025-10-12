@@ -8,7 +8,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 {
 
     [Header("Parameters")]
-    [SerializeField] private DogSO DogParameters;
+    [SerializeField] public DogSO DogParameters;
 
     
 
@@ -17,11 +17,9 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [SerializeField, ReadOnly] private Vector2Int _gridPosition;
     [SerializeField, ReadOnly] private List<DogHistoryPoint> StatusHistory = new();
     [ReadOnly] public List<Vector2Int> Path { get; set; } = new();
-    [ReadOnly] public List<Vector2Int> DebugDrawnPath;
     [ReadOnly] public List<Transform> collidingList = new();
 
     [HideInInspector] public PathDrawer Drawer;
-    [HideInInspector] public string Initial;
     private FiniteStateMachine<DogState> _stateMachine;
     private GridMovement _gridMovement;
     private int _tilesSinceValidPos;
@@ -47,13 +45,12 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _stateMachine.AddState(DogState.MovingToDistraction, new DogMovingToDistraction(this, _stateMachine));
         _stateMachine.AddState(DogState.Idle, new DogIdle(this, _stateMachine));
 
-        _gridMovement.OnNewTileReached.AddListener(OnTileReached);
-        _gridMovement.OnLastTileReached.AddListener(() => OnPathFinished());
+        _gridMovement.NewTileReached.AddListener(OnTileReached);
+        _gridMovement.LastTileReached.AddListener(() => OnPathFinished());
     }
 
     private void LoadSO()
     {
-        Initial = DogParameters.DogName[0].ToString();
         TraversableTiles = DogParameters.TraversableTiles;
         _seesDistractions = DogParameters.SeesDistractions;
         _distractionDetectionDist = DogParameters.DistractionDetectionDist;
@@ -139,25 +136,29 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     }
     #endregion
 
-    #region GRID COLLIDER INTERFACE
+    #region GRID COLLIDER
 
     public void OnGridCollisionEnter(Transform other)
     {
         if (other.GetComponent<Distraction>() != null) return;
+        if (other.GetComponent<UnitTrigger>() != null) return;
         collidingList.Add(other);
     }
 
     public void OnGridCollisionExit(Transform other)
     {
         if (other.GetComponent<Distraction>() != null) return;
+        if (other.GetComponent<UnitTrigger>() != null) return;
         collidingList.Remove(other);
     }
     #endregion
 
+    #region GRID MOVEMENT EVENTS
+
     public void OnTileReached()
     {
         CollisionManager.Instance.UpdateColliderCollisions(transform, true, true);
-        if (collidingList.Count == 0)
+        if (collidingList.Count == 0 && LevelGrid.Instance.GetTileTypeAtPos(_gridPosition) == TileType.Walkable)
         {
             _tilesSinceValidPos = 0;
         }
@@ -196,25 +197,41 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     private void OnPathFinished(bool checkValidTile = true)
     {
         Drawer.ClearPath();
-        if (Path.Count > 0 && !IsValidFinishTile())
+        switch (IsValidFinishTile())
         {
-            List<Vector2Int> returnPath = new List<Vector2Int>(Path);
-            returnPath.RemoveRange(0, Path.Count - _tilesSinceValidPos - 1);
-            returnPath.Reverse();
-            _gridMovement.StartMovement(returnPath);
-            return;
+            case FinishTileType.Valid:
+                Drawer.ResumePathHitbox.SetActive(false);
+                _stateMachine.ChangeState(DogState.Stopped);
+                Path = new();
+                //PathDrawerComponent.IsDrawingEnabled = true;
+                TurnManager.Instance.TriggerNextActionable();
+                break;
+
+            case FinishTileType.GoBack:
+                List<Vector2Int> returnPath = new List<Vector2Int>(Path);
+                if (_gridMovement.CurrentPathIndex < returnPath.Count - 1)
+                    returnPath.RemoveRange(_gridMovement.CurrentPathIndex, returnPath.Count - _gridMovement.CurrentPathIndex);
+                returnPath.RemoveRange(0, returnPath.Count - _tilesSinceValidPos - 1);
+                returnPath.Reverse();
+                _gridMovement.StartMovement(returnPath);
+                break;
+
+            case FinishTileType.PushForward:
+                
+                List<Vector2Int> forwardPath = new List<Vector2Int>() { _gridPosition, _gridPosition + _gridMovement.LastDirection };
+                _gridMovement.StartMovement(forwardPath);
+                break;
         }
-        Drawer.ResumePathHitbox.SetActive(false);
-        _stateMachine.ChangeState(DogState.Stopped);
-        Path = new();
-        //PathDrawerComponent.IsDrawingEnabled = true;
-        TurnManager.Instance.TriggerNextActionable();
     }
 
-    private bool IsValidFinishTile()
+    private FinishTileType IsValidFinishTile()
     {
-        return collidingList.Count == 0;
+        if (LevelGrid.Instance.GetTileTypeAtPos(_gridPosition) == TileType.Jumpable)
+            return FinishTileType.GoBack;
+        else if (Path.Count > 0 && collidingList.Count != 0) return FinishTileType.GoBack;
+        else return FinishTileType.Valid;
     }
+    #endregion
 
     public bool HasDrawnPath()
     {
@@ -235,6 +252,13 @@ public enum DogState
     MovingToTarget,
     MovingToDistraction,
     Idle,
+}
+
+public enum FinishTileType
+{
+    Valid,
+    GoBack,
+    PushForward,
 }
 
 

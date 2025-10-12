@@ -14,12 +14,12 @@ public class GridMovement : MonoBehaviour
     [SerializeField, ReadOnly] private MovementStatus _status;
     [ReadOnly] public Vector3 CurrentTarget;
     [ReadOnly] public Vector2Int LastDirection;
+    [ReadOnly] public int CurrentPathIndex;
 
     private List<Vector2Int> _currentPath;
-    private int _currentPathIndex;
-    [HideInInspector] public UnityEvent OnNewTileReached;
-    [HideInInspector] public UnityEvent OnLastTileReached;
-    [HideInInspector] public UnityEvent OnTargetAcquired;
+    [HideInInspector] public UnityEvent NewTileReached;
+    [HideInInspector] public UnityEvent LastTileReached;
+    [HideInInspector] public UnityEvent TargetAcquired;
     
     private void Start()
     {
@@ -32,18 +32,18 @@ public class GridMovement : MonoBehaviour
         if (_status == MovementStatus.Stopped) { return; }
         if (Vector3.Distance( transform.position, CurrentTarget) < 0.05f)
         {
-            OnNewTileReached?.Invoke();
-            if (_currentPathIndex == _currentPath.Count - 1)
+            NewTileReached?.Invoke();
+            if (CurrentPathIndex == _currentPath.Count - 1)
             {
                 transform.position = CurrentTarget;
                 _status = MovementStatus.Stopped;
-                OnLastTileReached?.Invoke();
+                LastTileReached?.Invoke();
                 return;
             }
-            _currentPathIndex++;
-            LastDirection = _currentPath[_currentPathIndex] - _currentPath[_currentPathIndex - 1];
-            CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
-            OnTargetAcquired?.Invoke();
+            CurrentPathIndex++;
+            LastDirection = _currentPath[CurrentPathIndex] - _currentPath[CurrentPathIndex - 1];
+            CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
+            TargetAcquired?.Invoke();
         }
 
         transform.position = Vector3.MoveTowards(transform.position,
@@ -55,23 +55,23 @@ public class GridMovement : MonoBehaviour
     {
         if (path.Count == 0) return;
         _currentPath = path;
-        _currentPathIndex = 0;
-        CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[_currentPathIndex]);
+        CurrentPathIndex = 0;
+        CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
         _status = MovementStatus.Moving;
-        OnNewTileReached?.Invoke();
+        NewTileReached?.Invoke();
     }
 
     public void Stop()
     {
         _status = MovementStatus.Stopped;
         _currentPath = new();
-        _currentPathIndex = 0;
+        //CurrentPathIndex = 0;
     }
 
     public void EndPath()
     {
         Stop();
-        OnLastTileReached?.Invoke();
+        LastTileReached?.Invoke();
     }
 
 }

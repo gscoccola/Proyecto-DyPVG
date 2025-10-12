@@ -9,10 +9,13 @@ public class DogSO : ScriptableObject, IPathParametersSO
     [Header("Parameters")]
     [SerializeField] private string _dogName;
 
-    [Header("Visibility")]
+    [Header("Path Visibility")]
     [SerializeField] private Vector3 _pathOffset;
     [SerializeField] private Color _pathEndColor;
     [SerializeField] private Color _pathStartColor;
+
+    [Header("Chip Sprites")]
+    [SerializeField] private Sprite[] _chipSprites;
 
     [Header("Pathing")]
     [SerializeField] private TileType[] _traversableTiles  = new TileType[] { TileType.Walkable };
@@ -27,6 +30,7 @@ public class DogSO : ScriptableObject, IPathParametersSO
     public Vector3 PathOffset => _pathOffset;
     public Color PathStartColor => _pathStartColor;
     public Color PathEndColor => _pathEndColor;
+    public Sprite[] ChipSprites => _chipSprites;
     public TileType[] TraversableTiles => _traversableTiles;
     public bool SeesDistractions => _seesDistractions;
     public float DistractionDetectionDist => _distractionDetectionDist;

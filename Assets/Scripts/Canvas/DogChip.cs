@@ -1,22 +1,30 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class DogChip : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
+
+public class DogChip : MonoBehaviour, IDragHandler, IBeginDragHandler,
+    IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform _rectTransform;
     private Canvas _canvas;
-    private Canvas _selfCanvas;
+    private Image _image;
+    private bool _isDragging;
 
     [Header("Debug")]
     [ReadOnly] public int Order;
     [ReadOnly] public IActionable Actionable;
 
+    [HideInInspector] public Sprite[] Sprites;
+    [HideInInspector] public UnityEvent BeginDrag;
+    [HideInInspector] public UnityEvent EndDrag;
 
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
         _canvas = GetComponentInParent<Canvas>();
-        //_selfCanvas = GetComponent<Canvas>();
+        _image = GetComponent<Image>();
     }
 
 
@@ -27,20 +35,29 @@ public class DogChip : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         //_selfCanvas.sortingOrder = 10;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-
     public void OnEndDrag(PointerEventData eventData)
     {
+
         CanvasManager.Instance.OnChipDrop(this, Order);
-        //_selfCanvas.sortingOrder = 0;
+        _image.sprite = Sprites[0];
+        _isDragging = false;
+        EndDrag.Invoke();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
+        _image.sprite = Sprites[2];
+        _isDragging = true;
+        BeginDrag.Invoke();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!_isDragging) _image.sprite = Sprites[1];
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!_isDragging) _image.sprite = Sprites[0];
     }
 }

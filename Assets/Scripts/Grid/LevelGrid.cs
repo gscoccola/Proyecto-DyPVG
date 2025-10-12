@@ -13,7 +13,7 @@ public class LevelGrid : Singleton<LevelGrid>
     [SerializeField] private Tilemap _waterTilemap;
 
 
-    [HideInInspector] public TileType[,] TileTypeGrid;
+    private TileType[,] _tileTypeGrid;
     private BoundsInt _bounds;
     private float _cellSize;
     private float _cellSizeInverse;
@@ -31,7 +31,7 @@ public class LevelGrid : Singleton<LevelGrid>
         _bounds = _wallTilemap.cellBounds;
         TileBase[] wallTiles = _wallTilemap.GetTilesBlock(_bounds);
         TileBase[] jumpableTiles = _jumpableTilemap == null ? null : _jumpableTilemap.GetTilesBlock(_bounds);
-        TileTypeGrid = new TileType[_bounds.size.x, _bounds.size.y];
+        _tileTypeGrid = new TileType[_bounds.size.x, _bounds.size.y];
 
         for (int x = 0; x < _bounds.size.x; x++)
         {
@@ -41,15 +41,15 @@ public class LevelGrid : Singleton<LevelGrid>
                 TileBase jumpableTile = _jumpableTilemap == null ? null : jumpableTiles[x + y * _bounds.size.x];
                 if (wallTile != null)
                 {
-                    TileTypeGrid[x, y] = TileType.Wall;
+                    _tileTypeGrid[x, y] = TileType.Wall;
                 }
                 else if (jumpableTile != null)
                 {
-                    TileTypeGrid[x, y] = TileType.Jumpable;
+                    _tileTypeGrid[x, y] = TileType.Jumpable;
                 }
                 else
                 {
-                    TileTypeGrid[x, y] = TileType.Walkable;
+                    _tileTypeGrid[x, y] = TileType.Walkable;
                 }
             }
         }
@@ -65,7 +65,7 @@ public class LevelGrid : Singleton<LevelGrid>
             for (int y = 0; y < _bounds.size.y; y++)
             {
                 if (x== excludedPoint.x && y == excludedPoint.y && excludePoint) continue;
-                if (traversableTileTypes.Contains(TileTypeGrid[x, y])) traversableTilemap[new Vector2Int(x,y)] = 1f;
+                if (traversableTileTypes.Contains(_tileTypeGrid[x, y])) traversableTilemap[new Vector2Int(x,y)] = 1f;
             }
         }
         Pathfinder2DResult pathfinderResult = new Pathfinder2D(traversableTilemap, NodeConnectionType.RectangleNoDiagonals)
@@ -96,6 +96,11 @@ public class LevelGrid : Singleton<LevelGrid>
     public Vector3 SnapToGrid(Vector3 worldPos)
     {
         return GridToWorldPos(WorldToGridPos(worldPos));
+    }
+
+    public TileType GetTileTypeAtPos(Vector2Int pos)
+    {
+        return _tileTypeGrid[pos.x, pos.y];
     }
 }
 

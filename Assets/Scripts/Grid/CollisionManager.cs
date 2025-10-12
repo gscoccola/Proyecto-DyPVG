@@ -38,9 +38,9 @@ public class CollisionManager : Singleton<CollisionManager>
             Colliders.Add(gameObject.GetComponent<Transform>());
 
             if (gameObject.GetComponent<GridMovement>() == null) continue;
-            gameObject.GetComponent<GridMovement>().OnNewTileReached.AddListener(()
+            gameObject.GetComponent<GridMovement>().NewTileReached.AddListener(()
                 => UpdateColliderCollisions(gameObject.GetComponent<Transform>(), true, true));
-            gameObject.GetComponent<GridMovement>().OnTargetAcquired.AddListener(()
+            gameObject.GetComponent<GridMovement>().TargetAcquired.AddListener(()
                 => CheckPreemptiveCollisions(gameObject.GetComponent<GridMovement>()));
             
         }
@@ -72,7 +72,6 @@ public class CollisionManager : Singleton<CollisionManager>
 
     public void UpdateColliderCollisions(Transform col1, bool invokeSelfEvent = false, bool invokeOtherEvent = false)
     {
-        //if (invokeSelfEvent && invokeOtherEvent) Debug.Log("Updated cols for " + col1);
         foreach (Transform col2 in Colliders)
         {
             if (col1 == col2) continue;
@@ -83,6 +82,7 @@ public class CollisionManager : Singleton<CollisionManager>
                 continue;
 
             _collisions[Tuple.Create(col1, col2)] = areColliding;
+            //if (areColliding) Debug.Log(col1.gameObject.name + " " + col2.gameObject.name);
 
             if (invokeSelfEvent) 
             { 

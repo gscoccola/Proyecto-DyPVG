@@ -16,6 +16,10 @@ MonoBehaviour:
   _pathOffset: {x: 0.1, y: 0.1, z: 0}
   _pathEndColor: {r: 0, g: 0.011921883, b: 1, a: 1}
   _pathStartColor: {r: 1, g: 0, b: 0.69943285, a: 1}
+  _chipSprites:
+  - {fileID: 21300000, guid: 56d6c3f8c01f76042aaf07e04ee30835, type: 3}
+  - {fileID: 21300000, guid: 128cfeced86348b4483676043b10575a, type: 3}
+  - {fileID: 21300000, guid: a735a4394d005fc44885bb553017ac35, type: 3}
   _traversableTiles: 00000000
   _maxDistance: 9
   _seesDistractions: 0

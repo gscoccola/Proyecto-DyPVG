@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Events;
 
 // This class handles the flow of game turns
 // It switches between planning and action phases,
@@ -18,6 +19,8 @@ public class TurnManager : Singleton<TurnManager>
 
     private List<IRevertable> _revertables = new();
     private List<IActionable> _actionables = new();
+
+    [HideInInspector] public UnityEvent TurnEnd;
     //public List<IPathFollower> ActiveFollowerHistory = new();
 
     #region SETUP
@@ -115,6 +118,7 @@ public class TurnManager : Singleton<TurnManager>
         //ActiveFollowerHistory.Add(null);
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
         CanvasManager.Instance.SetActionButton(false);
+        TurnEnd?.Invoke();
     }
     #endregion
 
