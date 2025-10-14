@@ -9,6 +9,7 @@ public class GridMovement : MonoBehaviour
 {
     [Header("Parameters")]
     [SerializeField] private float _moveSpeed = 1f;
+    [SerializeField] private float _pauseDelay = 0.7f;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private MovementStatus _status;
@@ -20,6 +21,7 @@ public class GridMovement : MonoBehaviour
     [HideInInspector] public UnityEvent NewTileReached;
     [HideInInspector] public UnityEvent LastTileReached;
     [HideInInspector] public UnityEvent TargetAcquired;
+    private float _pauseTimer;
     
     private void Start()
     {
@@ -30,6 +32,12 @@ public class GridMovement : MonoBehaviour
     private void Update()
     {
         if (_status == MovementStatus.Stopped) { return; }
+        if (_status == MovementStatus.Paused)
+        {
+            _pauseTimer -= Time.deltaTime;
+            if (_pauseTimer < 0f) Resume();
+            return;
+        }
         if (Vector3.Distance( transform.position, CurrentTarget) < 0.05f)
         {
             NewTileReached?.Invoke();
@@ -59,6 +67,7 @@ public class GridMovement : MonoBehaviour
         CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
         _status = MovementStatus.Moving;
         NewTileReached?.Invoke();
+        Pause();
     }
 
     public void Stop()
@@ -74,10 +83,22 @@ public class GridMovement : MonoBehaviour
         LastTileReached?.Invoke();
     }
 
+    public void Pause()
+    {
+        _status = MovementStatus.Paused;
+        _pauseTimer = _pauseDelay;
+    }
+
+    public void Resume()
+    {
+        _status = MovementStatus.Moving;
+    }
+
 }
 
 public enum MovementStatus
 {
     Moving,
     Stopped,
+    Paused,
 }

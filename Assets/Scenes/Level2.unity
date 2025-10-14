@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5756121031203918775, guid: 55cfb50aae5f14a44b9c9ffcb81132fb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5756121031203918775, guid: 55cfb50aae5f14a44b9c9ffcb81132fb, type: 3}
       propertyPath: m_LocalRotation.x
@@ -276,7 +276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5756121031203918775, guid: 55cfb50aae5f14a44b9c9ffcb81132fb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5756121031203918775, guid: 55cfb50aae5f14a44b9c9ffcb81132fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -288,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5756121031203918775, guid: 55cfb50aae5f14a44b9c9ffcb81132fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -309,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalPosition.z
@@ -317,19 +317,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8706406
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.309093
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.12803036
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.36063102
       objectReference: {fileID: 0}
     - target: {fileID: 6075712100488260435, guid: 60ae9b90a4b84074dafb57dc844b4b40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -404,6 +404,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6559909579949417360, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
+      propertyPath: m_ChunkCullingBounds.x
+      value: 0.245
+      objectReference: {fileID: 0}
+    - target: {fileID: 6559909579949417360, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 0.34320003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -460,6 +468,18 @@ PrefabInstance:
     - target: {fileID: 2690071298545203427, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
       propertyPath: m_Name
       value: Essentials
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381866432188953164, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.1137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381866432188953164, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.19607845
+      objectReference: {fileID: 0}
+    - target: {fileID: 5381866432188953164, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.04705883
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

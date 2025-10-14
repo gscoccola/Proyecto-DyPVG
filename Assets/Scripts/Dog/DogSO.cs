@@ -25,6 +25,9 @@ public class DogSO : ScriptableObject, IPathParametersSO
     [SerializeField] private bool _seesDistractions;
     [SerializeField] private float _distractionDetectionDist;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip audioCLip;
+
     public string DogName => _dogName;
     public int MaxDistance => _maxDistance;
     public Vector3 PathOffset => _pathOffset;

@@ -6,17 +6,19 @@ public class Door : MonoBehaviour, IGridCollider, IRevertable
 {
     [Header("References")]
     [SerializeField] private Blocking _blocking;
+    [SerializeField] private Sprite _openSprite;
+    [SerializeField] private Sprite _closedSprite;
 
     [Header("Debug")]
     [ReadOnly] public bool IsDisabled;
     [HideInInspector] public UnityEvent OnDoorOpen;
     [HideInInspector] public List<bool> OpenHistory = new();
 
-    private SpriteRenderer _spriteRenderer;
+    //private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        //_spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Start()
     {
@@ -62,9 +64,10 @@ public class Door : MonoBehaviour, IGridCollider, IRevertable
     public void Toggle(bool disabled)
     {
         _blocking.IsEnabled = !disabled;
-        _blocking.GetComponent<SpriteRenderer>().enabled = !disabled;
+        _blocking.Renderer.sprite = !disabled ? _closedSprite: _openSprite;
         Vector2Int blockedPos = LevelGrid.Instance.WorldToGridPos(_blocking.transform.position);
-        _spriteRenderer.enabled = !disabled;
+        //_spriteRenderer.enabled = !disabled;
+
         IsDisabled = disabled;
     }
 }
