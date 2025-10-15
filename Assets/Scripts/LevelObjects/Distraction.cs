@@ -25,9 +25,11 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
 
     public void OnGridCollisionEnter(Transform other)
     {
+        if (IsDisabled) return;
         if (other.GetComponent<Dog>() == null) return;
         Toggle(true);
         OnDistractionDisabled?.Invoke();
+        SFXPlayer.Instance.PlayClip(WorldSounds.Instance.BDogTrash, 1f, true);
     }
 
     public void OnGridCollisionExit(Transform other)

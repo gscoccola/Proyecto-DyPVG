@@ -22,19 +22,17 @@ public class CanvasManager : Singleton<CanvasManager>
 
     [HideInInspector] public List<DogChip> Chips = new();
     private List<GameObject> _numberPopups = new();
+    private CanvasSounds _sounds;
 
 
     #region SETUP
 
     private void Start()
     {
+        _sounds = GetComponent<CanvasSounds>();
         int listIndex = 0;
         foreach (Dog dog in LevelManager.Instance.DogList)
         {
-            /*GameObject chipPlace = Instantiate(ChipPlacePrefab, ChipsHolder.transform);
-            ChipPlaces.Add(chipPlace);
-            chipPlace.transform.position += _chipPlaceOffset * Vector3.down + _chipPlaceOrigin;*/
-
             DogChip chip = Instantiate(DogChipPrefab, ChipPlaces[listIndex].transform.position, Quaternion.identity, transform)
                 .GetComponent<DogChip>();
             chip.GetComponent<Image>().sprite = dog.DogParameters.ChipSprites[0];
@@ -47,7 +45,6 @@ public class CanvasManager : Singleton<CanvasManager>
             Chips.Add(chip);
             chip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dog.DogParameters.DogName[0].ToString();
 
-            //_chipPlaceOffset += _chipPlaceSpacing;
             listIndex++;
         }
         if (ChipPlaces.Count > listIndex) ChipPlaces.RemoveRange(listIndex, ChipPlaces.Count - (listIndex));
@@ -58,41 +55,52 @@ public class CanvasManager : Singleton<CanvasManager>
     }
     #endregion
 
-    #region ON BUTTON PRESS
+    #region CANVAS BUTTONS
 
     public void OnActionButtonPress()
     {
+        if (TurnManager.Instance.CurrentState == GameState.Planning)  SFXPlayer.Instance.PlayClip(_sounds.Go);
         TurnManager.Instance.OnActionButtonPress();
         EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void RevertToPreviousTurn()
     {
+        SFXPlayer.Instance.PlayClip(_sounds.PreviousTurn);
         TurnManager.Instance.RevertToPreviousTurn();
         EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void RevertToNextTurn()
     {
+        SFXPlayer.Instance.PlayClip(_sounds.NextTurn);
         TurnManager.Instance.RevertToNextTurn();
         EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void ReloadLevel()
     {
+        SFXPlayer.Instance.PlayClip(_sounds.Restart);
         TurnManager.Instance.ReloadLevel();
     }
 
     public void OpenResetPanel()
     {
+        SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
         ResetPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void CloseResetPanel()
     {
+        SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
         ResetPanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void OnButtonHover()
+    {
+        SFXPlayer.Instance.PlayClip(_sounds.ButtonHover);
     }
     #endregion
 
@@ -137,6 +145,11 @@ public class CanvasManager : Singleton<CanvasManager>
                 }
             }
         }
+    }
+
+    public void PlayChipSound()
+    {
+        SFXPlayer.Instance.PlayRandomClip(_sounds.ChipHover);
     }
     #endregion
 

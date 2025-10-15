@@ -30,6 +30,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     private float _distractionDetectionDist;
     private bool _isPathInterrupted;
 
+    private AudioClip _actionSFX;
+
     #region SETUP
 
     private void Awake()
@@ -47,6 +49,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
         _gridMovement.NewTileReached.AddListener(OnTileReached);
         _gridMovement.LastTileReached.AddListener(() => OnPathFinished());
+        _gridMovement.TargetAcquired.AddListener(() => OnTargetAcquired());
+        _gridMovement.BeginMovement.AddListener(() => PlayActionSFX());
     }
 
     private void LoadSO()
@@ -55,6 +59,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _seesDistractions = DogParameters.SeesDistractions;
         _distractionDetectionDist = DogParameters.DistractionDetectionDist;
         Drawer.PathParameters = DogParameters;
+        _actionSFX = DogParameters.ActionSFX;
     }
 
     private void Start()
@@ -127,7 +132,10 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _gridMovement.StartMovement(Path);
         if (_isPathInterrupted) return;
         if (Path.Count > 1)
+        {
             _stateMachine.ChangeState(DogState.MovingToTarget);
+            
+        }
         else
         {
             _stateMachine.ChangeState(DogState.Idle);
@@ -136,12 +144,18 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     }
     #endregion
 
-    #region GRID COLLIDER
+    #region GRID COLLIDER INTERFACE
 
     public void OnGridCollisionEnter(Transform other)
     {
-        if (other.GetComponent<Distraction>() != null) return;
+
+        if (other.GetComponent<Distraction>() != null)
+        {
+            _gridMovement.Pause();
+            return;
+        }
         if (other.GetComponent<UnitTrigger>() != null) return;
+        if (other.GetComponent<Door>() != null) return;
         collidingList.Add(other);
     }
 
@@ -149,6 +163,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     {
         if (other.GetComponent<Distraction>() != null) return;
         if (other.GetComponent<UnitTrigger>() != null) return;
+        if (other.GetComponent<Door>() != null) return;
         collidingList.Remove(other);
     }
     #endregion
@@ -164,6 +179,10 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         }
         else
             _tilesSinceValidPos++;
+        if (LevelGrid.Instance.GetTileTypeAtPos(_gridPosition) == TileType.Jumpable)
+        {
+            _gridMovement.Slow();
+        }
         CheckForDistractions();
     }
 
@@ -179,6 +198,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
                 var path = LevelGrid.Instance.CalculatePath(TraversableTiles, _gridPosition,
                     LevelGrid.Instance.WorldToGridPos(distraction.transform.position));
                 if (path.Count == 0 || path.Count > _distractionDetectionDist + 1) continue;
+                SFXPlayer.Instance.PlayClip(WorldSounds.Instance.SDogTrash, 1f, true);
                 _stateMachine.ChangeState(DogState.MovingToDistraction, distraction);
                 path.RemoveAt(path.Count - 1);
                 if (path.Count == 0)
@@ -193,6 +213,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
             }
         }
     }
+
 
     private void OnPathFinished(bool checkValidTile = true)
     {
@@ -230,6 +251,20 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
             return FinishTileType.GoBack;
         else if (Path.Count > 0 && collidingList.Count != 0) return FinishTileType.GoBack;
         else return FinishTileType.Valid;
+    }
+
+    private void OnTargetAcquired()
+    {
+        if (LevelGrid.Instance.GetTileTypeAtPos(LevelGrid.Instance.WorldToGridPos(_gridMovement.CurrentTarget)) == TileType.Jumpable)
+        {
+            _gridMovement.Slow();
+            SFXPlayer.Instance.PlayClip(WorldSounds.Instance.SDogCrawl, 1f, true);
+        }
+    }
+
+    private void PlayActionSFX()
+    {
+        SFXPlayer.Instance.PlayClip(_actionSFX);
     }
     #endregion
 

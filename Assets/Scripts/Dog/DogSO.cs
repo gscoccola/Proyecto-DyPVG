@@ -26,7 +26,8 @@ public class DogSO : ScriptableObject, IPathParametersSO
     [SerializeField] private float _distractionDetectionDist;
 
     [Header("SFX")]
-    [SerializeField] private AudioClip audioCLip;
+    [SerializeField] private AudioClip _selectedSFX;
+    [SerializeField] private AudioClip _actionSFX;
 
     public string DogName => _dogName;
     public int MaxDistance => _maxDistance;
@@ -37,5 +38,8 @@ public class DogSO : ScriptableObject, IPathParametersSO
     public TileType[] TraversableTiles => _traversableTiles;
     public bool SeesDistractions => _seesDistractions;
     public float DistractionDetectionDist => _distractionDetectionDist;
+
+    public AudioClip SelectedSFX => _selectedSFX;
+    public AudioClip ActionSFX => _actionSFX;
 
 }

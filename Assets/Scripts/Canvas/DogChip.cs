@@ -53,11 +53,14 @@ public class DogChip : MonoBehaviour, IDragHandler, IBeginDragHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_isDragging) _image.sprite = Sprites[1];
+        if (_isDragging) return;
+        _image.sprite = Sprites[1];
+        CanvasManager.Instance.PlayChipSound();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!_isDragging) _image.sprite = Sprites[0];
+        if (_isDragging) return;
+        _image.sprite = Sprites[0];
     }
 }

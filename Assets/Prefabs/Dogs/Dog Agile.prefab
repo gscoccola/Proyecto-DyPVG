@@ -281,8 +281,8 @@ MonoBehaviour:
   CurrentState: 0
   _gridPosition: {x: 0, y: 0}
   StatusHistory: []
-  DebugDrawnPath: []
-  PathDrawerComponent: {fileID: 0}
+  collidingList: []
+  Drawer: {fileID: 0}
 --- !u!114 &3617321176358988092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,11 +295,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef10b0fb5158154fb29e74d68e33713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _path: []
   _straightMarkerPrefab: {fileID: 1606664671233095643, guid: bfd7cbea793a3084c8f35fd18973b852, type: 3}
   _curvedMarkerPrefab: {fileID: 1606664671233095643, guid: 301e8a64d6011b04ebfc9d09b426b0c9, type: 3}
   _arrowMarkerPrefab: {fileID: 1606664671233095643, guid: 8e1ddfe7ee0ff814b87177766b219941, type: 3}
   ResumePathHitbox: {fileID: 3425352838253061101}
-  _path: []
   IsDrawingEnabled: 0
   IsDrawingPath: 0
 --- !u!114 &2179707660587920169
@@ -315,14 +315,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 6
+  _pauseDelay: 0.7
+  _slowRatio: 0.13
   _status: 0
-  _currentTarget: {x: 0, y: 0, z: 0}
-  OnNewTileReached:
+  CurrentTarget: {x: 0, y: 0, z: 0}
+  LastDirection: {x: 0, y: 0}
+  CurrentPathIndex: 0
+  NewTileReached:
     m_PersistentCalls:
       m_Calls: []
-  OnLastTileReached:
+  LastTileReached:
     m_PersistentCalls:
       m_Calls: []
+  TargetAcquired:
+    m_PersistentCalls:
+      m_Calls: []
+  CurrentMoveSpeed: 0
 --- !u!212 &4567493828432435318
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -365,7 +373,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1975844811
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

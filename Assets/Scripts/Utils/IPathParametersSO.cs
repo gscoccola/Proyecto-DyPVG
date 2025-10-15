@@ -9,4 +9,5 @@ public interface IPathParametersSO
     public Color PathStartColor { get; }
     public Color PathEndColor { get; }
     public TileType[] TraversableTiles  { get; }
+    public AudioClip SelectedSFX  { get; }
 }

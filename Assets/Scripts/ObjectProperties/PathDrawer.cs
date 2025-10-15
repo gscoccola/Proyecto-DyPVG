@@ -98,6 +98,7 @@ public class PathDrawer : MonoBehaviour
 
     private void StartPath()
     {
+        SFXPlayer.Instance.PlayClip(PathParameters.SelectedSFX);
         ClearPath();
         _path.Add(LevelGrid.Instance.WorldToGridPos(transform.position));
         _lastPathDir = Vector2Int.zero;

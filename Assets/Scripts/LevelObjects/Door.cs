@@ -8,6 +8,7 @@ public class Door : MonoBehaviour, IGridCollider, IRevertable
     [SerializeField] private Blocking _blocking;
     [SerializeField] private Sprite _openSprite;
     [SerializeField] private Sprite _closedSprite;
+    [SerializeField] private GameObject _padlock;
 
     [Header("Debug")]
     [ReadOnly] public bool IsDisabled;
@@ -29,6 +30,7 @@ public class Door : MonoBehaviour, IGridCollider, IRevertable
 
     public void OnGridCollisionEnter(Transform other)
     {
+        if (IsDisabled) return;
         if (other.GetComponent<Dog>() == null) return;
         Toggle(true);
         OnDoorOpen?.Invoke();
@@ -44,7 +46,7 @@ public class Door : MonoBehaviour, IGridCollider, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
-        Toggle(OpenHistory[turnIndex]);
+        Toggle(OpenHistory[turnIndex], false);
     }
 
     public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
@@ -61,13 +63,17 @@ public class Door : MonoBehaviour, IGridCollider, IRevertable
     }
     #endregion
 
-    public void Toggle(bool disabled)
+    public void Toggle(bool disabled, bool playSound = true)
     {
         _blocking.IsEnabled = !disabled;
         _blocking.Renderer.sprite = !disabled ? _closedSprite: _openSprite;
         Vector2Int blockedPos = LevelGrid.Instance.WorldToGridPos(_blocking.transform.position);
         //_spriteRenderer.enabled = !disabled;
 
+        _padlock.SetActive(!disabled);
         IsDisabled = disabled;
+        if (!playSound) return;
+        if (disabled) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorOpen);
+        else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorClose);
     }
 }

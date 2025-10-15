@@ -96,6 +96,7 @@ public class TurnManager : Singleton<TurnManager>
     // Called when the action phase is interrupted maually
     private void InterruptActionPhase()
     {
+        SFXPlayer.Instance.InterruptSounds();
         CurrentState = GameState.Planning;
         foreach (IRevertable revertable in _revertables)
         {
@@ -126,6 +127,7 @@ public class TurnManager : Singleton<TurnManager>
 
     private void LoadTurn(int index)
     {
+        SFXPlayer.Instance.InterruptSounds();
         CanvasManager.Instance.SetActionButton(false);
         CurrentState = GameState.Planning;
         foreach (IRevertable revertable in _revertables)

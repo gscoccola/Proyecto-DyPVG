@@ -24,3 +24,5 @@ MonoBehaviour:
   _maxDistance: 9
   _seesDistractions: 0
   _distractionDetectionDist: 0
+  _selectedSFX: {fileID: 8300000, guid: 90399427e7551664d8eab064a8dedc10, type: 3}
+  _actionSFX: {fileID: 8300000, guid: 6c4d19feff9bdf24b88aebd2f459f468, type: 3}
