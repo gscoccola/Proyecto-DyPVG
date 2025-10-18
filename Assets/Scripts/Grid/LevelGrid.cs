@@ -87,6 +87,26 @@ public class LevelGrid : Singleton<LevelGrid>
             Mathf.RoundToInt(worldPosition.y - _bounds.y * _cellSizeInverse));
     }
 
+    public Vector2Int CorrectedWorldToGridPos(Vector3 worldPosition, Vector2Int lastPos, float magnetism)
+    {
+        Vector3 lastWorldPos = GridToWorldPos(lastPos);
+
+        float x;
+        if (Mathf.Abs(worldPosition.x - lastWorldPos.x) < magnetism + _cellSize * 0.5f)
+            x = lastWorldPos.x;
+        else
+            x = worldPosition.x;
+
+        float y;
+        if (Mathf.Abs(worldPosition.y - lastWorldPos.y) < magnetism + _cellSize * 0.5f)
+            y = lastWorldPos.y;
+        else
+            y = worldPosition.y;
+
+        return new Vector2Int(Mathf.RoundToInt(x * _cellSizeInverse - _bounds.x * _cellSizeInverse),
+            Mathf.RoundToInt(y - _bounds.y * _cellSizeInverse));
+    }
+
     public Vector3 GridToWorldPos(Vector2Int gridPosition)
     {
         return new Vector3(gridPosition.x * _cellSize + _bounds.x,

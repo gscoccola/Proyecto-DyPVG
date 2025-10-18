@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0a5e8c86f7f6cdb4688e6d51e0a7625e
+guid: 5e036f2ad9e8be84196499a72958c961
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2193162545991688100
-    second: victory_popup_0
+      213: -2544340690921955010
+    second: warning_no_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 200
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: victory_popup_0
+      name: warning_no_1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 228
-        width: 3476
-        height: 766
+        x: 13
+        y: 25
+        width: 256
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4af968837bdaf6e10800000000000000
-      internalID: 2193162545991688100
+      spriteID: e3166024f9fa0bcd0800000000000000
+      internalID: -2544340690921955010
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      victory_popup_0: 2193162545991688100
+      warning_no_1_0: -2544340690921955010
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

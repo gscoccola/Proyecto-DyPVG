@@ -16,6 +16,7 @@ public class CanvasManager : Singleton<CanvasManager>
     public GameObject ChipsHolder;
     public GameObject WinPanel;
     public GameObject ResetPanel;
+    public GameObject TutorialPanel;
 
     public GameObject DogChipPrefab;
     public GameObject ChipPlacePrefab;
@@ -33,7 +34,7 @@ public class CanvasManager : Singleton<CanvasManager>
         int listIndex = 0;
         foreach (Dog dog in LevelManager.Instance.DogList)
         {
-            DogChip chip = Instantiate(DogChipPrefab, ChipPlaces[listIndex].transform.position, Quaternion.identity, transform)
+            DogChip chip = Instantiate(DogChipPrefab, ChipPlaces[listIndex].transform.position, Quaternion.identity, transform.GetChild(0))
                 .GetComponent<DogChip>();
             chip.GetComponent<Image>().sprite = dog.DogParameters.ChipSprites[0];
             chip.Sprites = dog.DogParameters.ChipSprites;
@@ -52,6 +53,7 @@ public class CanvasManager : Singleton<CanvasManager>
         SetActionButton(false);
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
         UpdateDisplayedValues(true);
+        TutorialPanel.SetActive(true);
     }
     #endregion
 
@@ -101,6 +103,21 @@ public class CanvasManager : Singleton<CanvasManager>
     public void OnButtonHover()
     {
         SFXPlayer.Instance.PlayClip(_sounds.ButtonHover);
+    }
+
+    public void ToggleTutorial()
+    {
+        TutorialPanel.SetActive(!TutorialPanel.activeSelf);
+    }
+
+    public void NextLevel()
+    {
+        TurnManager.Instance.NextLevel();
+    }
+
+    public void PreviousLevel()
+    {
+        TurnManager.Instance.PreviousLevel();
     }
     #endregion
 

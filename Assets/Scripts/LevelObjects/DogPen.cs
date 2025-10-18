@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class DogPen : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private UnitTrigger[] _triggers;
 
-    private int _dogLeftOutside;
-    private Dictionary<Dog, bool> _dogsInPen = new();
+    [Header("Debug")]
+
+    [SerializeField, ReadOnly] private int _dogLeftOutside;
 
     private void Awake()
     {
@@ -51,9 +53,10 @@ public class DogPen : MonoBehaviour
 
     private IEnumerator TriggerWinCondition()
     {
-        yield return new WaitForEndOfFrame();
-        if (_dogLeftOutside > 0) yield break;
+        TurnManager.Instance.CurrentTurnIndex--;
+        yield return new WaitForSecondsRealtime(1f);
         CanvasManager.Instance.ShowWinPanel();
         // Implement additional win condition logic here, such as notifying a GameManager.
     }
+
 }

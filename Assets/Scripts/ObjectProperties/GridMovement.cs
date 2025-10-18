@@ -57,9 +57,13 @@ public class GridMovement : MonoBehaviour
                 return;
             }
             CurrentPathIndex++;
-            LastDirection = _currentPath[CurrentPathIndex] - _currentPath[CurrentPathIndex - 1];
-            CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
-            TargetAcquired?.Invoke();
+            if ((_currentPath.Count > 1))
+            {
+                LastDirection = _currentPath[CurrentPathIndex] - _currentPath[CurrentPathIndex - 1];
+                CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
+                TargetAcquired?.Invoke();
+            }
+
         }
 
         transform.position = Vector3.MoveTowards(transform.position,
@@ -77,6 +81,7 @@ public class GridMovement : MonoBehaviour
         //StartCoroutine(IFootsteps());
         NewTileReached?.Invoke();
         _playedActionSound = false;
+        if (_currentPath.Count < 2) return;
         Pause();
     }
 

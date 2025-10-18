@@ -59,6 +59,7 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     public void ToggleTriggered(bool triggered)
     {
+        if (IsTriggered == triggered) return; 
         IsTriggered = triggered;
         if (triggered) Triggered?.Invoke();
         else Untriggered?.Invoke();

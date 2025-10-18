@@ -192,7 +192,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         foreach (var distraction in LevelManager.Instance.DistractionList)
         {
             if (distraction.IsDisabled) continue;
-            if (Vector3.Distance(transform.position, distraction.transform.position) < _distractionDetectionDist)
+            if (Vector3.Distance(transform.position, distraction.transform.position) < _distractionDetectionDist + 3f)
             {
                 _isPathInterrupted = true;
                 var path = LevelGrid.Instance.CalculatePath(TraversableTiles, _gridPosition,

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 // This class handles the flow of game turns
 // It switches between planning and action phases,
@@ -67,6 +68,15 @@ public class TurnManager : Singleton<TurnManager>
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void PreviousLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
     #endregion
 
     #region TURN FLOW
@@ -117,9 +127,9 @@ public class TurnManager : Singleton<TurnManager>
             revertable.SaveHistoryPoint(CurrentTurnIndex, false);
         }
         //ActiveFollowerHistory.Add(null);
-        CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
         CanvasManager.Instance.SetActionButton(false);
         TurnEnd?.Invoke();
+        CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
     }
     #endregion
 

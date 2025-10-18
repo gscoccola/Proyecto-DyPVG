@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4974715978462203063}
+  - component: {fileID: 917417876986277080}
   - component: {fileID: 4985506078080315742}
   m_Layer: 0
   m_Name: Padlock
@@ -26,12 +27,26 @@ Transform:
   m_GameObject: {fileID: 508658499873929683}
   serializedVersion: 2
   m_LocalRotation: {x: -0.309093, y: 0.12803036, z: -0.36063102, w: 0.8706406}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.09, y: 0.157, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5756121031203918775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917417876986277080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508658499873929683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8759ae6a76bb7e43af5f5c97416de2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frequency: 0.3
+  _amplitude: 0.2
 --- !u!212 &4985506078080315742
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -77,7 +92,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 3040712340494780058, guid: 8940361fc3679e940ae624421dbd9c83, type: 3}
-  m_Color: {r: 0.9811321, g: 0, b: 0, a: 0.84313726}
+  m_Color: {r: 0.9960785, g: 0.85098046, b: 0, a: 0.78039217}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -8,6 +8,7 @@ public class PathDrawer : MonoBehaviour
     [Header("Parameters")]
     public IPathFollower PathFollower;
     public IPathParametersSO PathParameters;
+    private float _magnetism = 0.25f;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private List<Vector2Int> _path = new();
@@ -24,12 +25,12 @@ public class PathDrawer : MonoBehaviour
     private Color _endColor => PathParameters.PathEndColor;
 
     private Vector2Int _excludedPos = new Vector2Int(800, 800);
-    private List<GameObject> _markers = new();
+    public List<GameObject> _markers = new();
 
     [HideInInspector] public bool IsDrawingEnabled;
     [HideInInspector] public bool IsDrawingPath;
 
-    private Vector2Int _currentMousePos;
+    private Vector2Int _correctedMousePos;
     private Vector2Int _lastMousePos;
 
     private Vector2Int _pathDir;
@@ -49,8 +50,9 @@ public class PathDrawer : MonoBehaviour
     private void Update()
     {
         if (!IsDrawingPath) return;
-        _currentMousePos = LevelGrid.Instance.WorldToGridPos(GetWorldPositionOnPlane(Input.mousePosition));
-        if (_currentMousePos != _lastMousePos) GenerateSubPathToMouse();
+        Vector3 mousePos = GetWorldPositionOnPlane(Input.mousePosition);
+        _correctedMousePos = LevelGrid.Instance.CorrectedWorldToGridPos(mousePos, _lastMousePos, _magnetism);
+        if (_correctedMousePos != _lastMousePos) GenerateSubPathToMouse();
     }
 
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition)
@@ -77,23 +79,51 @@ public class PathDrawer : MonoBehaviour
 
     private void GenerateSubPathToMouse()
     {
-        if (_path.Count >= _maxDistance) return;
+        
+        if (_correctedMousePos == _excludedPos)
+        {
+            ReducePath();
+        }
+        else if (_path.Count < _maxDistance) ExtendPath();
+            
+    }
+
+    private void ExtendPath()
+    {
         bool excludePoint = _path.Count > 1;
         var path = LevelGrid.Instance.CalculatePath(PathFollower.TraversableTiles,
-            _lastMousePos, _currentMousePos, excludePoint, _excludedPos);
+                _lastMousePos, _correctedMousePos, excludePoint, _excludedPos);
         if (path.Count == 0 || path.Count > 2/* || path[0] == new Vector2(1, 0)*/) return;
         foreach (Vector2Int tile in path)
         {
             _path.Add(tile);
             _pathDir = _path.Count > 1 ? (tile - _path[_path.Count - 2]) : tile - _lastMousePos;
-            _markerColorOffset += 1f/ _maxDistance;
-            AddMarker(tile, _pathDir, _lastPathDir, 
+            _markerColorOffset += 1f / _maxDistance;
+            AddMarker(tile, _pathDir, _lastPathDir,
                 _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
             _lastPathDir = _pathDir;
         }
         _excludedPos = path.Count > 1 ? path[path.Count - 2] : _lastMousePos;
-        _lastMousePos = _currentMousePos;
+        _lastMousePos = _correctedMousePos;
         ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_lastMousePos);
+    }
+
+    private void ReducePath()
+    {
+        if (_path.Count < 2) return; 
+        _path.RemoveAt(_path.Count - 1);
+        _pathDir = _path.Count > 1 ? (_path[_path.Count - 1] - _path[_path.Count - 2]) : Vector2Int.zero;
+        _markerColorOffset -= 1f / _maxDistance;
+        RemoveMaker(_excludedPos, _pathDir,
+            _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
+
+        //_lastPathDir = _path.Count > 2 ? (_path[_path.Count - 2] - _path[_path.Count - 3]) : Vector2Int.zero; ;
+        //_lastPathDir = _path.Count > 1 ? (_path[_path.Count - 1] - _path[_path.Count - 2]) : Vector2Int.zero; ;
+        _lastPathDir = _pathDir;
+        _excludedPos = _path.Count > 1 ? _path[_path.Count - 2] : LevelGrid.Instance.WorldToGridPos(transform.position);
+        _lastMousePos = _correctedMousePos;
+        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_excludedPos);
+        return;
     }
 
     private void StartPath()
@@ -103,7 +133,7 @@ public class PathDrawer : MonoBehaviour
         _path.Add(LevelGrid.Instance.WorldToGridPos(transform.position));
         _lastPathDir = Vector2Int.zero;
         _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
-        _currentMousePos = _lastMousePos;
+        _correctedMousePos = _lastMousePos;
         ResumePath();
     }
 
@@ -144,6 +174,7 @@ public class PathDrawer : MonoBehaviour
     {
         if (_lastMarker != null)
         {
+            // add straight or curved marker where arrow was
             if (lastPathDir == Vector2Int.zero || lastPathDir == pathDir)
             {
                 GameObject marker =
@@ -165,11 +196,34 @@ public class PathDrawer : MonoBehaviour
                 _markers.Add(marker);
             }
 
-            _markers.Remove(_lastMarker);
+            // remove previous arrow
+            _markers.RemoveAt(_markers.Count - 2);
             Destroy(_lastMarker);
         }
 
-        
+        // add arrow on the end
+        _lastMarker = Instantiate(_arrowMarkerPrefab, LevelGrid.Instance.GridToWorldPos(position) + _offset,
+             Quaternion.LookRotation(Vector3.forward, new Vector3(-pathDir.y, pathDir.x, 0f)), _container);
+        _lastMarker.GetComponent<SpriteRenderer>().color = color;
+        _lastMarker.GetComponent<SpriteRenderer>().sortingOrder = _path.Count;
+        _markers.Add(_lastMarker);
+    }
+
+    private void RemoveMaker(Vector2Int position, Vector2Int pathDir, Color color)
+    {
+        // remove previous arrow
+        _markers.RemoveAt(_markers.Count -1);
+        Destroy(_lastMarker);
+
+        // return if done
+        if (_markers.Count == 0) return;
+
+        // else remove straight or curved marker
+        Destroy(_markers[_markers.Count - 1]);
+        _markers.RemoveAt(_markers.Count - 1);
+        //_lastMarker = _markers[_markers.Count - 1];
+
+        // and replace with arrow on the end
         _lastMarker = Instantiate(_arrowMarkerPrefab, LevelGrid.Instance.GridToWorldPos(position) + _offset,
              Quaternion.LookRotation(Vector3.forward, new Vector3(-pathDir.y, pathDir.x, 0f)), _container);
         _lastMarker.GetComponent<SpriteRenderer>().color = color;
