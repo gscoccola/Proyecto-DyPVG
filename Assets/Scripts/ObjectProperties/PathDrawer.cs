@@ -8,7 +8,7 @@ public class PathDrawer : MonoBehaviour
     [Header("Parameters")]
     public IPathFollower PathFollower;
     public IPathParametersSO PathParameters;
-    private float _magnetism = 0.25f;
+    private float _magnetism = 0.2f;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] private List<Vector2Int> _path = new();
@@ -122,7 +122,7 @@ public class PathDrawer : MonoBehaviour
         _lastPathDir = _pathDir;
         _excludedPos = _path.Count > 1 ? _path[_path.Count - 2] : LevelGrid.Instance.WorldToGridPos(transform.position);
         _lastMousePos = _correctedMousePos;
-        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_excludedPos);
+        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_correctedMousePos);
         return;
     }
 

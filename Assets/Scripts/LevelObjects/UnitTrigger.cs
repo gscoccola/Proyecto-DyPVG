@@ -10,8 +10,8 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     [Header("Debug")]
     [ReadOnly] public bool IsTriggered;
-    [HideInInspector] public UnityEvent Triggered;
-    [HideInInspector] public UnityEvent Untriggered;
+    [HideInInspector] public UnityEvent<bool> Triggered;
+    [HideInInspector] public UnityEvent<bool> Untriggered;
     [HideInInspector] public List<bool> TriggeredHistory = new();
 
     private void Start()
@@ -40,7 +40,7 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
-        ToggleTriggered(TriggeredHistory[turnIndex]);
+        ToggleTriggered(TriggeredHistory[turnIndex], false);
     }
 
     public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
@@ -57,11 +57,11 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
     }
     #endregion
 
-    public void ToggleTriggered(bool triggered)
+    public void ToggleTriggered(bool triggered, bool triggerSFX = true)
     {
         if (IsTriggered == triggered) return; 
         IsTriggered = triggered;
-        if (triggered) Triggered?.Invoke();
-        else Untriggered?.Invoke();
+        if (triggered) Triggered?.Invoke(triggerSFX);
+        else Untriggered?.Invoke(triggerSFX);
     }
 }

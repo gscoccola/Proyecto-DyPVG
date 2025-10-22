@@ -16,8 +16,8 @@ public class DogPen : MonoBehaviour
     {
         foreach (UnitTrigger trigger in _triggers)
         {
-            trigger.Triggered.AddListener(OnDogEntered);
-            trigger.Untriggered.AddListener(OnDogExit);
+            trigger.Triggered.AddListener(value => OnDogEntered());
+            trigger.Untriggered.AddListener(value => OnDogExit());
         }
         
     }

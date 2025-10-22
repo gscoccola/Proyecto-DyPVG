@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -14,5 +15,6 @@ public class LevelManager : Singleton<LevelManager>
             if (gameObject.GetComponent<Distraction>() != null) DistractionList.Add(gameObject.GetComponent<Distraction>());
             if (gameObject.GetComponent<Dog>() != null) DogList.Add(gameObject.GetComponent<Dog>());
         }
+        DogList.OrderBy(dog => dog.DogParameters.DogName);
     }
 }

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : Singleton<CanvasManager>
 {
@@ -12,7 +13,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     [Header("References")]
     public TextMeshProUGUI TurnText;
-    public Button ActionButton;
+    public UnityEngine.UI.Button ActionButton;
     public GameObject ChipsHolder;
     public GameObject WinPanel;
     public GameObject ResetPanel;
@@ -179,7 +180,8 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void UpdateDisplayedValues(bool isPlanningPhase)
     {
-        TurnText.text = $"{TurnManager.Instance.CurrentTurnIndex + 1}";
+        TurnText.text = $"TL : " +
+            $"{PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - TurnManager.Instance.CurrentTurnIndex}";
     }
 
     public void ShowWinPanel()
