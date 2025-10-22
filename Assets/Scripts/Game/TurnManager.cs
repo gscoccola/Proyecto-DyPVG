@@ -129,7 +129,14 @@ public class TurnManager : Singleton<TurnManager>
         //ActiveFollowerHistory.Add(null);
         CanvasManager.Instance.SetActionButton(false);
         TurnEnd?.Invoke();
+        CheckForLose();
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
+    }
+
+    private void CheckForLose()
+    {
+        if (PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - CurrentTurnIndex == 0)
+            CanvasManager.Instance.SetLosePanel(true);
     }
     #endregion
 

@@ -18,6 +18,8 @@ public class CanvasManager : Singleton<CanvasManager>
     public GameObject WinPanel;
     public GameObject ResetPanel;
     public GameObject TutorialPanel;
+    public GameObject PausePanel;
+    public GameObject LosePanel;
 
     public GameObject DogChipPrefab;
     public GameObject ChipPlacePrefab;
@@ -72,6 +74,7 @@ public class CanvasManager : Singleton<CanvasManager>
         SFXPlayer.Instance.PlayClip(_sounds.PreviousTurn);
         TurnManager.Instance.RevertToPreviousTurn();
         EventSystem.current.SetSelectedGameObject(null);
+        SetLosePanel(false);
     }
 
     public void RevertToNextTurn()
@@ -90,6 +93,12 @@ public class CanvasManager : Singleton<CanvasManager>
     public void OpenResetPanel()
     {
         SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
+        if (LosePanel.activeSelf)
+        {
+            SetLosePanel(false);
+            TurnManager.Instance.ReloadLevel();
+            return;
+        }
         ResetPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
     }
@@ -119,6 +128,29 @@ public class CanvasManager : Singleton<CanvasManager>
     public void PreviousLevel()
     {
         TurnManager.Instance.PreviousLevel();
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+
+    public void TogglePausePanel()
+    {
+        bool isActive = !PausePanel.activeSelf;
+        PausePanel.SetActive(isActive);
+        if (isActive)
+        {
+            Time.timeScale = 0f;
+            SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
+        }
+        EventSystem.current.SetSelectedGameObject(null);
     }
     #endregion
 
@@ -180,7 +212,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void UpdateDisplayedValues(bool isPlanningPhase)
     {
-        TurnText.text = $"TL : " +
+        TurnText.text = $"Turnos restantes : " +
             $"{PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - TurnManager.Instance.CurrentTurnIndex}";
     }
 
@@ -189,7 +221,12 @@ public class CanvasManager : Singleton<CanvasManager>
         WinPanel.SetActive(true);
     }
 
-    
+    public void SetLosePanel(bool isActive)
+    {
+        LosePanel.SetActive(isActive);
+    }
+
+
 
     public TurnOrder GetCurrentTurnOrder()
     {

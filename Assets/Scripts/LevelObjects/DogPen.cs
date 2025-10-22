@@ -53,6 +53,8 @@ public class DogPen : MonoBehaviour
 
     private IEnumerator TriggerWinCondition()
     {
+        PersistentInfo.Instance.LevelScores[UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex - 1] = TurnManager.Instance.CurrentTurnIndex;
+        PersistentInfo.Instance.Save();
         TurnManager.Instance.CurrentTurnIndex--;
         yield return new WaitForSecondsRealtime(1f);
         CanvasManager.Instance.ShowWinPanel();

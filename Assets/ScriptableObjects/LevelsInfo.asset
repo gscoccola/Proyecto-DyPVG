@@ -17,11 +17,11 @@ MonoBehaviour:
     MaxTurns: 3
     ParTurns: 2
   - Index: 2
-    MaxTurns: 0
+    MaxTurns: 4
     ParTurns: 0
   - Index: 3
-    MaxTurns: 0
+    MaxTurns: 4
     ParTurns: 0
   - Index: 4
-    MaxTurns: 0
+    MaxTurns: 4
     ParTurns: 0
