@@ -66,7 +66,11 @@ public class PathDrawer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!IsDrawingEnabled || TurnManager.Instance.CurrentState == GameState.Action)  { Debug.Log("DISABLED"); return; }
+        if ( (TurnManager.Instance.TurnsLeft == 0))
+        {
+            Debug.Log("NO TURNS");
+        }
+        if (!IsDrawingEnabled || TurnManager.Instance.CurrentState == GameState.Action|| TurnManager.Instance.TurnsLeft == 0)  { Debug.Log("DISABLED"); return; }
         //TurnManager.Instance.SetActiveFollower(PathFollower);
         StartPath();
     }

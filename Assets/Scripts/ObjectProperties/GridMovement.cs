@@ -24,6 +24,8 @@ public class GridMovement : MonoBehaviour
     [HideInInspector] public UnityEvent LastTileReached;
     [HideInInspector] public UnityEvent TargetAcquired;
     [HideInInspector] public UnityEvent BeginMovement;
+    [HideInInspector] public UnityEvent Interrupted;
+
     private float _pauseTimer;
 
     public float CurrentMoveSpeed;
@@ -92,8 +94,9 @@ public class GridMovement : MonoBehaviour
         //CurrentPathIndex = 0;
     }
 
-    public void EndPath()
+    public void EndPath(bool wasInterrupted = false)
     {
+        if (wasInterrupted) Interrupted?.Invoke();
         Stop();
         LastTileReached?.Invoke();
     }

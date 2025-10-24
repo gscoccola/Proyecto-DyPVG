@@ -14,6 +14,8 @@ public class TurnManager : Singleton<TurnManager>
     [ReadOnly] public int CurrentTurnIndex = 0;
     [ReadOnly] public int MaxReachedTurnIndex = 0;
     [ReadOnly] public GameState CurrentState;
+    [ReadOnly] public int TurnsLeft;
+    
 
     private List<TurnOrder> _orderHistory = new();
     private int _activeActionableIndex;
@@ -39,6 +41,7 @@ public class TurnManager : Singleton<TurnManager>
     private void Start()
     {
         CurrentState = GameState.Planning;
+        TurnsLeft = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns;
         //ActiveFollowerHistory.Add(null);
     }
     #endregion
@@ -129,13 +132,14 @@ public class TurnManager : Singleton<TurnManager>
         //ActiveFollowerHistory.Add(null);
         CanvasManager.Instance.SetActionButton(false);
         TurnEnd?.Invoke();
+        TurnsLeft = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - CurrentTurnIndex;
         CheckForLose();
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
     }
 
     private void CheckForLose()
     {
-        if (PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - CurrentTurnIndex == 0)
+        if (TurnsLeft == 0)
             CanvasManager.Instance.SetLosePanel(true);
     }
     #endregion
@@ -155,6 +159,7 @@ public class TurnManager : Singleton<TurnManager>
         CurrentTurnIndex = index;
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
         CanvasManager.Instance.SetChipOrder(_orderHistory[CurrentTurnIndex]);
+        TurnsLeft = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - CurrentTurnIndex; 
     }
 
     public void DeleteNextTurnData()

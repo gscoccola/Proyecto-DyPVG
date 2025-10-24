@@ -8,9 +8,9 @@ using UnityEngine.Tilemaps;
 public class LevelGrid : Singleton<LevelGrid>
 {
     [Header("References")]
+    [SerializeField] private Tilemap _walkableTilemap;
     [SerializeField] private Tilemap _wallTilemap;
     [SerializeField] private Tilemap _jumpableTilemap;
-    [SerializeField] private Tilemap _waterTilemap;
 
 
     private TileType[,] _tileTypeGrid;
@@ -31,6 +31,7 @@ public class LevelGrid : Singleton<LevelGrid>
         _bounds = _wallTilemap.cellBounds;
         TileBase[] wallTiles = _wallTilemap.GetTilesBlock(_bounds);
         TileBase[] jumpableTiles = _jumpableTilemap == null ? null : _jumpableTilemap.GetTilesBlock(_bounds);
+        TileBase[] walkableTiles = _walkableTilemap == null ? null : _walkableTilemap.GetTilesBlock(_bounds);
         _tileTypeGrid = new TileType[_bounds.size.x, _bounds.size.y];
 
         for (int x = 0; x < _bounds.size.x; x++)
@@ -39,6 +40,7 @@ public class LevelGrid : Singleton<LevelGrid>
             {
                 TileBase wallTile = wallTiles[x + y * _bounds.size.x];
                 TileBase jumpableTile = _jumpableTilemap == null ? null : jumpableTiles[x + y * _bounds.size.x];
+                TileBase walkableTile = _walkableTilemap == null ? null : walkableTiles[x + y * _bounds.size.x];
                 if (wallTile != null)
                 {
                     _tileTypeGrid[x, y] = TileType.Wall;
@@ -47,9 +49,13 @@ public class LevelGrid : Singleton<LevelGrid>
                 {
                     _tileTypeGrid[x, y] = TileType.Jumpable;
                 }
-                else
+                else if (walkableTile != null)
                 {
                     _tileTypeGrid[x, y] = TileType.Walkable;
+                }
+                else
+                {
+                    _tileTypeGrid[x, y] = TileType.Wall;
                 }
             }
         }

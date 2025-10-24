@@ -18,16 +18,25 @@ public class CanvasManager : Singleton<CanvasManager>
     public GameObject WinPanel;
     public GameObject ResetPanel;
     public GameObject TutorialPanel;
+    public GameObject TutorialInnerPanel;
+    public GameObject TutorialOKButton;
+
     public GameObject PausePanel;
-    public GameObject LosePanel;
+    public Image GOLosePopup;
+    public Sprite[] GOLosePopupSprites;
 
     public GameObject DogChipPrefab;
     public GameObject ChipPlacePrefab;
 
+    public TextMeshProUGUI turnParText;
+    public Image turnParPanel;
+    public Sprite[] turnParSprites;
+
     [HideInInspector] public List<DogChip> Chips = new();
     private List<GameObject> _numberPopups = new();
     private CanvasSounds _sounds;
-
+    private int currentOpenTutorial;
+    [HideInInspector] public int DrawnPaths;
 
     #region SETUP
 
@@ -56,7 +65,32 @@ public class CanvasManager : Singleton<CanvasManager>
         SetActionButton(false);
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
         UpdateDisplayedValues(true);
-        TutorialPanel.SetActive(true);
+        ToggleTutorial();
+    }
+
+    private void LoadTutorials(int levelIndex)
+    {
+        TutorialPanel.GetComponent<Image>().sprite =
+            PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[levelIndex].TutorialImage;
+        TutorialInnerPanel.GetComponent<Image>().sprite =
+            PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[levelIndex].TutorialImageInner1;
+        currentOpenTutorial = levelIndex;
+    }
+
+    public void CycleTutorial()
+    {
+        TutorialOKButton.SetActive(true);
+         if (TutorialInnerPanel.GetComponent<Image>().sprite ==
+            PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].TutorialImageInner1)
+        {
+            TutorialInnerPanel.GetComponent<Image>().sprite =
+                PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].TutorialImageInner2;
+        }
+        else
+        {
+            TutorialInnerPanel.GetComponent<Image>().sprite =
+                PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].TutorialImageInner1;
+        }
     }
     #endregion
 
@@ -71,6 +105,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void RevertToPreviousTurn()
     {
+        SetActionButton(false);
         SFXPlayer.Instance.PlayClip(_sounds.PreviousTurn);
         TurnManager.Instance.RevertToPreviousTurn();
         EventSystem.current.SetSelectedGameObject(null);
@@ -93,12 +128,12 @@ public class CanvasManager : Singleton<CanvasManager>
     public void OpenResetPanel()
     {
         SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
-        if (LosePanel.activeSelf)
+        /*if (GOLosePopup.enabled)
         {
             SetLosePanel(false);
             TurnManager.Instance.ReloadLevel();
             return;
-        }
+        }*/
         ResetPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
     }
@@ -117,7 +152,24 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void ToggleTutorial()
     {
+        if (TutorialPanel == null) return;
+        PausePanel.SetActive(false);
+        if (PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].SkipTutorial) return;
         TutorialPanel.SetActive(!TutorialPanel.activeSelf);
+        currentOpenTutorial = SceneManager.GetActiveScene().buildIndex - 1;
+        LoadTutorials(currentOpenTutorial);
+    }
+
+    public void NextTutorial()
+    {
+        if (currentOpenTutorial == PersistentInfo.Instance.LevelsInfoSO.LevelsInfo.Count - 1) return;
+        LoadTutorials(currentOpenTutorial + 1);
+    }
+
+    public void PreviousTutorial()
+    {
+        if (currentOpenTutorial == 0) return;
+        LoadTutorials(currentOpenTutorial - 1);
     }
 
     public void NextLevel()
@@ -207,23 +259,45 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void SetActionButton(bool interactable)
     {
-        ActionButton.interactable = interactable;
+        if (interactable) Debug.LogError("Setting action button interactable to true from CanvasManager");
+        DrawnPaths = 0;
+        ActionButton.interactable = false;
+    }
+    public void ChangeActivePaths(int amount)
+    {
+        DrawnPaths += amount;
+        ActionButton.interactable = DrawnPaths > 0;
     }
 
     public void UpdateDisplayedValues(bool isPlanningPhase)
     {
-        TurnText.text = $"Turnos restantes : " +
-            $"{PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - TurnManager.Instance.CurrentTurnIndex}";
+        int turnsLeft = 
+        PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - TurnManager.Instance.CurrentTurnIndex;
+        TurnText.text = turnsLeft.ToString();
+        if (turnsLeft == 0) TurnText.color = Color.red;
+        else TurnText.color = Color.white;
     }
 
     public void ShowWinPanel()
     {
+        TurnManager.Instance.CurrentTurnIndex++;
+        UpdateDisplayedValues(false);
         WinPanel.SetActive(true);
+        bool challengeAchieved = 
+            PersistentInfo.
+            Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].ParTurns >=
+            TurnManager.Instance.CurrentTurnIndex;
+
+        turnParPanel.sprite = challengeAchieved ? turnParSprites[0] : turnParSprites[1];
+        turnParText.color = challengeAchieved ? Color.black : Color.white;
+        turnParText.text = "Ganá en " + PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].ParTurns + " turnos";
     }
 
     public void SetLosePanel(bool isActive)
     {
-        LosePanel.SetActive(isActive);
+        GOLosePopup.sprite = isActive ? GOLosePopupSprites[1] : GOLosePopupSprites[0];
+        //GOLosePopup.enabled = isActive ;
+        //LosePanel.SetActive(isActive);
     }
 
 

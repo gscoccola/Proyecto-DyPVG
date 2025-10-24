@@ -52,6 +52,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,10 +75,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 879068817
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6111748289566075907, guid: cc0dfdb061eb39f448a7f10084dfda06, type: 3}
+  m_Sprite: {fileID: -6625104684395610209, guid: 6678e1c820d0a574f916c72535c4b6a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -386,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 4
-  _pauseDelay: 1.4
+  _pauseDelay: 0.7
   _slowRatio: 0.1
   _status: 0
   CurrentTarget: {x: 0, y: 0, z: 0}
@@ -402,6 +405,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   BeginMovement:
+    m_PersistentCalls:
+      m_Calls: []
+  Interrupted:
     m_PersistentCalls:
       m_Calls: []
   CurrentMoveSpeed: 0
@@ -422,6 +428,7 @@ MonoBehaviour:
   _curvedMarkerPrefab: {fileID: 1606664671233095643, guid: 301e8a64d6011b04ebfc9d09b426b0c9, type: 3}
   _arrowMarkerPrefab: {fileID: 1606664671233095643, guid: 8e1ddfe7ee0ff814b87177766b219941, type: 3}
   ResumePathHitbox: {fileID: 4721910419931108266}
+  _markers: []
   IsDrawingEnabled: 0
   IsDrawingPath: 0
 --- !u!212 &7864012803763215964
@@ -444,6 +451,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -465,6 +474,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1975844811
   m_SortingLayer: 3
   m_SortingOrder: 0

@@ -13,4 +13,8 @@ public class LevelTurnInfo
     public int Index;
     public int MaxTurns;
     public int ParTurns;
+    public Sprite TutorialImage;
+    public Sprite TutorialImageInner1;
+    public Sprite TutorialImageInner2;
+    public bool SkipTutorial;
 }

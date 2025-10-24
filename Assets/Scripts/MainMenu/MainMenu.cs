@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private UnityEngine.UI.Button[] _levelButtons;
+    [SerializeField] private GameObject _mainMenu;
+    [SerializeField] private GameObject _levelsMenu;
 
     private void Start()
     {
@@ -23,5 +25,10 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void ActivateLevelMenu()
+    {
+        _mainMenu.SetActive(false);
+        _levelsMenu.SetActive(true);
+    }
 
 }

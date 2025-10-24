@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 // This class manages grid-based collisions between objects implementing the IGridCollider interface.
 
@@ -62,11 +63,14 @@ public class CollisionManager : Singleton<CollisionManager>
         
         foreach (Blocking col2 in Blockings)
         {
+            if (col2.IsWater && gridMover.GetComponent<Dog>() != null &&
+                gridMover.GetComponent<Dog>().DogParameters.Type == DogType.Water)
+                continue;
             if (col2.IsEnabled && 
                 LevelGrid.Instance.WorldToGridPos(gridMover.CurrentTarget)
                 == LevelGrid.Instance.WorldToGridPos(col2.transform.position)
                 )
-                gridMover.EndPath();
+                gridMover.EndPath(true);
         }
     }
 

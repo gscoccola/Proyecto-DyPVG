@@ -8,6 +8,7 @@ public class DogSO : ScriptableObject, IPathParametersSO
 {
     [Header("Parameters")]
     [SerializeField] private string _dogName;
+    [SerializeField] private DogType _type;
 
     [Header("Path Visibility")]
     [SerializeField] private Vector3 _pathOffset;
@@ -30,6 +31,8 @@ public class DogSO : ScriptableObject, IPathParametersSO
     [SerializeField] private AudioClip _actionSFX;
 
     public string DogName => _dogName;
+    public DogType Type => _type;
+
     public int MaxDistance => _maxDistance;
     public Vector3 PathOffset => _pathOffset;
     public Color PathStartColor => _pathStartColor;
@@ -42,4 +45,11 @@ public class DogSO : ScriptableObject, IPathParametersSO
     public AudioClip SelectedSFX => _selectedSFX;
     public AudioClip ActionSFX => _actionSFX;
 
+}
+
+public enum DogType
+{
+    Agile,
+    Bully,
+    Water,
 }

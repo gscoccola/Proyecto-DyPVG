@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: DogBully
   m_EditorClassIdentifier: 
   _dogName: Bully
+  _type: 1
   _pathOffset: {x: 0.1, y: 0.1, z: 0}
-  _pathEndColor: {r: 0, g: 0.011921883, b: 1, a: 1}
-  _pathStartColor: {r: 1, g: 0, b: 0.69943285, a: 1}
+  _pathEndColor: {r: 0.12834764, g: 1, b: 0, a: 1}
+  _pathStartColor: {r: 0, g: 1, b: 0.80083776, a: 1}
   _chipSprites:
-  - {fileID: 21300000, guid: 56d6c3f8c01f76042aaf07e04ee30835, type: 3}
-  - {fileID: 21300000, guid: 128cfeced86348b4483676043b10575a, type: 3}
-  - {fileID: 21300000, guid: a735a4394d005fc44885bb553017ac35, type: 3}
+  - {fileID: 21300000, guid: e8850df9a1701d0418d1cf41ecd52ac7, type: 3}
+  - {fileID: 21300000, guid: f3a40fec2f4fe974488cb021848b9ddb, type: 3}
+  - {fileID: 21300000, guid: 822b1166c4bf90148b1666a501ee4414, type: 3}
   _traversableTiles: 00000000
   _maxDistance: 9
   _seesDistractions: 0

@@ -7,12 +7,15 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
     [Header("Parameters")]
     //[SerializeField] private DogType _requiredType;
     [SerializeField] private bool _mustBeHeld;
+    [SerializeField] private RequiredType _requiredType;
 
     [Header("Debug")]
     [ReadOnly] public bool IsTriggered;
     [HideInInspector] public UnityEvent<bool> Triggered;
     [HideInInspector] public UnityEvent<bool> Untriggered;
     [HideInInspector] public List<bool> TriggeredHistory = new();
+
+    [SerializeField] private int _occupyingDogs = 0; 
 
     private void Start()
     {
@@ -23,16 +26,23 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     public void OnGridCollisionEnter(Transform other)
     {
-        if (other.GetComponent<Dog>() == null) return;
+        Dog dog = other.GetComponent<Dog>();
+        if (dog == null) return;
+        if (_requiredType == RequiredType.Bully && dog.DogParameters.Type != DogType.Bully) return;
+        if (_requiredType == RequiredType.Water && dog.DogParameters.Type != DogType.Water) return;
+        _occupyingDogs++;
         ToggleTriggered(true);
-        //Triggered?.Invoke();
     }
 
     public void OnGridCollisionExit(Transform other)
     {
-        if (other.GetComponent<Dog>() == null) return;
+        Dog dog = other.GetComponent<Dog>();
+        if (dog == null) return;
+        if(_requiredType == RequiredType.Bully && dog.DogParameters.Type != DogType.Bully) return;
+        if (_requiredType == RequiredType.Water && dog.DogParameters.Type != DogType.Water) return;
         if (!_mustBeHeld) return;
-        ToggleTriggered(false);
+        _occupyingDogs--;
+        if (_occupyingDogs == 0) ToggleTriggered(false);
     }
     #endregion
 
@@ -40,6 +50,7 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
+        _occupyingDogs = TriggeredHistory[turnIndex] ? 1 : 0;
         ToggleTriggered(TriggeredHistory[turnIndex], false);
     }
 
@@ -64,4 +75,12 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
         if (triggered) Triggered?.Invoke(triggerSFX);
         else Untriggered?.Invoke(triggerSFX);
     }
+
+}
+
+public enum RequiredType
+{
+    Any,
+    Bully,
+    Water,
 }

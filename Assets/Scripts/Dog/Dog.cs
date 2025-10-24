@@ -89,8 +89,12 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void SetDrawnPath(List<Vector2Int> path)
     {
-        if (path.Count > 1) CanvasManager.Instance.SetActionButton(true);
-        if (path.Count == 1) Drawer.ClearAllMarkers();
+        if (path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
+        if (path.Count == 1)
+        {
+            Drawer.ClearAllMarkers();
+            CanvasManager.Instance.ChangeActivePaths(-1);
+        }
         TurnManager.Instance.DeleteNextTurnData();
         Path = new List<Vector2Int>(path);
         SaveHistoryPoint(TurnManager.Instance.CurrentTurnIndex);
@@ -117,7 +121,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         Path = new List<Vector2Int>(StatusHistory[turnIndex].DrawnPath);
         Drawer.ResumePathHitbox.SetActive(Path.Count > 1);
         Drawer.IsDrawingEnabled = true;
-        if (Path.Count > 1) CanvasManager.Instance.SetActionButton(true);
+        if (Path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
         Drawer.RedrawFinishedPath(Path);
     }
     #endregion
@@ -232,6 +236,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
                 List<Vector2Int> returnPath = new List<Vector2Int>(Path);
                 if (_gridMovement.CurrentPathIndex < returnPath.Count - 1)
                     returnPath.RemoveRange(_gridMovement.CurrentPathIndex, returnPath.Count - _gridMovement.CurrentPathIndex);
+                Debug.Log("Tiles since valid pos: " + _tilesSinceValidPos);
+                Debug.Log("returnPath.Count " + returnPath.Count);
                 returnPath.RemoveRange(0, returnPath.Count - _tilesSinceValidPos - 1);
                 returnPath.Reverse();
                 _gridMovement.StartMovement(returnPath);
@@ -274,12 +280,6 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     }
 }
 
-
-public enum DogType
-{
-    Bully,
-    Agile,
-}
 
 public enum DogState
 {

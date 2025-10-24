@@ -50,7 +50,7 @@ public class PersistentInfo : MonoBehaviour
         LevelScores = _saveAndLoader.LoadData();
         while (LevelScores.Count < LevelsInfoSO.LevelsInfo.Count)
         {
-            LevelScores.Add(0);
+            LevelScores.Add(1);
         }
     }
 }
