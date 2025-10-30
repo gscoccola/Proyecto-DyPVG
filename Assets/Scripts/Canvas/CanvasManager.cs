@@ -251,7 +251,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void PlayChipSound()
     {
-        SFXPlayer.Instance.PlayRandomClip(_sounds.ChipHover);
+        SFXPlayer.Instance.PlayClip(_sounds.ChipHover);
     }
     #endregion
 

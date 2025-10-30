@@ -39,6 +39,6 @@ public class Door : MonoBehaviour
         IsDisabled = disabled;
         if (!playSound) return;
         if (disabled) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorOpen);
-        else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorClose);
+        else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorInterrupt);
     }
 }

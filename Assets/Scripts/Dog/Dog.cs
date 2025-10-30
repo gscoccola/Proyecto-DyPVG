@@ -10,7 +10,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [Header("Parameters")]
     [SerializeField] public DogSO DogParameters;
 
-    
+    [Header("Reference")]
+    [SerializeField] private Animator _animator;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] public DogState CurrentState;
@@ -30,7 +31,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     private float _distractionDetectionDist;
     private bool _isPathInterrupted;
 
-    private AudioClip _actionSFX;
+    private AudioClip[] _actionSFX;
 
     #region SETUP
 
@@ -51,6 +52,12 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         _gridMovement.LastTileReached.AddListener(() => OnPathFinished());
         _gridMovement.TargetAcquired.AddListener(() => OnTargetAcquired());
         _gridMovement.BeginMovement.AddListener(() => PlayActionSFX());
+
+        _gridMovement.BeginMovement.AddListener(() => SetAnimatorBool(true));
+        _gridMovement.LastTileReached.AddListener(() => SetAnimatorBool(false));
+        _gridMovement.Interrupted.AddListener(() => SetAnimatorBool(false));
+        _gridMovement.Paused.AddListener(() => SetAnimatorBool(false));
+        _gridMovement.Resumed.AddListener(() => SetAnimatorBool(true));
     }
 
     private void LoadSO()
@@ -89,8 +96,10 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void SetDrawnPath(List<Vector2Int> path)
     {
-        if (path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
-        if (path.Count == 1)
+        //Debug.Log("new: " + path.Count + " old: " + Path.Count);
+        if (path.Count == Path.Count || (Path.Count == 1 && path.Count == 0) || (Path.Count == 0 && path.Count == 1)) { }
+        else if (path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
+        else if (path.Count == 1 || path.Count == 0)
         {
             Drawer.ClearAllMarkers();
             CanvasManager.Instance.ChangeActivePaths(-1);
@@ -155,7 +164,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
         if (other.GetComponent<Distraction>() != null)
         {
-            _gridMovement.Pause();
+            if (!other.GetComponent<Distraction>().IsDisabled) _gridMovement.Pause();
             return;
         }
         if (other.GetComponent<UnitTrigger>() != null) return;
@@ -236,8 +245,6 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
                 List<Vector2Int> returnPath = new List<Vector2Int>(Path);
                 if (_gridMovement.CurrentPathIndex < returnPath.Count - 1)
                     returnPath.RemoveRange(_gridMovement.CurrentPathIndex, returnPath.Count - _gridMovement.CurrentPathIndex);
-                Debug.Log("Tiles since valid pos: " + _tilesSinceValidPos);
-                Debug.Log("returnPath.Count " + returnPath.Count);
                 returnPath.RemoveRange(0, returnPath.Count - _tilesSinceValidPos - 1);
                 returnPath.Reverse();
                 _gridMovement.StartMovement(returnPath);
@@ -271,6 +278,12 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     private void PlayActionSFX()
     {
         SFXPlayer.Instance.PlayClip(_actionSFX);
+    }
+
+    private void SetAnimatorBool(bool value)
+    {
+            if (_animator == null) return;
+        _animator.SetBool("IsRunning", value);
     }
     #endregion
 

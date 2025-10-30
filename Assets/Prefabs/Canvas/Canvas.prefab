@@ -3440,7 +3440,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextTurn: {fileID: 8300000, guid: 695c924ff0f8d524d9565553a94d424a, type: 3}
   PreviousTurn: {fileID: 8300000, guid: 7d9a080f17d01a0499a3184b422fbfff, type: 3}
-  Go: {fileID: 8300000, guid: 626b5c7a3be93ed48945468580bda9c9, type: 3}
+  Go:
+  - {fileID: 8300000, guid: 1610905c89df0f54ab9774387114558a, type: 3}
+  - {fileID: 8300000, guid: 53c7f74ac2f06bb42b22171d00704470, type: 3}
+  - {fileID: 8300000, guid: 741e525ff11403943845a8b39e528744, type: 3}
+  - {fileID: 8300000, guid: 3c9a186487f4315459f49ac8eee6079c, type: 3}
+  - {fileID: 8300000, guid: 4d3571b4e932c2e418365dbb4b5bdd3b, type: 3}
   ButtonHover: {fileID: 8300000, guid: 901342563c0d8854781889dcbd58073b, type: 3}
   Restart: {fileID: 8300000, guid: 5c9a1a9ed42f17943ba3f70771558126, type: 3}
   AcceptOrCancel: {fileID: 8300000, guid: 392ce7ad3844279469c9c0dab639e109, type: 3}

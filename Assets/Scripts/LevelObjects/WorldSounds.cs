@@ -20,7 +20,7 @@ public class WorldSounds : Singleton<WorldSounds>
 
     [Header("Door")]
     [SerializeField] public AudioClip DoorOpen;
-    [SerializeField] public AudioClip DoorClose;
+    [SerializeField] public AudioClip DoorInterrupt;
 
 
 

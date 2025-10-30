@@ -15,8 +15,8 @@ MonoBehaviour:
   _dogName: Agile
   _type: 0
   _pathOffset: {x: 0, y: 0, z: 0}
-  _pathEndColor: {r: 0.9987322, g: 1, b: 0, a: 1}
-  _pathStartColor: {r: 1, g: 0, b: 0, a: 1}
+  _pathEndColor: {r: 0.90588236, g: 0.9098039, b: 0.9098039, a: 1}
+  _pathStartColor: {r: 0.5372549, g: 0.5294118, b: 0.5294118, a: 1}
   _chipSprites:
   - {fileID: 21300000, guid: 52787e9be2e170e4db9bb2427a17e33d, type: 3}
   - {fileID: 21300000, guid: 437afa61c42f2ac409c3665aaf109efd, type: 3}
@@ -26,4 +26,7 @@ MonoBehaviour:
   _seesDistractions: 1
   _distractionDetectionDist: 3
   _selectedSFX: {fileID: 8300000, guid: 1e7865a237ab49647af32cd9eb5800b1, type: 3}
-  _actionSFX: {fileID: 8300000, guid: 383f06b7f17c17c489d448cb074f4907, type: 3}
+  _actionSFX:
+  - {fileID: 8300000, guid: c9331a3ff778e0e4eaabed161139de77, type: 3}
+  - {fileID: 8300000, guid: b8d9b6667148f2a44bda9c36600afc42, type: 3}
+  - {fileID: 8300000, guid: fcb440cd6ec7b9e4fb33a5c9882755a4, type: 3}

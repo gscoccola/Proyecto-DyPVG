@@ -26,6 +26,9 @@ public class GridMovement : MonoBehaviour
     [HideInInspector] public UnityEvent BeginMovement;
     [HideInInspector] public UnityEvent Interrupted;
 
+    [HideInInspector] public UnityEvent Paused;
+    [HideInInspector] public UnityEvent Resumed;
+
     private float _pauseTimer;
 
     public float CurrentMoveSpeed;
@@ -105,6 +108,7 @@ public class GridMovement : MonoBehaviour
     {
         _status = MovementStatus.Paused;
         _pauseTimer = _pauseDelay;
+        Paused?.Invoke();
     }
 
     public void Slow()
@@ -115,6 +119,7 @@ public class GridMovement : MonoBehaviour
     public void Resume()
     {
         _status = MovementStatus.Moving;
+        Resumed?.Invoke();
         if (!_playedActionSound)
         {
             BeginMovement?.Invoke();
@@ -128,7 +133,7 @@ public class GridMovement : MonoBehaviour
         while (true)
         {
             if (_status != MovementStatus.Moving) yield break;
-            SFXPlayer.Instance.PlayRandomClip(WorldSounds.Instance.DogFootSteps);
+            SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DogFootSteps);
             yield return new WaitForSeconds(1.5f / CurrentMoveSpeed);
         }
     }

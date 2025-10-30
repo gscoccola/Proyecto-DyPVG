@@ -15,8 +15,8 @@ MonoBehaviour:
   _dogName: Water
   _type: 2
   _pathOffset: {x: -0.1, y: -0.1, z: 0}
-  _pathEndColor: {r: 0, g: 0.011921883, b: 1, a: 1}
-  _pathStartColor: {r: 1, g: 0, b: 0.69943285, a: 1}
+  _pathEndColor: {r: 0.67058825, g: 0.8352941, b: 0.9490196, a: 1}
+  _pathStartColor: {r: 0.23529412, g: 0.3372549, b: 0.6509804, a: 1}
   _chipSprites:
   - {fileID: 21300000, guid: 2dd6f74d90c728f44a7f09976d7f3d7f, type: 3}
   - {fileID: 21300000, guid: 82f28c0806fe0de468fb71d0230ae5f8, type: 3}
@@ -25,5 +25,8 @@ MonoBehaviour:
   _maxDistance: 16
   _seesDistractions: 0
   _distractionDetectionDist: 0
-  _selectedSFX: {fileID: 8300000, guid: 1e7865a237ab49647af32cd9eb5800b1, type: 3}
-  _actionSFX: {fileID: 8300000, guid: 383f06b7f17c17c489d448cb074f4907, type: 3}
+  _selectedSFX: {fileID: 8300000, guid: 170266bfff335e84d899a769e88e04bf, type: 3}
+  _actionSFX:
+  - {fileID: 8300000, guid: 5178eab6589d3bd489c3127fcfbf5d5d, type: 3}
+  - {fileID: 8300000, guid: 18fe1512d4e54fd44913056887b0725d, type: 3}
+  - {fileID: 8300000, guid: 46fa78e91b6244e46a866dab76cb2791, type: 3}

@@ -70,7 +70,10 @@ public class CollisionManager : Singleton<CollisionManager>
                 LevelGrid.Instance.WorldToGridPos(gridMover.CurrentTarget)
                 == LevelGrid.Instance.WorldToGridPos(col2.transform.position)
                 )
+            {
+                if (col2.GetComponent<Door>() != null) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorInterrupt);
                 gridMover.EndPath(true);
+            }
         }
     }
 

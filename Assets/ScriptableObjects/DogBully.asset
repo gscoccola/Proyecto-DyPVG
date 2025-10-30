@@ -15,8 +15,8 @@ MonoBehaviour:
   _dogName: Bully
   _type: 1
   _pathOffset: {x: 0.1, y: 0.1, z: 0}
-  _pathEndColor: {r: 0.12834764, g: 1, b: 0, a: 1}
-  _pathStartColor: {r: 0, g: 1, b: 0.80083776, a: 1}
+  _pathEndColor: {r: 0.59607846, g: 0.4862745, b: 0.72156864, a: 1}
+  _pathStartColor: {r: 0.3529412, g: 0.16078432, b: 0.4745098, a: 1}
   _chipSprites:
   - {fileID: 21300000, guid: e8850df9a1701d0418d1cf41ecd52ac7, type: 3}
   - {fileID: 21300000, guid: f3a40fec2f4fe974488cb021848b9ddb, type: 3}
@@ -26,4 +26,7 @@ MonoBehaviour:
   _seesDistractions: 0
   _distractionDetectionDist: 0
   _selectedSFX: {fileID: 8300000, guid: 90399427e7551664d8eab064a8dedc10, type: 3}
-  _actionSFX: {fileID: 8300000, guid: 6c4d19feff9bdf24b88aebd2f459f468, type: 3}
+  _actionSFX:
+  - {fileID: 8300000, guid: 9068463307757224ca24193fe64476f2, type: 3}
+  - {fileID: 8300000, guid: f87f1a4118c47d54daef68a43573d61c, type: 3}
+  - {fileID: 8300000, guid: 0f3825fecc318fa4cb17ecafb11332b8, type: 3}

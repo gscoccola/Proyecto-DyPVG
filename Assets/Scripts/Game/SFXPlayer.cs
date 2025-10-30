@@ -5,7 +5,7 @@ public class SFXPlayer : Singleton<SFXPlayer>
 {
     private List<GameObject> _interruptableSounds = new();
 
-    public void PlayRandomClip(AudioClip[] clips)
+    public void PlayClip(AudioClip[] clips)
     {
         PlayClip(clips[Random.Range(0, clips.Length)]);
     }

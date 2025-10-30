@@ -443,7 +443,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7ffb07c5355e155469434c9d5ea0344e, type: 3}
   - {fileID: 8300000, guid: e06b85cf12237ac40af72627e4d9f6a5, type: 3}
   DoorOpen: {fileID: 8300000, guid: 438100301af66d84698de2e98b34a850, type: 3}
-  DoorClose: {fileID: 8300000, guid: e5a1bb8b03ac49e4dafb107abac07b49, type: 3}
+  DoorInterrupt: {fileID: 8300000, guid: e5a1bb8b03ac49e4dafb107abac07b49, type: 3}
 --- !u!1 &5497443985878222737
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,6 +660,7 @@ MonoBehaviour:
   CurrentTurnIndex: 0
   MaxReachedTurnIndex: 0
   CurrentState: 0
+  TurnsLeft: 0
   TurnEnd:
     m_PersistentCalls:
       m_Calls: []

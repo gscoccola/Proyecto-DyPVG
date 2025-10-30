@@ -28,7 +28,7 @@ public class DogSO : ScriptableObject, IPathParametersSO
 
     [Header("SFX")]
     [SerializeField] private AudioClip _selectedSFX;
-    [SerializeField] private AudioClip _actionSFX;
+    [SerializeField] private AudioClip[] _actionSFX;
 
     public string DogName => _dogName;
     public DogType Type => _type;
@@ -43,7 +43,7 @@ public class DogSO : ScriptableObject, IPathParametersSO
     public float DistractionDetectionDist => _distractionDetectionDist;
 
     public AudioClip SelectedSFX => _selectedSFX;
-    public AudioClip ActionSFX => _actionSFX;
+    public AudioClip[] ActionSFX => _actionSFX;
 
 }
 
