@@ -6,6 +6,10 @@ public class PersistentInfo : MonoBehaviour
     public List<int> LevelScores;
 
     public LevelsInfoSO LevelsInfoSO;
+
+    public int MusicVolume = 4;
+    public int SFXVolume = 4;
+
     [HideInInspector] public static PersistentInfo Instance;
     private SaveAndLoader _saveAndLoader;
 

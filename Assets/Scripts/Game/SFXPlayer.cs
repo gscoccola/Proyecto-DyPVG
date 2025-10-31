@@ -1,9 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class SFXPlayer : Singleton<SFXPlayer>
 {
+    [SerializeField] private AudioMixerGroup _sFXGroup;
     private List<GameObject> _interruptableSounds = new();
+
+
 
     public void PlayClip(AudioClip[] clips)
     {
@@ -18,6 +22,7 @@ public class SFXPlayer : Singleton<SFXPlayer>
         tempASource.volume = volume;
         tempASource.rolloffMode = AudioRolloffMode.Linear;
         tempASource.maxDistance = 200f;
+        tempASource.outputAudioMixerGroup = _sFXGroup;
         if (randomizePitch) tempASource.pitch = Random.Range(0.95f, 1.05f);
         tempASource.Play(); // start the sound
         if (interruptable) {_interruptableSounds.Add(tempGO);}

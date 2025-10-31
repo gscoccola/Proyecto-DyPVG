@@ -160,12 +160,12 @@ public class PathDrawer : MonoBehaviour
         _lastPathDir = Vector2Int.zero;
         _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
         if (path.Count == 0 || path.Count == 1) return;
-        for (int i = 1; i < path.Count -1; i++)
+        for (int i = 0; i < path.Count; i++)
         {
             _path.Add(path[i]);
             _pathDir = _path.Count > 1 ? (path[i] - _path[_path.Count - 2]) : path[i] - _lastMousePos;
             _markerColorOffset += 1f / _maxDistance;
-            AddMarker(path[i], _pathDir, _lastPathDir,
+            if (i != 0) AddMarker(path[i], _pathDir, _lastPathDir,
                 _startColor * (1f - _markerColorOffset) + _markerColorOffset * _endColor);
             _lastPathDir = _pathDir;
         }

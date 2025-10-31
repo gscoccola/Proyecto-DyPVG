@@ -63,7 +63,6 @@ public class CanvasManager : Singleton<CanvasManager>
         SetActionButton(false);
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
         UpdateDisplayedValues(true);
-        ToggleTutorial();
     }
     #endregion
 

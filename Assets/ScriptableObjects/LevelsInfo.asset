@@ -16,42 +16,24 @@ MonoBehaviour:
   - Index: 1
     MaxTurns: 4
     ParTurns: 2
-    TutorialImage: {fileID: 8942624911486085800, guid: 92e6a88d046394c4fa9a35531d3c4e10, type: 3}
-    TutorialImageInner1: {fileID: 21300000, guid: 0ae5c87a703024340a1bc005aa85e586, type: 3}
-    TutorialImageInner2: {fileID: 21300000, guid: 4949b2d8bddcff34bb61299c233e5fad, type: 3}
     SkipTutorial: 0
   - Index: 2
     MaxTurns: 4
     ParTurns: 2
-    TutorialImage: {fileID: -7176484697771869631, guid: 0b826e785f603b84bbddd26ee22c4519, type: 3}
-    TutorialImageInner1: {fileID: 21300000, guid: 00260788481f9014687395b83ded21c0, type: 3}
-    TutorialImageInner2: {fileID: 21300000, guid: 898f6dd5cc0a3314dbfd40a640a07fdd, type: 3}
     SkipTutorial: 0
   - Index: 3
-    MaxTurns: 1
+    MaxTurns: 2
     ParTurns: 1
-    TutorialImage: {fileID: -528775289648253308, guid: 58cc882cfea2d5e4ca7ec3b0df2dae6c, type: 3}
-    TutorialImageInner1: {fileID: 21300000, guid: bf86a46021909764a9ed427803aebdf1, type: 3}
-    TutorialImageInner2: {fileID: 21300000, guid: c0a4f52d942af3d429c08e696ec1ea44, type: 3}
     SkipTutorial: 0
   - Index: 4
     MaxTurns: 4
     ParTurns: 2
-    TutorialImage: {fileID: -7554321538731112323, guid: 4b81cbb7fc66cc14f9098c8dd652314f, type: 3}
-    TutorialImageInner1: {fileID: 21300000, guid: 46f0728c5adfbfc4a9fb83a32846c99e, type: 3}
-    TutorialImageInner2: {fileID: 21300000, guid: d2972e7d1945f1f4ab62c78460330a36, type: 3}
     SkipTutorial: 0
   - Index: 5
     MaxTurns: 4
     ParTurns: 2
-    TutorialImage: {fileID: 3346624842056706559, guid: 65db63aebe3465240ba9298aadbc8535, type: 3}
-    TutorialImageInner1: {fileID: 21300000, guid: 5a8d55ef2a7736e4db65f7e941deee22, type: 3}
-    TutorialImageInner2: {fileID: 21300000, guid: 407149b94766851499a132b1f165b79f, type: 3}
     SkipTutorial: 0
   - Index: 6
     MaxTurns: 4
     ParTurns: 4
-    TutorialImage: {fileID: 3346624842056706559, guid: 65db63aebe3465240ba9298aadbc8535, type: 3}
-    TutorialImageInner1: {fileID: 0}
-    TutorialImageInner2: {fileID: 0}
     SkipTutorial: 1

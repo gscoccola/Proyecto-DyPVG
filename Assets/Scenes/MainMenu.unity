@@ -1059,6 +1059,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelScores: 
   LevelsInfoSO: {fileID: 11400000, guid: 71182a524f0b3ab4692284548467078f, type: 2}
+  MusicVolume: 4
+  SFXVolume: 4
 --- !u!4 &922665463
 Transform:
   m_ObjectHideFlags: 0
@@ -2207,6 +2209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead79369ded2b1b498b835e2a705fcd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sFXGroup: {fileID: 24300002, guid: 2033049f0682c9947ae56b1d2d4552f9, type: 2}
 --- !u!4 &5388788226763375840
 Transform:
   m_ObjectHideFlags: 0

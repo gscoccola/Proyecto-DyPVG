@@ -22,6 +22,7 @@ public class SceneTransition : Singleton<SceneTransition>
     {
         _animator.SetTrigger("FadeIn");
         yield return new WaitForSeconds(transitionDuration);
+        if (index == 0) MusicPlayer.Instance.DestroyPlayer(); 
         SceneManager.LoadScene(index);
     }
 }
