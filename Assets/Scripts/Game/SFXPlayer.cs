@@ -10,7 +10,7 @@ public class SFXPlayer : Singleton<SFXPlayer>
         PlayClip(clips[Random.Range(0, clips.Length)]);
     }
 
-    public AudioSource PlayClip(AudioClip clip, float volume = 1, bool interruptable = false)
+    public AudioSource PlayClip(AudioClip clip, float volume = 1, bool interruptable = false, bool randomizePitch = false)
     {
         GameObject tempGO = new GameObject("TempAudio"); // create the temp object
         AudioSource tempASource = tempGO.AddComponent<AudioSource>(); // add an audio source
@@ -18,6 +18,7 @@ public class SFXPlayer : Singleton<SFXPlayer>
         tempASource.volume = volume;
         tempASource.rolloffMode = AudioRolloffMode.Linear;
         tempASource.maxDistance = 200f;
+        if (randomizePitch) tempASource.pitch = Random.Range(0.95f, 1.05f);
         tempASource.Play(); // start the sound
         if (interruptable) {_interruptableSounds.Add(tempGO);}
         MonoBehaviour.Destroy(tempGO, tempASource.clip.length); // destroy object after clip duration

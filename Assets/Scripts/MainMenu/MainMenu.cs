@@ -3,11 +3,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Singleton<MainMenu>
 {
     [SerializeField] private UnityEngine.UI.Button[] _levelButtons;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _levelsMenu;
+    [SerializeField] private GameObject _tutorialMenu;
+    [SerializeField] private AudioClip _buttonSFX;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class MainMenu : MonoBehaviour
             else
             {
                 int j = i;
-                _levelButtons[i].onClick.AddListener(() => SceneManager.LoadScene( j +1 ));
+                _levelButtons[i].onClick.AddListener(() => SceneTransition.Instance.LoadScene(j+1));
             }
         }
     }
@@ -29,6 +31,17 @@ public class MainMenu : MonoBehaviour
     {
         _mainMenu.SetActive(false);
         _levelsMenu.SetActive(true);
+    }
+
+    public void ToggleTutorialMenu()
+    {
+        _levelsMenu.SetActive(!_levelsMenu.activeSelf);
+        _tutorialMenu.SetActive(!_tutorialMenu.activeSelf);
+    }
+
+    public void OnButtonHover()
+    {
+        SFXPlayer.Instance.PlayClip(_buttonSFX, 1, false, true);
     }
 
 }

@@ -68,7 +68,7 @@ public class TurnManager : Singleton<TurnManager>
 
     public void ReloadLevel()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        SceneTransition.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void NextLevel()

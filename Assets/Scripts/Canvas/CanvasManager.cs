@@ -18,8 +18,6 @@ public class CanvasManager : Singleton<CanvasManager>
     public GameObject WinPanel;
     public GameObject ResetPanel;
     public GameObject TutorialPanel;
-    public GameObject TutorialInnerPanel;
-    public GameObject TutorialOKButton;
 
     public GameObject PausePanel;
     public Image GOLosePopup;
@@ -66,31 +64,6 @@ public class CanvasManager : Singleton<CanvasManager>
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
         UpdateDisplayedValues(true);
         ToggleTutorial();
-    }
-
-    private void LoadTutorials(int levelIndex)
-    {
-        TutorialPanel.GetComponent<Image>().sprite =
-            PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[levelIndex].TutorialImage;
-        TutorialInnerPanel.GetComponent<Image>().sprite =
-            PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[levelIndex].TutorialImageInner1;
-        currentOpenTutorial = levelIndex;
-    }
-
-    public void CycleTutorial()
-    {
-        TutorialOKButton.SetActive(true);
-         if (TutorialInnerPanel.GetComponent<Image>().sprite ==
-            PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].TutorialImageInner1)
-        {
-            TutorialInnerPanel.GetComponent<Image>().sprite =
-                PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].TutorialImageInner2;
-        }
-        else
-        {
-            TutorialInnerPanel.GetComponent<Image>().sprite =
-                PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].TutorialImageInner1;
-        }
     }
     #endregion
 
@@ -147,7 +120,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void OnButtonHover()
     {
-        SFXPlayer.Instance.PlayClip(_sounds.ButtonHover);
+        SFXPlayer.Instance.PlayClip(_sounds.ButtonHover, 1,  false, true);
     }
 
     public void ToggleTutorial()
@@ -156,21 +129,8 @@ public class CanvasManager : Singleton<CanvasManager>
         PausePanel.SetActive(false);
         if (PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[currentOpenTutorial].SkipTutorial) return;
         TutorialPanel.SetActive(!TutorialPanel.activeSelf);
-        currentOpenTutorial = SceneManager.GetActiveScene().buildIndex - 1;
-        LoadTutorials(currentOpenTutorial);
     }
 
-    public void NextTutorial()
-    {
-        if (currentOpenTutorial == PersistentInfo.Instance.LevelsInfoSO.LevelsInfo.Count - 1) return;
-        LoadTutorials(currentOpenTutorial + 1);
-    }
-
-    public void PreviousTutorial()
-    {
-        if (currentOpenTutorial == 0) return;
-        LoadTutorials(currentOpenTutorial - 1);
-    }
 
     public void NextLevel()
     {
@@ -185,7 +145,7 @@ public class CanvasManager : Singleton<CanvasManager>
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
+        SceneTransition.Instance.LoadScene(0);
     }
 
     public void TogglePausePanel()
