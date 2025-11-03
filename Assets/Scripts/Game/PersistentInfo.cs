@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class PersistentInfo : MonoBehaviour
 {
-    public List<int> LevelScores;
+    public List<LevelCompletionInfo> CompletionInfo;
 
     public LevelsInfoSO LevelsInfoSO;
 
@@ -25,36 +25,55 @@ public class PersistentInfo : MonoBehaviour
             Destroy(gameObject);
         }
         _saveAndLoader = GetComponent<SaveAndLoader>();
-    }
-
-    private void Start()
-    {
         Load();
     }
 
+
     public int HighestAvailableLevel()
     {
-        for (int i = 0; i < LevelScores.Count; i++)
+        for (int i = 0; i < CompletionInfo.Count; i++)
         {
-            if (LevelScores[i] == 0)
+            if (CompletionInfo[i].Score == 0)
             {
                 return i;
             }
         }
-        return LevelScores.Count;
+        return CompletionInfo.Count;
     }
 
     public void Save()
     {
-        _saveAndLoader.SaveData(LevelScores);
+        _saveAndLoader.SaveData(CompletionInfo, MusicVolume, SFXVolume);
     }
 
     public void Load()
     {
-        LevelScores = _saveAndLoader.LoadData();
-        while (LevelScores.Count < LevelsInfoSO.LevelsInfo.Count)
+        CompletionInfo = _saveAndLoader.LoadLevelData();
+        while (CompletionInfo.Count < LevelsInfoSO.LevelsInfo.Count)
         {
-            LevelScores.Add(1);
+            CompletionInfo.Add(new LevelCompletionInfo(false, 0));
         }
+        MusicVolume = _saveAndLoader.LoadMusicVolume();
+        SFXVolume = _saveAndLoader.LoadSFXVolume();
+        VolumeControl.Instance.SetVolume(false, MusicVolume);
+        VolumeControl.Instance.SetVolume(true, SFXVolume);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+}
+
+[System.Serializable]
+public class LevelCompletionInfo
+{
+    public bool Seen;
+    public int Score;
+
+    public LevelCompletionInfo(bool seen, int score)
+    {
+        Seen = seen;
+        Score = score;
     }
 }

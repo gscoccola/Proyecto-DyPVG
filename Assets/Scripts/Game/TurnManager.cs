@@ -51,7 +51,7 @@ public class TurnManager : Singleton<TurnManager>
     public void OnActionButtonPress()
     {
         if (CurrentState == GameState.Planning) StartActionPhase();
-        else InterruptActionPhase();
+        //else InterruptActionPhase();
     }
 
     public void RevertToPreviousTurn()
@@ -159,7 +159,7 @@ public class TurnManager : Singleton<TurnManager>
         CurrentTurnIndex = index;
         CanvasManager.Instance.UpdateDisplayedValues(CurrentState == GameState.Planning);
         CanvasManager.Instance.SetChipOrder(_orderHistory[CurrentTurnIndex]);
-        TurnsLeft = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - CurrentTurnIndex; 
+        TurnsLeft = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - CurrentTurnIndex;
     }
 
     public void DeleteNextTurnData()

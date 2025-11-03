@@ -8,9 +8,9 @@ public class WaterStream : MonoBehaviour, IRevertable
     [SerializeField] private Sprite _middleSprite;
     [SerializeField] private Sprite _endSprite;
 
-    private List<int> _lengthHistory = new();
+    public List<int> _lengthHistory = new();
 
-    private int _activeLength;
+    public int _activeLength;
 
     private void Start()
     {
@@ -34,6 +34,7 @@ public class WaterStream : MonoBehaviour, IRevertable
                 CutStreamAt(_activeLength);
                 return;
             }
+            _activeLength = _waterTiles.Length;
             CutStreamAt(_waterTiles.Length);
         }
     }

@@ -15,8 +15,8 @@ MonoBehaviour:
   _dogName: Agile
   _type: 0
   _pathOffset: {x: 0, y: 0, z: 0}
-  _pathEndColor: {r: 0.90588236, g: 0.9098039, b: 0.9098039, a: 1}
-  _pathStartColor: {r: 0.5372549, g: 0.5294118, b: 0.5294118, a: 1}
+  _pathEndColor: {r: 0.98823535, g: 0.30980393, b: 0.24705884, a: 1}
+  _pathStartColor: {r: 0.6, g: 0.07058824, b: 0.25882354, a: 1}
   _chipSprites:
   - {fileID: 21300000, guid: 52787e9be2e170e4db9bb2427a17e33d, type: 3}
   - {fileID: 21300000, guid: 437afa61c42f2ac409c3665aaf109efd, type: 3}

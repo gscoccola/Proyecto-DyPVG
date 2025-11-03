@@ -28,5 +28,11 @@ public class TutorialsMenu : MonoBehaviour
             _displays[i].SetActive(false);
         }
         _select.SetActive(true);
+        Time.timeScale = 1f;
+    }
+
+    public void ResumeTimeScale()
+    {
+        Time.timeScale = 1f;
     }
 }

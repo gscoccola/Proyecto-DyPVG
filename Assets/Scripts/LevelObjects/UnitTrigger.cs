@@ -17,6 +17,8 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     [SerializeField] private int _occupyingDogs = 0; 
 
+    public List<Dog> OccupyingDogs = new();
+    
     private void Start()
     {
         TriggeredHistory.Add(false);
@@ -27,6 +29,7 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
     public void OnGridCollisionEnter(Transform other)
     {
         Dog dog = other.GetComponent<Dog>();
+        OccupyingDogs.Add(dog);
         if (dog == null) return;
         if (_requiredType == RequiredType.Bully && dog.DogParameters.Type != DogType.Bully) return;
         if (_requiredType == RequiredType.Water && dog.DogParameters.Type != DogType.Water) return;
@@ -38,7 +41,8 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
     {
         Dog dog = other.GetComponent<Dog>();
         if (dog == null) return;
-        if(_requiredType == RequiredType.Bully && dog.DogParameters.Type != DogType.Bully) return;
+        OccupyingDogs.Remove(dog);
+        if (_requiredType == RequiredType.Bully && dog.DogParameters.Type != DogType.Bully) return;
         if (_requiredType == RequiredType.Water && dog.DogParameters.Type != DogType.Water) return;
         if (!_mustBeHeld) return;
         _occupyingDogs--;
@@ -50,6 +54,7 @@ public class UnitTrigger : MonoBehaviour, IGridCollider, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
+        //CollisionManager.Instance.UpdateColliderCollisions(transform, true);
         _occupyingDogs = TriggeredHistory[turnIndex] ? 1 : 0;
         ToggleTriggered(TriggeredHistory[turnIndex], false);
     }

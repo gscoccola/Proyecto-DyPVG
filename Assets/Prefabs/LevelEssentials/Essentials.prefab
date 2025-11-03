@@ -543,9 +543,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 269316765428938960}
     m_Modifications:
+    - target: {fileID: 5641683609712154952, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1051.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641683609712154952, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 972.4321
+      objectReference: {fileID: 0}
     - target: {fileID: 5926646254976699581, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740635172048043235, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1051.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740635172048043235, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 972.4321
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648308773872892767, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1051.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648308773872892767, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 972.4321
       objectReference: {fileID: 0}
     - target: {fileID: 9062963301630945466, guid: 010e61ce3a239bf4e896b4257dccd714, type: 3}
       propertyPath: m_Pivot.x

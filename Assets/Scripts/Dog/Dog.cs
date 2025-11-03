@@ -124,6 +124,9 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void RevertToHistoryPoint(int turnIndex)
     {
+        SetAnimatorBool(false);
+        collidingList.Clear();
+        _tilesSinceValidPos = 0;
         _stateMachine.ChangeState(DogState.Stopped);
         _gridMovement.Stop();
         transform.position = LevelGrid.Instance.GridToWorldPos(StatusHistory[turnIndex].GridPosition);
@@ -164,7 +167,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
         if (other.GetComponent<Distraction>() != null)
         {
-            if (!other.GetComponent<Distraction>().IsDisabled) _gridMovement.Pause();
+            if (!other.GetComponent<Distraction>().IsDisabled && DogParameters.Type == DogType.Bully) _gridMovement.Pause();
             return;
         }
         if (other.GetComponent<UnitTrigger>() != null) return;
@@ -209,7 +212,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
             {
                 _isPathInterrupted = true;
                 var path = LevelGrid.Instance.CalculatePath(TraversableTiles, _gridPosition,
-                    LevelGrid.Instance.WorldToGridPos(distraction.transform.position));
+                    LevelGrid.Instance.WorldToGridPos(distraction.transform.position), false, default, true);
                 if (path.Count == 0 || path.Count > _distractionDetectionDist + 1) continue;
                 SFXPlayer.Instance.PlayClip(WorldSounds.Instance.SDogTrash, 1f, true);
                 _stateMachine.ChangeState(DogState.MovingToDistraction, distraction);
@@ -245,9 +248,11 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
                 List<Vector2Int> returnPath = new List<Vector2Int>(Path);
                 if (_gridMovement.CurrentPathIndex < returnPath.Count - 1)
                     returnPath.RemoveRange(_gridMovement.CurrentPathIndex, returnPath.Count - _gridMovement.CurrentPathIndex);
+                //Debug.Log(returnPath.Count);
+                //Debug.Log(_tilesSinceValidPos);
                 returnPath.RemoveRange(0, returnPath.Count - _tilesSinceValidPos - 1);
                 returnPath.Reverse();
-                _gridMovement.StartMovement(returnPath);
+                _gridMovement.StartMovement(returnPath, false);
                 break;
 
             case FinishTileType.PushForward:

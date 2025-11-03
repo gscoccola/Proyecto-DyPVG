@@ -34,6 +34,10 @@ MonoBehaviour:
     ParTurns: 2
     SkipTutorial: 0
   - Index: 6
-    MaxTurns: 4
+    MaxTurns: 5
     ParTurns: 4
+    SkipTutorial: 1
+  - Index: 7
+    MaxTurns: 4
+    ParTurns: 3
     SkipTutorial: 1

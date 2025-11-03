@@ -62,15 +62,16 @@ public class LevelGrid : Singleton<LevelGrid>
     }
 
     public List<Vector2Int> CalculatePath(TileType[] traversableTileTypes, Vector2Int origin, Vector2Int target,
-        bool excludePoint = false, Vector2Int excludedPoint = new Vector2Int())
+        bool excludePoint = false, Vector2Int excludedPoint = new Vector2Int(), bool seeBlockings = false)
     {
-        //List<Vector2Int> result = new() { origin };
+        List<Blocking> blockings = CollisionManager.Instance.Blockings;
         Dictionary<Vector2Int, float> traversableTilemap = new Dictionary<Vector2Int, float>();
         for (int x = 0; x < _bounds.size.x; x++)
         {
             for (int y = 0; y < _bounds.size.y; y++)
             {
                 if (x== excludedPoint.x && y == excludedPoint.y && excludePoint) continue;
+                if (seeBlockings && blockings.Any(b => b.IsEnabled && WorldToGridPos(b.transform.position) == new Vector2Int(x, y))) continue;
                 if (traversableTileTypes.Contains(_tileTypeGrid[x, y])) traversableTilemap[new Vector2Int(x,y)] = 1f;
             }
         }

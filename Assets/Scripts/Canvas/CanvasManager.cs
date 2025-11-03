@@ -60,6 +60,12 @@ public class CanvasManager : Singleton<CanvasManager>
         }
         if (ChipPlaces.Count > listIndex) ChipPlaces.RemoveRange(listIndex, ChipPlaces.Count - (listIndex));
 
+        if (!PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].SkipTutorial &&
+            !PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Seen)
+        {
+            ToggleTutorial();
+            PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Seen = true;
+        }
         SetActionButton(false);
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
         UpdateDisplayedValues(true);
@@ -77,7 +83,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void RevertToPreviousTurn()
     {
-        SetActionButton(false);
+        //SetActionButton(false);
         SFXPlayer.Instance.PlayClip(_sounds.PreviousTurn);
         TurnManager.Instance.RevertToPreviousTurn();
         EventSystem.current.SetSelectedGameObject(null);

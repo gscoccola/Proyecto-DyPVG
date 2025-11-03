@@ -13,6 +13,7 @@ public class MainMenu : Singleton<MainMenu>
 
     private void Start()
     {
+        
         for (int i = 0; i < _levelButtons.Length; i++)
         {
             if (i > PersistentInfo.Instance.HighestAvailableLevel())
@@ -24,6 +25,9 @@ public class MainMenu : Singleton<MainMenu>
                 int j = i;
                 _levelButtons[i].onClick.AddListener(() => SceneTransition.Instance.LoadScene(j+1));
             }
+            if (PersistentInfo.Instance.CompletionInfo[i].Score > 0 &&
+                PersistentInfo.Instance.CompletionInfo[i].Score <= PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[i].ParTurns )
+                _levelButtons[i].transform.GetChild(0).GetComponent<Image>().color = Color.red;
         }
     }
 

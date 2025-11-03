@@ -76,7 +76,7 @@ public class GridMovement : MonoBehaviour
             CurrentMoveSpeed * Time.deltaTime);
     }
 
-    public void StartMovement(List<Vector2Int> path)
+    public void StartMovement(List<Vector2Int> path, bool pause = true)
     {
         if (path.Count == 0) return;
         _currentPath = path;
@@ -87,14 +87,13 @@ public class GridMovement : MonoBehaviour
         NewTileReached?.Invoke();
         _playedActionSound = false;
         if (_currentPath.Count < 2) return;
-        Pause();
+        if (pause) Pause();
     }
 
     public void Stop()
     {
         _status = MovementStatus.Stopped;
-        _currentPath = new();
-        //CurrentPathIndex = 0;
+        _currentPath.RemoveRange(CurrentPathIndex, _currentPath.Count - CurrentPathIndex);
     }
 
     public void EndPath(bool wasInterrupted = false)
