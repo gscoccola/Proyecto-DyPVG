@@ -33,8 +33,8 @@ Transform:
   m_Children:
   - {fileID: 1334274016679110575}
   - {fileID: 1878226536396200306}
-  - {fileID: 6010013070975269403}
   - {fileID: 7346505517946598655}
+  - {fileID: 6731334160393457641}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &8830417916889356678
@@ -64,7 +64,6 @@ MonoBehaviour:
   _walkableTilemap: {fileID: 574638584099093745}
   _wallTilemap: {fileID: 5998032357362552864}
   _jumpableTilemap: {fileID: 568709910340378464}
-  _waterTilemap: {fileID: 0}
 --- !u!1 &3146105847288045023
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +242,38 @@ TilemapRenderer:
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &3498600028256651748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6731334160393457641}
+  m_Layer: 0
+  m_Name: Walkable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6731334160393457641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3498600028256651748}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.309093, y: 0.12803039, z: -0.36063102, w: 0.8706406}
+  m_LocalPosition: {x: 0.50155616, y: 0.5015566, z: 0.87306637}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6010013070975269403}
+  m_Father: {fileID: 5045175607942012031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6399102902616452711
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,12 +300,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6399102902616452711}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.309093, y: -0.12803039, z: 0.36063102, w: 0.8706406}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5045175607942012031}
+  m_Father: {fileID: 6731334160393457641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &574638584099093745
 Tilemap:
@@ -1297,7 +1328,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 6ed454bbf2617d24b932b37b186e29f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

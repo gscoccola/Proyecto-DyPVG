@@ -12,6 +12,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     [Header("Reference")]
     [SerializeField] private Animator _animator;
+    public PathDrawer Drawer;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] public DogState CurrentState;
@@ -20,7 +21,6 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [ReadOnly] public List<Vector2Int> Path { get; set; } = new();
     [ReadOnly] public List<Transform> collidingList = new();
 
-    [HideInInspector] public PathDrawer Drawer;
     private FiniteStateMachine<DogState> _stateMachine;
     private GridMovement _gridMovement;
     private int _tilesSinceValidPos;
@@ -38,7 +38,6 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     private void Awake()
     {
         _gridMovement = GetComponent<GridMovement>();
-        Drawer = GetComponent<PathDrawer>();
         Drawer.PathFollower = this;
         LoadSO();
 
