@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7543347917941976510}
   - component: {fileID: 8954549810546109618}
   - component: {fileID: 1679550207909255561}
+  - component: {fileID: 4622895006008646798}
   m_Layer: 0
   m_Name: Water 2
   m_TagString: Untagged
@@ -128,6 +129,30 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   TriggeredHistory: 
+  _occupyingDogs: 0
+  OccupyingDogs: []
+--- !u!95 &4622895006008646798
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982046830732974838}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3804340986268210110
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,8 +202,10 @@ MonoBehaviour:
   _waterTiles:
   - {fileID: 2111443673786424359}
   - {fileID: 1679550207909255561}
-  _middleSprite: {fileID: 21300000, guid: e22d119b788a7324c833b282ee92844a, type: 3}
-  _endSprite: {fileID: 21300000, guid: 934adaf630606094ea7b3bded39b27e6, type: 3}
+  _middleSprite: {fileID: 9100000, guid: 8978792b590ee0347aaaa62c418fa1f4, type: 2}
+  _endSprite: {fileID: 9100000, guid: 3c710cf6969a3f3448ea105b2756b7f2, type: 2}
+  _lengthHistory: 
+  _activeLength: 0
 --- !u!1 &7163867502367765513
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +218,7 @@ GameObject:
   - component: {fileID: 1505646163951232924}
   - component: {fileID: 5555676378451164026}
   - component: {fileID: 2111443673786424359}
+  - component: {fileID: 6640032042358051227}
   m_Layer: 0
   m_Name: Water 1
   m_TagString: Untagged
@@ -307,3 +335,27 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   TriggeredHistory: 
+  _occupyingDogs: 0
+  OccupyingDogs: []
+--- !u!95 &6640032042358051227
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163867502367765513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

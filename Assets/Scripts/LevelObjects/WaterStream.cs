@@ -5,8 +5,8 @@ public class WaterStream : MonoBehaviour, IRevertable
 {
     [SerializeField] private UnitTrigger[] _waterTiles;
 
-    [SerializeField] private Sprite _middleSprite;
-    [SerializeField] private Sprite _endSprite;
+    [SerializeField] private RuntimeAnimatorController _middleSprite;
+    [SerializeField] private RuntimeAnimatorController _endSprite;
 
     public List<int> _lengthHistory = new();
 
@@ -48,9 +48,14 @@ public class WaterStream : MonoBehaviour, IRevertable
             if (i < index)
             {
                 if (i == index - 1)
-                    _waterTiles[i].GetComponent<SpriteRenderer>().sprite = _endSprite;
+                {
+                    _waterTiles[i].GetComponent<Animator>().runtimeAnimatorController = _endSprite;
+                }
                 else
-                    _waterTiles[i].GetComponent<SpriteRenderer>().sprite = _middleSprite;
+                {
+                    _waterTiles[i].GetComponent<Animator>().runtimeAnimatorController = _middleSprite;
+                }
+                    _waterTiles[i].GetComponent<Animator>().speed = Random.Range(0.9f, 1.1f);
             }
         }
     }
