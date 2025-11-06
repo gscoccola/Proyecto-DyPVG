@@ -10,6 +10,7 @@ public class MainMenu : Singleton<MainMenu>
     [SerializeField] private GameObject _levelsMenu;
     [SerializeField] private GameObject _tutorialMenu;
     [SerializeField] private AudioClip _buttonSFX;
+    [SerializeField] private Sprite[] _stamps;
 
     private void Start()
     {
@@ -25,9 +26,13 @@ public class MainMenu : Singleton<MainMenu>
                 int j = i;
                 _levelButtons[i].onClick.AddListener(() => SceneTransition.Instance.LoadScene(j+1));
             }
-            if (PersistentInfo.Instance.CompletionInfo[i].Score > 0 &&
-                PersistentInfo.Instance.CompletionInfo[i].Score <= PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[i].ParTurns )
-                _levelButtons[i].transform.GetChild(0).GetComponent<Image>().color = Color.red;
+            if (PersistentInfo.Instance.CompletionInfo[i].Score > 0 )
+            {
+                _levelButtons[i].transform.GetChild(0).gameObject.SetActive(true);
+                if (PersistentInfo.Instance.CompletionInfo[i].Score <= PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[i].ParTurns)
+                    _levelButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = _stamps[1];
+                else _levelButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = _stamps[0];
+            }
         }
     }
 

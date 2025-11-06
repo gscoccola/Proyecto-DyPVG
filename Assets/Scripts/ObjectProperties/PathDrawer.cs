@@ -88,7 +88,13 @@ public class PathDrawer : MonoBehaviour
         {
             ReducePath();
         }
-        else if (_path.Count < _maxDistance) ExtendPath();
+        else
+        {
+            if (_path.Count < _maxDistance) ExtendPath();
+            //else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.PathEnd);
+        }
+        
+        
             
     }
 
@@ -98,6 +104,7 @@ public class PathDrawer : MonoBehaviour
         var path = LevelGrid.Instance.CalculatePath(PathFollower.TraversableTiles,
                 _lastMousePos, _correctedMousePos, excludePoint, _excludedPos);
         if (path.Count == 0 || path.Count > 2/* || path[0] == new Vector2(1, 0)*/) return;
+        if (_path.Count == _maxDistance -1) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.PathEnd);
         foreach (Vector2Int tile in path)
         {
             _path.Add(tile);

@@ -103,10 +103,10 @@ public class GridMovement : MonoBehaviour
         LastTileReached?.Invoke();
     }
 
-    public void Pause()
+    public void Pause(float time = 0f)
     {
         _status = MovementStatus.Paused;
-        _pauseTimer = _pauseDelay;
+        _pauseTimer = (time == 0f) ? _pauseDelay : time;
         Paused?.Invoke();
     }
 

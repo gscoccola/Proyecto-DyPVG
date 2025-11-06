@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CanvasManager : Singleton<CanvasManager>
 {
@@ -28,7 +29,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public TextMeshProUGUI turnParText;
     public Image turnParPanel;
-    public Sprite[] turnParSprites;
+    public GameObject[] ChallengePanels;
 
     [HideInInspector] public List<DogChip> Chips = new();
     private List<GameObject> _numberPopups = new();
@@ -245,17 +246,31 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void ShowWinPanel()
     {
+
         TurnManager.Instance.CurrentTurnIndex++;
         UpdateDisplayedValues(false);
         WinPanel.SetActive(true);
-        bool challengeAchieved = 
-            PersistentInfo.
-            Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].ParTurns >=
-            TurnManager.Instance.CurrentTurnIndex;
+        int targetTurns = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].ParTurns;
+        bool challengeAchieved = targetTurns >= TurnManager.Instance.CurrentTurnIndex;
 
-        turnParPanel.sprite = challengeAchieved ? turnParSprites[0] : turnParSprites[1];
+        if (challengeAchieved) ChallengePanels[1].SetActive(true);
+        else ChallengePanels[0].SetActive(true);
+
         turnParText.color = challengeAchieved ? Color.black : Color.white;
-        turnParText.text = "Ganá en " + PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].ParTurns + " turnos";
+        if (challengeAchieved) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WinWithChallenge);
+        else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WinNoChallenge);
+        string lastWord = targetTurns == 1 ? " turno" : " turnos";
+        turnParText.text = "Ganá en " + targetTurns + lastWord;
+        MusicPlayer.Instance.DestroyPlayer();
+        if (challengeAchieved) StartCoroutine(IShowWinPanelDelayed());
+    }
+
+    private IEnumerator IShowWinPanelDelayed()
+    {
+        yield return new WaitForSeconds(2f);
+        SFXPlayer.Instance.PlayClip(WorldSounds.Instance.Stamp);
+        yield return new WaitForSeconds(0.1f);
+        ChallengePanels[1].transform.GetChild(2).gameObject.SetActive(true);
     }
 
     public void SetLosePanel(bool isActive)

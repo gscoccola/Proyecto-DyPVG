@@ -8,34 +8,79 @@ public class WaterStream : MonoBehaviour, IRevertable
     [SerializeField] private RuntimeAnimatorController _middleSprite;
     [SerializeField] private RuntimeAnimatorController _endSprite;
 
+    private float SoundCooldown = 0.4f;
+
+    private float _soundTimer; 
+
+    private bool _isBlocked;
+    //private float _blockedTimer;
+    private AudioSource _loopingSource;
+
     public List<int> _lengthHistory = new();
 
     public int _activeLength;
+
+    private void Awake()
+    {
+        _loopingSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
         _activeLength = _waterTiles.Length;
         foreach (var waterTile in _waterTiles)
         {
-            waterTile.Triggered.AddListener(value => UpdateStream());
-            waterTile.Untriggered.AddListener(value => UpdateStream());
+            waterTile.Triggered.AddListener(value => UpdateStream(value));
+            waterTile.Untriggered.AddListener(value => UpdateStream(value));
         }
         _lengthHistory.Add(_activeLength);
-        UpdateStream();
+        UpdateStream(false);
     }
 
-    private void UpdateStream()
+    private void Update()
+    {
+        _soundTimer -= Time.deltaTime;
+        //_blockedTimer -= Time.deltaTime;
+        if (_isBlocked /*&& _blockedTimer <= 0f*/)
+        {
+            _loopingSource.volume += Time.deltaTime * 0.8f;
+        }
+    }
+
+    private void UpdateStream(bool playSFX)
     {
         for (int i = 0; i < _waterTiles.Length; i++)
         {
             if (_waterTiles[i].IsTriggered)
             {
+                if (playSFX && i < _activeLength) TryPlaySound();
                 _activeLength = i;
                 CutStreamAt(_activeLength);
+                SetBlocked(true);
                 return;
             }
             _activeLength = _waterTiles.Length;
             CutStreamAt(_waterTiles.Length);
+            SetBlocked(false);
+        }
+    }
+
+    private void TryPlaySound()
+    {
+        if (_soundTimer <= 0f)
+        {
+            SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WaterCross);
+            _soundTimer = SoundCooldown;
+        }
+    }
+
+    private void SetBlocked(bool blocked)
+    {
+        _isBlocked = blocked;
+        if (!blocked)
+        {
+            //_blockedTimer = 1f;
+            _loopingSource.volume = 0.0f;
         }
     }
 

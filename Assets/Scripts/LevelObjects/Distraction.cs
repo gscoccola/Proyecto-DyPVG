@@ -8,6 +8,7 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
     [ReadOnly] public bool IsDisabled;
     [HideInInspector] public UnityEvent OnDistractionDisabled;
     [HideInInspector] public List<bool> OccupiedHistory = new();
+    [SerializeField] private GameObject _eatSFX;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -29,6 +30,7 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
         if (other.GetComponent<Dog>() == null || other.GetComponent<Dog>().DogParameters.Type != DogType.Bully) return;
         Toggle(true);
         OnDistractionDisabled?.Invoke();
+        Instantiate(_eatSFX, transform.position, Quaternion.identity);
         SFXPlayer.Instance.PlayClip(WorldSounds.Instance.BDogTrash, 1f, true);
     }
 

@@ -128,7 +128,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         collidingList.Clear();
         _tilesSinceValidPos = 0;
         _stateMachine.ChangeState(DogState.Stopped);
-        _gridMovement.Stop();
+        //_gridMovement.Stop();
         transform.position = LevelGrid.Instance.GridToWorldPos(StatusHistory[turnIndex].GridPosition);
         Path = new List<Vector2Int>(StatusHistory[turnIndex].DrawnPath);
         Drawer.ResumePathHitbox.SetActive(Path.Count > 1);
@@ -167,7 +167,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
         if (other.GetComponent<Distraction>() != null)
         {
-            if (!other.GetComponent<Distraction>().IsDisabled && DogParameters.Type == DogType.Bully) _gridMovement.Pause();
+            if (!other.GetComponent<Distraction>().IsDisabled && DogParameters.Type == DogType.Bully) _gridMovement.Pause(1f);
             return;
         }
         if (other.GetComponent<UnitTrigger>() != null) return;
