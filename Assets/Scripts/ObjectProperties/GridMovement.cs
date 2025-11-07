@@ -90,10 +90,10 @@ public class GridMovement : MonoBehaviour
         if (pause) Pause();
     }
 
-    public void Stop()
+    public void Stop(bool reverted = false)
     {
         _status = MovementStatus.Stopped;
-        _currentPath.RemoveRange(CurrentPathIndex, _currentPath.Count - CurrentPathIndex);
+        if (!reverted) _currentPath.RemoveRange(CurrentPathIndex, _currentPath.Count - CurrentPathIndex);
     }
 
     public void EndPath(bool wasInterrupted = false)

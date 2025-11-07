@@ -5,6 +5,7 @@ public class TutorialsMenu : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button[] _buttons;
     [SerializeField] private GameObject[] _displays;
     [SerializeField] private GameObject _select;
+    [SerializeField] private GameObject _closeAllButton;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class TutorialsMenu : MonoBehaviour
             _displays[i].SetActive(false);
         }
         _select.SetActive(true);
+        if (_closeAllButton != null) _closeAllButton.SetActive(false);
         Time.timeScale = 1f;
     }
 

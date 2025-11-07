@@ -67,7 +67,12 @@ public class CanvasManager : Singleton<CanvasManager>
             ToggleTutorial();
             PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Seen = true;
         }
-        SetActionButton(false);
+        else
+        {
+            TutorialPanel.GetComponent<TutorialsMenu>().CloseAll();
+            TutorialPanel.gameObject.SetActive(false);
+        }
+            SetActionButton(false);
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
         UpdateDisplayedValues(true);
     }

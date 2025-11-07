@@ -27,6 +27,7 @@ public class WaterStream : MonoBehaviour, IRevertable
 
     private void Start()
     {
+        SFXPlayer.Instance.StartWater();
         _activeLength = _waterTiles.Length;
         foreach (var waterTile in _waterTiles)
         {

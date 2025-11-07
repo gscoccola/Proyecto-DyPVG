@@ -70,7 +70,13 @@ public class CollisionManager : Singleton<CollisionManager>
                 == LevelGrid.Instance.WorldToGridPos(col2.transform.position)
                 )
             {
-                if (col2.GetComponent<Door>() != null) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorInterrupt);
+                if (col2.GetComponent<Door>() != null)
+                {
+                    if (col2.GetComponent<Door>().IsWooden)
+                        SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WoodDoorInterrupt);
+                    else
+                        SFXPlayer.Instance.PlayClip(WorldSounds.Instance.MetalDoorInterrupt);
+                }
                 gridMover.EndPath(true);
             }
         }

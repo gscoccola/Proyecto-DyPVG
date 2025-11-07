@@ -35,4 +35,9 @@ public class SFXPlayer : Singleton<SFXPlayer>
         foreach (var sound in _interruptableSounds) if (sound != null) Destroy(sound);
         _interruptableSounds.Clear();
     }
+
+    public void StartWater()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
 }

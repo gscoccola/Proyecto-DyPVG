@@ -12,8 +12,10 @@ public class WorldSounds : Singleton<WorldSounds>
     [SerializeField] public AudioClip[] DogFootSteps;
 
     [Header("Door")]
-    [SerializeField] public AudioClip DoorOpen;
-    [SerializeField] public AudioClip DoorInterrupt;
+    [SerializeField] public AudioClip MetalDoorOpen;
+    [SerializeField] public AudioClip MetalDoorInterrupt;
+    [SerializeField] public AudioClip WoodDoorOpen;
+    [SerializeField] public AudioClip WoodDoorInterrupt;
 
     [Header("Water")]
     [SerializeField] public AudioClip WaterCross;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Door : MonoBehaviour
 {
+    public bool IsWooden;
+
     [Header("References")]
     [SerializeField] private Sprite _openSprite;
     [SerializeField] private Sprite _closedSprite;
@@ -38,7 +40,16 @@ public class Door : MonoBehaviour
         //Vector2Int blockedPos = LevelGrid.Instance.WorldToGridPos(_blocking.transform.position);
         IsDisabled = disabled;
         if (!playSound) return;
-        if (disabled) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorOpen);
-        else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.DoorInterrupt);
+        if (IsWooden)
+        {
+            if (disabled) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WoodDoorOpen);
+            else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WoodDoorInterrupt);
+        }
+        else
+        {
+            if (disabled) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.MetalDoorOpen);
+            else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.MetalDoorInterrupt);
+        }
+        
     }
 }

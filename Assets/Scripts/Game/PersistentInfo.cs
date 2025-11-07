@@ -26,6 +26,7 @@ public class PersistentInfo : MonoBehaviour
         }
         _saveAndLoader = GetComponent<SaveAndLoader>();
         Load();
+
     }
 
 
@@ -55,8 +56,8 @@ public class PersistentInfo : MonoBehaviour
         }
         MusicVolume = _saveAndLoader.LoadMusicVolume();
         SFXVolume = _saveAndLoader.LoadSFXVolume();
-        VolumeControl.Instance.SetVolume(false, MusicVolume);
-        VolumeControl.Instance.SetVolume(true, SFXVolume);
+        GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
+        GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
     }
 
     private void OnApplicationQuit()
