@@ -20,6 +20,7 @@ public class SceneTransition : Singleton<SceneTransition>
 
     public IEnumerator ILoadScene(int index)
     {
+        PersistentInfo.Instance.Save();
         _animator.SetTrigger("FadeIn");
         yield return new WaitForSeconds(transitionDuration);
         if (index == 0 && SceneManager.GetActiveScene().buildIndex != 0 || index !=0 && SceneManager.GetActiveScene().buildIndex == 0) MusicPlayer.Instance.DestroyPlayer(); 

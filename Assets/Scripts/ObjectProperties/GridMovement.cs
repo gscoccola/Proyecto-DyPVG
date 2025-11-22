@@ -19,12 +19,16 @@ public class GridMovement : MonoBehaviour
     [ReadOnly] public Vector2Int LastDirection;
     [ReadOnly] public int CurrentPathIndex;
 
+
+    private SpriteRenderer _spriteRenderer;
+
     private List<Vector2Int> _currentPath;
     [HideInInspector] public UnityEvent NewTileReached;
     [HideInInspector] public UnityEvent LastTileReached;
     [HideInInspector] public UnityEvent TargetAcquired;
     [HideInInspector] public UnityEvent BeginMovement;
     [HideInInspector] public UnityEvent Interrupted;
+    [HideInInspector] public UnityEvent<Vector2Int> ChangedDirection;
 
     [HideInInspector] public UnityEvent Paused;
     [HideInInspector] public UnityEvent Resumed;
@@ -33,7 +37,12 @@ public class GridMovement : MonoBehaviour
 
     public float CurrentMoveSpeed;
     private bool _playedActionSound;
-    
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
         _status = MovementStatus.Stopped;
@@ -50,6 +59,7 @@ public class GridMovement : MonoBehaviour
             if (_pauseTimer < 0f) Resume();
             return;
         }
+        // If reached new tile
         if (Vector3.Distance( transform.position, CurrentTarget) < 0.05f)
         {
             CurrentMoveSpeed = _moveSpeed;
@@ -65,6 +75,7 @@ public class GridMovement : MonoBehaviour
             if ((_currentPath.Count > 1))
             {
                 LastDirection = _currentPath[CurrentPathIndex] - _currentPath[CurrentPathIndex - 1];
+                ChangedDirection?.Invoke(LastDirection);
                 CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
                 TargetAcquired?.Invoke();
             }
@@ -83,7 +94,6 @@ public class GridMovement : MonoBehaviour
         CurrentPathIndex = 0;
         CurrentTarget = LevelGrid.Instance.GridToWorldPos(_currentPath[CurrentPathIndex]);
         _status = MovementStatus.Moving;
-        //StartCoroutine(IFootsteps());
         NewTileReached?.Invoke();
         _playedActionSound = false;
         if (_currentPath.Count < 2) return;
@@ -136,6 +146,7 @@ public class GridMovement : MonoBehaviour
             yield return new WaitForSeconds(1.5f / CurrentMoveSpeed);
         }
     }
+
 
 }
 

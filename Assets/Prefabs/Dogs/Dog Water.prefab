@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7811360397549243797}
+  - component: {fileID: 2403321095041799071}
   - component: {fileID: 8730229251992892935}
   - component: {fileID: 3251389905452716852}
   m_Layer: 0
@@ -33,6 +34,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2538017821456583806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2403321095041799071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7473255374507837386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e2985524e4d6f4db7ec971082fc41a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DirectionChanger
 --- !u!212 &8730229251992892935
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -312,6 +325,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Interrupted:
+    m_PersistentCalls:
+      m_Calls: []
+  ChangedDirection:
+    m_PersistentCalls:
+      m_Calls: []
+  Paused:
+    m_PersistentCalls:
+      m_Calls: []
+  Resumed:
     m_PersistentCalls:
       m_Calls: []
   CurrentMoveSpeed: 0

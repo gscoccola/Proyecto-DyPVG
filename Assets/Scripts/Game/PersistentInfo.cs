@@ -29,6 +29,11 @@ public class PersistentInfo : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
+        GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
+    }
 
     public int HighestAvailableLevel()
     {
