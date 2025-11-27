@@ -883,7 +883,7 @@
                 {
                     "name": "",
                     "id": "5693e57a-238a-46ed-b5ae-e64e6e574302",
-                    "path": "<Touchscreen>/touch*/position",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
@@ -987,6 +987,54 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Touch",
+            "id": "ea7dbfc6-7c2a-409f-b9e7-6ab8e8ca3333",
+            "actions": [
+                {
+                    "name": "TouchPress",
+                    "type": "Button",
+                    "id": "962f32b9-7cf1-4b28-a839-47e310de70e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TouchPosition",
+                    "type": "Value",
+                    "id": "69663f80-fc46-44d6-8508-101b15ded35a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ab7f7265-c5a9-440c-97fc-60e6b4ec044e",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12f83fab-b673-4b9e-b314-860f67f09be7",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

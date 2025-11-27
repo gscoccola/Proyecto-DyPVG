@@ -112,12 +112,6 @@ public class CanvasManager : Singleton<CanvasManager>
     public void OpenResetPanel()
     {
         SFXPlayer.Instance.PlayClip(_sounds.AcceptOrCancel);
-        /*if (GOLosePopup.enabled)
-        {
-            SetLosePanel(false);
-            TurnManager.Instance.ReloadLevel();
-            return;
-        }*/
         ResetPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
     }
@@ -179,27 +173,45 @@ public class CanvasManager : Singleton<CanvasManager>
 
     #region DOG CHIP MANAGEMENT
 
-    public void OnChipDrop(DogChip dogChip, int currentIndex)
+    public void OnChipDrop(DogChip dogChip, int previousIndex)
     {
         bool hasSwitched = false;
         for (int i = 0; i < ChipPlaces.Count; i++)
         {
-            if (i == currentIndex) continue;
+            if (i == previousIndex) continue;
             if (Vector2.Distance(dogChip.transform.position, ChipPlaces[i].transform.position) < _chipDropDistance)
             {
                 dogChip.transform.position = ChipPlaces[i].transform.position;
                 dogChip.Order = i;
 
-                Chips[i].Order = currentIndex;
-                Chips[i].transform.position = ChipPlaces[currentIndex].transform.position;
-                Chips[currentIndex] = Chips[i];
+                Chips[i].Order = previousIndex;
+                Chips[i].transform.position = ChipPlaces[previousIndex].transform.position;
+                Chips[previousIndex] = Chips[i];
                 Chips[i] = dogChip;
                 hasSwitched = true;
                 break;
             }
         }
-        if (!hasSwitched) dogChip.transform.position = ChipPlaces[currentIndex].transform.position;
+        if (!hasSwitched) dogChip.transform.position = ChipPlaces[previousIndex].transform.position;
         TurnManager.Instance.SetCurrentTurnOrder(GetCurrentTurnOrder());
+    }
+
+    public void OnChipDrag(DogChip dogChip, int previousIndex)
+    {
+        for (int i = 0; i < ChipPlaces.Count; i++)
+        {
+            if (i == previousIndex) continue;
+            if (Vector2.Distance(dogChip.transform.position, ChipPlaces[i].transform.position) < _chipDropDistance)
+            {
+                dogChip.Order = i;
+
+                Chips[i].Order = previousIndex;
+                Chips[i].transform.position = ChipPlaces[previousIndex].transform.position;
+                Chips[previousIndex] = Chips[i];
+                Chips[i] = dogChip;
+                break;
+            }
+        }
     }
 
     public void SetChipOrder(TurnOrder turnOrder)
@@ -281,8 +293,6 @@ public class CanvasManager : Singleton<CanvasManager>
     public void SetLosePanel(bool isActive)
     {
         GOLosePopup.sprite = isActive ? GOLosePopupSprites[1] : GOLosePopupSprites[0];
-        //GOLosePopup.enabled = isActive ;
-        //LosePanel.SetActive(isActive);
     }
 
 

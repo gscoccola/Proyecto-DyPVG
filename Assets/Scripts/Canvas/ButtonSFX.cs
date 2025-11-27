@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonSFX : MonoBehaviour, IPointerEnterHandler
+public class ButtonSFX : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
 {
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        VibrationHandler.Instance.LightVibrate();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (CanvasManager.Instance != null)

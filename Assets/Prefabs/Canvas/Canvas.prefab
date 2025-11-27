@@ -477,7 +477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a6d34a6c7d089ea4eb139be0f9d4d9d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a325fa3c1faf10439c9e6eb03beb2b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4325,7 +4325,7 @@ MonoBehaviour:
   - {fileID: 2473590386957644742}
   - {fileID: 2094437031883834149}
   - {fileID: 2159264368374753152}
-  _chipDropDistance: 60
+  _chipDropDistance: 90
   TurnText: {fileID: 5662385034930327340}
   ActionButton: {fileID: 8838559524479405193}
   ChipsHolder: {fileID: 4661398135185435708}

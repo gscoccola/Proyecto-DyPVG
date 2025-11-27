@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 // This component allows the player to draw a path on the grid by clicking and dragging the mouse.
 
-public class PathDrawer : MonoBehaviour
+public class PathDrawer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Header("Parameters")]
     public IPathFollower PathFollower;
@@ -30,7 +32,7 @@ public class PathDrawer : MonoBehaviour
     [HideInInspector] public bool IsDrawingEnabled;
     [HideInInspector] public bool IsDrawingPath;
 
-    private Vector2Int _correctedMousePos;
+    private Vector2Int _correctedPointerPos;
     private Vector2Int _lastMousePos;
 
     private Vector2Int _pathDir;
@@ -39,23 +41,58 @@ public class PathDrawer : MonoBehaviour
     private Transform _container;
     private float _markerColorOffset = 0f;
 
+    private bool _unpreciseMode = false;
+
+    private PlayerInput _playerInput;
+    //private InputAction TouchPressAction;
+    private InputAction TouchPositionAction;
+
     #region SETUP
     private void Awake()
     {
         _container = GameObject.Find("Markers").transform;
         GetComponent<Collider2D>().isTrigger = false;
+        _playerInput = FindAnyObjectByType<PlayerInput>();
+
+        //TouchPressAction = _playerInput.actions["TouchPress"];
+        TouchPositionAction = _playerInput.actions["TouchPosition"];
+
+        _unpreciseMode = Application.isMobilePlatform;
     }
+
+    /*private void OnEnable()
+    {
+        TouchPressAction.performed += TouchPress;
+    }
+
+    private void OnDisable()
+    {
+        TouchPressAction.performed -= TouchPress;
+    }
+
+    private void TouchPress( InputAction.CallbackContext context)
+    {
+        Debug.Log("TOUCH PRESS");
+    }*/
     #endregion
 
     private void Update()
     {
+        Vector2 pointerPos;
+        if (Application.isMobilePlatform) pointerPos = TouchPositionAction.ReadValue<Vector2>();
+        else pointerPos = Mouse.current.position.ReadValue();
+
         if (!IsDrawingPath) return;
-        Vector3 mousePos = GetWorldPositionOnPlane(Input.mousePosition);
-        _correctedMousePos = LevelGrid.Instance.CorrectedWorldToGridPos(mousePos, _lastMousePos, _magnetism);
-        if (_correctedMousePos != _lastMousePos) GenerateSubPathToMouse();
+        Vector3 pointerPosOnPlane = GetWorldPositionOnPlane(pointerPos);
+
+        _correctedPointerPos = _unpreciseMode
+            ? LevelGrid.Instance.PredictiveWorldToGridPos(pointerPosOnPlane, _lastMousePos, _magnetism * 2f, _pathDir)
+            : LevelGrid.Instance.PredictiveWorldToGridPos(pointerPosOnPlane, _lastMousePos, _magnetism * 2f, _pathDir);
+            //: LevelGrid.Instance.CorrectedWorldToGridPos(pointerPosOnPlane, _lastMousePos, _magnetism);
+        if (_correctedPointerPos != _lastMousePos) GenerateSubPathToMouse();
     }
 
-    public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition)
+    public Vector3 GetWorldPositionOnPlane(Vector2 screenPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
         Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, 0));
@@ -64,18 +101,20 @@ public class PathDrawer : MonoBehaviour
         return ray.GetPoint(distance);
     }
 
-    private void OnMouseDown()
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         if ( (TurnManager.Instance.TurnsLeft == 0))
         {
             Debug.Log("NO TURNS");
         }
-        if (!IsDrawingEnabled || TurnManager.Instance.CurrentState == GameState.Action|| TurnManager.Instance.TurnsLeft == 0)  { Debug.Log("DISABLED"); return; }
-        //TurnManager.Instance.SetActiveFollower(PathFollower);
+        if (!IsDrawingEnabled || TurnManager.Instance.CurrentState == GameState.Action|| TurnManager.Instance.TurnsLeft == 0)  
+        { Debug.Log("DISABLED"); VibrationHandler.Instance.LightVibrate(); return; }
+        VibrationHandler.Instance.MediumVibrate();
         StartPath();
     }
 
-    private void OnMouseUp()
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (!IsDrawingPath) return;
         FinishPath();
@@ -84,7 +123,7 @@ public class PathDrawer : MonoBehaviour
     private void GenerateSubPathToMouse()
     {
         
-        if (_correctedMousePos == _excludedPos)
+        if (_correctedPointerPos == _excludedPos)
         {
             ReducePath();
         }
@@ -102,7 +141,7 @@ public class PathDrawer : MonoBehaviour
     {
         bool excludePoint = _path.Count > 1;
         var path = LevelGrid.Instance.CalculatePath(PathFollower.TraversableTiles,
-                _lastMousePos, _correctedMousePos, excludePoint, _excludedPos);
+                _lastMousePos, _correctedPointerPos, excludePoint, _excludedPos);
         if (path.Count == 0 || path.Count > 2/* || path[0] == new Vector2(1, 0)*/) return;
         if (_path.Count == _maxDistance -1) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.PathEnd);
         foreach (Vector2Int tile in path)
@@ -115,7 +154,7 @@ public class PathDrawer : MonoBehaviour
             _lastPathDir = _pathDir;
         }
         _excludedPos = path.Count > 1 ? path[path.Count - 2] : _lastMousePos;
-        _lastMousePos = _correctedMousePos;
+        _lastMousePos = _correctedPointerPos;
         ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_lastMousePos);
     }
 
@@ -132,8 +171,8 @@ public class PathDrawer : MonoBehaviour
         //_lastPathDir = _path.Count > 1 ? (_path[_path.Count - 1] - _path[_path.Count - 2]) : Vector2Int.zero; ;
         _lastPathDir = _pathDir;
         _excludedPos = _path.Count > 1 ? _path[_path.Count - 2] : LevelGrid.Instance.WorldToGridPos(transform.position);
-        _lastMousePos = _correctedMousePos;
-        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_correctedMousePos);
+        _lastMousePos = _correctedPointerPos;
+        ResumePathHitbox.transform.position = LevelGrid.Instance.GridToWorldPos(_correctedPointerPos);
         return;
     }
 
@@ -144,7 +183,7 @@ public class PathDrawer : MonoBehaviour
         _path.Add(LevelGrid.Instance.WorldToGridPos(transform.position));
         _lastPathDir = Vector2Int.zero;
         _lastMousePos = LevelGrid.Instance.WorldToGridPos(transform.position);
-        _correctedMousePos = _lastMousePos;
+        _correctedPointerPos = _lastMousePos;
         ResumePath();
     }
 

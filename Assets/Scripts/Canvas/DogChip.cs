@@ -32,6 +32,7 @@ public class DogChip : MonoBehaviour, IDragHandler, IBeginDragHandler,
     {
         if (TurnManager.Instance.CurrentState == GameState.Action) return;
         _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
+        CanvasManager.Instance.OnChipDrag(this, Order);
         //_selfCanvas.sortingOrder = 10;
     }
 
@@ -42,13 +43,16 @@ public class DogChip : MonoBehaviour, IDragHandler, IBeginDragHandler,
         _image.sprite = Sprites[0];
         _isDragging = false;
         EndDrag.Invoke();
+        VibrationHandler.Instance.LightVibrate();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        transform.SetAsLastSibling();
         _image.sprite = Sprites[2];
         _isDragging = true;
         BeginDrag.Invoke();
+        VibrationHandler.Instance.LightVibrate();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

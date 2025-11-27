@@ -1,0 +1,3 @@
+﻿<linker>
+	<assembly fullname="CandyCoded.HapticFeedback" preserve="all"/>
+</linker>

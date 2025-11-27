@@ -29,8 +29,8 @@ public class SaveAndLoader : MonoBehaviour
             Debug.Log("No saved data found.");
             return new List<LevelCompletionInfo>();
         }
-        Debug.Log(PlayerPrefs.GetString("LevelScores"));
-        Debug.Log(PlayerPrefs.GetString("SeenLevels"));
+        /*Debug.Log(PlayerPrefs.GetString("LevelScores"));
+        Debug.Log(PlayerPrefs.GetString("SeenLevels"));*/
 
         string[] splitScores = PlayerPrefs.GetString("LevelScores").Split(',', System.StringSplitOptions.RemoveEmptyEntries);
         string[] splitSeen = PlayerPrefs.GetString("SeenLevels").Split(',', System.StringSplitOptions.RemoveEmptyEntries);

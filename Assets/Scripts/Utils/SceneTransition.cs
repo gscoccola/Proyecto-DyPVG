@@ -11,6 +11,7 @@ public class SceneTransition : Singleton<SceneTransition>
     {
         base.Awake();
         _animator = GetComponent<Animator>();
+        Application.targetFrameRate = 60;
     }
 
     public void LoadScene(int index)

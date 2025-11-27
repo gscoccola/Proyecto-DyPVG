@@ -110,8 +110,29 @@ public class LevelGrid : Singleton<LevelGrid>
         else
             y = worldPosition.y;
 
-        return new Vector2Int(Mathf.RoundToInt(x * _cellSizeInverse - _bounds.x * _cellSizeInverse),
-            Mathf.RoundToInt(y - _bounds.y * _cellSizeInverse));
+        return WorldToGridPos(new Vector3(x, y, 0f));
+
+        /*return new Vector2Int(Mathf.RoundToInt(x * _cellSizeInverse - _bounds.x * _cellSizeInverse),
+            Mathf.RoundToInt(y - _bounds.y * _cellSizeInverse));*/
+    }
+
+    public Vector2Int PredictiveWorldToGridPos(Vector3 worldPosition, Vector2Int lastPos, float magnetism, Vector2Int _movingDirection)
+    {
+        Vector3 lastWorldPos = GridToWorldPos(lastPos);
+
+        float x;
+        if (Mathf.Abs(worldPosition.x - lastWorldPos.x) < magnetism * Mathf.Abs( _movingDirection.y )+ _cellSize * 0.5f)
+            x = lastWorldPos.x;
+        else
+            x = worldPosition.x;
+
+        float y;
+        if (Mathf.Abs(worldPosition.y - lastWorldPos.y) < magnetism * Mathf.Abs(_movingDirection.x) + _cellSize * 0.5f)
+            y = lastWorldPos.y;
+        else
+            y = worldPosition.y;
+
+        return WorldToGridPos(new Vector3(x, y, 0f));
     }
 
     public Vector3 GridToWorldPos(Vector2Int gridPosition)
