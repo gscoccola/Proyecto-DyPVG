@@ -26,7 +26,7 @@ public class PersistentInfo : MonoBehaviour
         }
         _saveAndLoader = GetComponent<SaveAndLoader>();
         Load();
-
+        
     }
 
     private void Start()

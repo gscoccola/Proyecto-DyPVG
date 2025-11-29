@@ -9239,6 +9239,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2375244857312303865, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2690071298545203427, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
       propertyPath: m_Name
       value: Essentials
@@ -9255,11 +9259,19 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -7.380561
       objectReference: {fileID: 0}
+    - target: {fileID: 4286172016227108825, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4675953851584326838, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7050493725471625795, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216955256126251853, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

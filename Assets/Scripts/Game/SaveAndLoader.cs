@@ -24,6 +24,7 @@ public class SaveAndLoader : MonoBehaviour
 
     public List<LevelCompletionInfo> LoadLevelData()
     {
+        //PlayerPrefs.DeleteAll();
         if (!PlayerPrefs.HasKey("LevelScores") || !PlayerPrefs.HasKey("SeenLevels"))
         {
             Debug.Log("No saved data found.");

@@ -24,6 +24,7 @@ public class Button : MonoBehaviour
 
     private void Toggle(bool pressed, bool playSound = true)
     {
+        if (_spriteRenderer == null) return;
         if (_buttonUnpressedSprite == null || _buttonPressedSprite == null)
         {
             _spriteRenderer.enabled = !pressed;

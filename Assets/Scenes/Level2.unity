@@ -9252,11 +9252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7417724708689823991, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
       propertyPath: m_ChunkCullingBounds.x
-      value: 0.245
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417724708689823991, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
       propertyPath: m_ChunkCullingBounds.y
-      value: 0.34320003
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9322,6 +9322,10 @@ PrefabInstance:
     - target: {fileID: 2174185933865994142, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375244857312303865, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2690071298545203427, guid: 1abe44cccc8636e418cf5c36486f9490, type: 3}
       propertyPath: m_Name

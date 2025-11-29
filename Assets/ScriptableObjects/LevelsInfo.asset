@@ -26,18 +26,30 @@ MonoBehaviour:
     ParTurns: 1
     SkipTutorial: 0
   - Index: 4
-    MaxTurns: 4
-    ParTurns: 2
+    MaxTurns: 6
+    ParTurns: 3
     SkipTutorial: 0
   - Index: 5
-    MaxTurns: 4
+    MaxTurns: 3
     ParTurns: 2
     SkipTutorial: 0
   - Index: 6
+    MaxTurns: 4
+    ParTurns: 2
+    SkipTutorial: 0
+  - Index: 7
     MaxTurns: 5
     ParTurns: 4
     SkipTutorial: 1
-  - Index: 7
+  - Index: 8
+    MaxTurns: 4
+    ParTurns: 3
+    SkipTutorial: 1
+  - Index: 9
+    MaxTurns: 4
+    ParTurns: 3
+    SkipTutorial: 1
+  - Index: 10
     MaxTurns: 4
     ParTurns: 3
     SkipTutorial: 1

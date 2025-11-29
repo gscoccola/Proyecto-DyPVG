@@ -16,7 +16,7 @@ public class VibrationHandler : Singleton<VibrationHandler>
     public void LightVibrate()
     {
 #if UNITY_WEBGL
-            Vibrate(50);
+            //Vibrate(50);
 #else
         HapticFeedback.LightFeedback();
 #endif
@@ -26,7 +26,7 @@ public class VibrationHandler : Singleton<VibrationHandler>
     public void MediumVibrate()
     {
 #if  UNITY_WEBGL
-            Vibrate(100);
+            //Vibrate(100);
 #else
         HapticFeedback.MediumFeedback();
 #endif
@@ -36,7 +36,7 @@ public class VibrationHandler : Singleton<VibrationHandler>
     public void HeavyVibrate()
     {
 #if  UNITY_WEBGL
-            Vibrate(250);
+            //Vibrate(250);
 #else
         HapticFeedback.HeavyFeedback();
 
