@@ -59,21 +59,6 @@ public class PathDrawer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         _unpreciseMode = Application.isMobilePlatform;
     }
-
-    /*private void OnEnable()
-    {
-        TouchPressAction.performed += TouchPress;
-    }
-
-    private void OnDisable()
-    {
-        TouchPressAction.performed -= TouchPress;
-    }
-
-    private void TouchPress( InputAction.CallbackContext context)
-    {
-        Debug.Log("TOUCH PRESS");
-    }*/
     #endregion
 
     private void Update()
@@ -92,6 +77,7 @@ public class PathDrawer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (_correctedPointerPos != _lastMousePos) GenerateSubPathToMouse();
     }
 
+    #region HANDLE POINTER
     public Vector3 GetWorldPositionOnPlane(Vector2 screenPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
@@ -119,6 +105,7 @@ public class PathDrawer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!IsDrawingPath) return;
         FinishPath();
     }
+    #endregion
 
     private void GenerateSubPathToMouse()
     {

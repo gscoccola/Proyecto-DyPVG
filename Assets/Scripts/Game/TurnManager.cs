@@ -164,8 +164,10 @@ public class TurnManager : Singleton<TurnManager>
 
     public void DeleteNextTurnData()
     {
-        /*if (MaxReachedTurnIndex > CurrentTurnIndex)
-            ActiveFollowerHistory.RemoveRange(CurrentTurnIndex + 1, ActiveFollowerHistory.Count - CurrentTurnIndex - 1);*/
+        foreach (IRevertable revertable in _revertables)
+        {
+            revertable.SaveHistoryPoint(CurrentTurnIndex, true);
+        }
         if (MaxReachedTurnIndex > CurrentTurnIndex)
             _orderHistory.RemoveRange(CurrentTurnIndex + 1, _orderHistory.Count - CurrentTurnIndex - 1);
         MaxReachedTurnIndex = CurrentTurnIndex;
@@ -190,6 +192,7 @@ public class TurnManager : Singleton<TurnManager>
 
     public void SetCurrentTurnOrder(TurnOrder turnOrder)
     {
+        DeleteNextTurnData();
         if (_orderHistory.Count - 1 < CurrentTurnIndex)
             _orderHistory.Add(turnOrder);
         else

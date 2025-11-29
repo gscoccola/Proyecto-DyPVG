@@ -100,16 +100,20 @@ public class GridMovement : MonoBehaviour
         if (pause) Pause();
     }
 
-    public void Stop(bool reverted = false)
+    public void Stop(bool dontTruncate = false)
     {
         _status = MovementStatus.Stopped;
-        if (!reverted) _currentPath.RemoveRange(CurrentPathIndex, _currentPath.Count - CurrentPathIndex);
+        if (!dontTruncate)
+        {
+            _currentPath.RemoveRange(CurrentPathIndex, _currentPath.Count - CurrentPathIndex);
+            Debug.Log("Path truncated to current position.");
+        }
     }
 
     public void EndPath(bool wasInterrupted = false)
     {
         if (wasInterrupted) Interrupted?.Invoke();
-        Stop();
+        Stop(wasInterrupted);
         LastTileReached?.Invoke();
     }
 

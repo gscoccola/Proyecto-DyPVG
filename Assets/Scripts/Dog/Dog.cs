@@ -17,7 +17,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     [SerializeField, ReadOnly] public DogState CurrentState;
     [SerializeField, ReadOnly] private Vector2Int _gridPosition;
     [SerializeField, ReadOnly] private List<DogHistoryPoint> StatusHistory = new();
-    [ReadOnly] public List<Vector2Int> Path { get; set; } = new();
+    [ReadOnly] public List<Vector2Int> Path = new();
     [ReadOnly] public List<Transform> collidingList = new();
 
     [HideInInspector] public PathDrawer Drawer;
@@ -96,7 +96,6 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void SetDrawnPath(List<Vector2Int> path)
     {
-        //Debug.Log("new: " + path.Count + " old: " + Path.Count);
         if (path.Count == Path.Count || (Path.Count == 1 && path.Count == 0) || (Path.Count == 0 && path.Count == 1)) { }
         else if (path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
         else if (path.Count == 1 || path.Count == 0)
@@ -116,7 +115,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
     {
         if (StatusHistory.Count < turnIndex) Debug.LogError("Trying to skip a turn in history");
-        if (deleteFuturePoints && StatusHistory.Count > turnIndex)
+        if (deleteFuturePoints && StatusHistory.Count >= turnIndex)
             StatusHistory.RemoveRange(turnIndex, StatusHistory.Count - turnIndex);
         StatusHistory.Add(new DogHistoryPoint(LevelGrid.Instance.WorldToGridPos(transform.position), Path));
         Drawer.IsDrawingEnabled = true;
@@ -142,13 +141,14 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     public void BeginAction()
     {
+        //Path = Drawer.
         Drawer.ResumePathHitbox.SetActive(false);
         Drawer.IsDrawingEnabled = false;
         _isPathInterrupted = false;
-        _gridMovement.StartMovement(Path);
         if (_isPathInterrupted) return;
         if (Path.Count > 1)
         {
+            _gridMovement.StartMovement(Path);
             _stateMachine.ChangeState(DogState.MovingToTarget);
             
         }
