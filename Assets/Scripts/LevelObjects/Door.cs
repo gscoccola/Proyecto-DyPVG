@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IGridCollider
 {
     public bool IsWooden;
 
@@ -19,6 +19,7 @@ public class Door : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private Blocking _blocking;
+    public bool DisableLingering;
 
     private void Awake()
     {
@@ -50,6 +51,16 @@ public class Door : MonoBehaviour
             if (disabled) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.MetalDoorOpen);
             else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.MetalDoorInterrupt);
         }
+        
+    }
+
+    public void OnGridCollisionEnter(Transform other)
+    {
+        
+    }
+
+    public void OnGridCollisionExit(Transform other)
+    {
         
     }
 }

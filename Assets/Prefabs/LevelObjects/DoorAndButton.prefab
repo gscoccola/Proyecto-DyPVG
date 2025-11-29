@@ -127,6 +127,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OpenHistory: 
+  DisableLingering: 1
 --- !u!1 &2723702770017639941
 GameObject:
   m_ObjectHideFlags: 0

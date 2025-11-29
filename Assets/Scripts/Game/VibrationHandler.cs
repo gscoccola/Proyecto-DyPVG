@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Runtime.InteropServices;
 
-#if !UNITY_WEBGL
+#if UNITY_ANDROID
 using CandyCoded.HapticFeedback;
 #endif
 
@@ -17,7 +17,7 @@ public class VibrationHandler : Singleton<VibrationHandler>
     {
 #if UNITY_WEBGL
             //Vibrate(50);
-#else
+#elif UNITY_ANDROID
         HapticFeedback.LightFeedback();
 #endif
 
@@ -27,7 +27,7 @@ public class VibrationHandler : Singleton<VibrationHandler>
     {
 #if  UNITY_WEBGL
             //Vibrate(100);
-#else
+#elif UNITY_ANDROID
         HapticFeedback.MediumFeedback();
 #endif
 
@@ -37,7 +37,7 @@ public class VibrationHandler : Singleton<VibrationHandler>
     {
 #if  UNITY_WEBGL
             //Vibrate(250);
-#else
+#elif UNITY_ANDROID
         HapticFeedback.HeavyFeedback();
 
 #endif

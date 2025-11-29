@@ -171,7 +171,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
             return;
         }
         if (other.GetComponent<UnitTrigger>() != null) return;
-        if (other.GetComponent<Door>() != null) return;
+        if (other.GetComponent<Door>() != null && !other.GetComponent<Door>().DisableLingering) return;
         collidingList.Add(other);
     }
 
@@ -179,7 +179,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     {
         if (other.GetComponent<Distraction>() != null) return;
         if (other.GetComponent<UnitTrigger>() != null) return;
-        if (other.GetComponent<Door>() != null) return;
+        if (other.GetComponent<Door>() != null && !other.GetComponent<Door>().DisableLingering) return;
         collidingList.Remove(other);
     }
     #endregion
