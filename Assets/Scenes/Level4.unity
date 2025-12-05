@@ -6661,14 +6661,6 @@ PrefabInstance:
       propertyPath: m_ChunkCullingBounds.y
       value: 0.41120005
       objectReference: {fileID: 0}
-    - target: {fileID: 7334634158245501474, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
-      propertyPath: m_ChunkCullingBounds.x
-      value: 0.23250002
-      objectReference: {fileID: 0}
-    - target: {fileID: 7334634158245501474, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
-      propertyPath: m_ChunkCullingBounds.y
-      value: 0.055000007
-      objectReference: {fileID: 0}
     - target: {fileID: 7417724708689823991, guid: fd82de448f179f34486eaf6d973443c8, type: 3}
       propertyPath: m_ChunkCullingBounds.x
       value: 0

@@ -205,8 +205,9 @@ MonoBehaviour:
   - {fileID: 6593411050388935333}
   _middleSprite: {fileID: 9100000, guid: 12c880f606dfbe94c93c3bff45a698fd, type: 2}
   _endSprite: {fileID: 9100000, guid: 22841f8b02b93fc4783497a8ae78eafd, type: 2}
-  _lengthHistory: 
+  _direction: {x: -1, y: 0}
   _activeLength: 0
+  InterruptingDog: {fileID: 0}
 --- !u!82 &4395931977028851146
 AudioSource:
   m_ObjectHideFlags: 0

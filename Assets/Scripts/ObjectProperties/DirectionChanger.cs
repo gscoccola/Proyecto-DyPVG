@@ -1,18 +1,29 @@
 using UnityEngine;
-
 public class DirectionChanger : MonoBehaviour
 {
 
     private SpriteRenderer _spriteRenderer;
+    private SplashVFXManager _splashVFX;
+
+    private bool _isFlipped;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        transform.parent.GetComponent<GridMovement>().ChangedDirection.AddListener(ChangeDirection);
+        //_spriteRenderer = GetComponent<SpriteRenderer>();
+        transform.parent.GetComponent<GridMovement>().ChangedDirection.AddListener(SetDirection);
+        _splashVFX = transform.parent.GetComponent<SplashVFXManager>();
     }
 
-    private void ChangeDirection(Vector2Int direction)
+    private void SetDirection(Vector2Int direction)
     {
-        _spriteRenderer.flipX = direction == Vector2Int.left || direction == Vector2Int.up;
+        bool flipped = direction == Vector2Int.left || direction == Vector2Int.up;
+        if (_isFlipped == flipped) return;
+
+        _isFlipped = flipped;
+        if (flipped) transform.localScale = new Vector3(-1f, 1f, 1f);
+        else transform.localScale = Vector3.one;
+
+        _splashVFX.Switch();
     }
+
 }

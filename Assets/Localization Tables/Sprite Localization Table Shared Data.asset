@@ -1,0 +1,505 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Sprite Localization Table Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Sprite Localization Table
+  m_TableCollectionNameGuidString: 917b395f64ab229478e31340a71e9051
+  m_Entries:
+  - m_Id: 1697607520256
+    m_Key: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2566625366016
+    m_Key: 'Start Hover
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6463674847232
+    m_Key: Start Pressed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7807995416576
+    m_Key: 'Level Select Background
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13561280270336
+    m_Key: 'Level1
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13597590360064
+    m_Key: 'Level1 Hover
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13644574953472
+    m_Key: 'Level2
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13673159135232
+    m_Key: Level2 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13709712494592
+    m_Key: Level3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13735952060416
+    m_Key: 'Level3 Hover
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13774908755968
+    m_Key: Level4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13800678559744
+    m_Key: Level4 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13830982406144
+    m_Key: Level5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13856865456128
+    m_Key: Level5 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13881712513024
+    m_Key: Level6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13903917158400
+    m_Key: Level6 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13929246560256
+    m_Key: Level7
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13956891217920
+    m_Key: Level7 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13992152731648
+    m_Key: Level8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14014927802368
+    m_Key: Level8 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14040353673216
+    m_Key: Level9
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14071206973440
+    m_Key: Level9 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14102253211648
+    m_Key: Level10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14124906647552
+    m_Key: Level10 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14557012234240
+    m_Key: Level1 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15041206882304
+    m_Key: Level2 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15057342369792
+    m_Key: Level3 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15069833007104
+    m_Key: Level4 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15087906263040
+    m_Key: Level5 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15101952987136
+    m_Key: Level6 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15115714498560
+    m_Key: Level7 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15134798581760
+    m_Key: Level8 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15226389598208
+    m_Key: Level9 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15243410083840
+    m_Key: Level10 Disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20157217574912
+    m_Key: How To Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20397333090304
+    m_Key: How To Play Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42841469030400
+    m_Key: 'Back To Main
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42896687042560
+    m_Key: Back To Main Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 44395194421248
+    m_Key: TutorialButton1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 44859512262656
+    m_Key: TutorialButton1 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 44881184231424
+    m_Key: TutorialButton2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45040202878976
+    m_Key: TutorialButton2 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45087611097088
+    m_Key: TutorialButton3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45114177818624
+    m_Key: TutorialButton3 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45158897487872
+    m_Key: TutorialButton4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45191755665408
+    m_Key: TutorialButton4 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45219198996480
+    m_Key: TutorialButton5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45288354680832
+    m_Key: TutorialButton5 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45324320837632
+    m_Key: TutorialButton6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45385423458304
+    m_Key: TutorialButton6 Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 46353615622144
+    m_Key: TutorialPopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 48372246056960
+    m_Key: Tut Display 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 48606523101184
+    m_Key: Tut Display 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 48620955701248
+    m_Key: Tut Display 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49367860580352
+    m_Key: Tut Display 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49401037524992
+    m_Key: Tut Display 5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 49521275637760
+    m_Key: Tut Display 6
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items:
+    - rid: 6326717558856876336
+  m_KeyGenerator:
+    rid: 6326717558856876335
+  references:
+    version: 2
+    RefIds:
+    - rid: 6326717558856876335
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1764898072835
+    - rid: 6326717558856876336
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 1697607520256
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 2566625366016
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 6463674847232
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 7807995416576
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13561280270336
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13597590360064
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13644574953472
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13673159135232
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13709712494592
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13735952060416
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13774908755968
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13800678559744
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13830982406144
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13856865456128
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13881712513024
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13903917158400
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13929246560256
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13956891217920
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 13992152731648
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 14014927802368
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 14040353673216
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 14071206973440
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 14102253211648
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 14124906647552
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 14557012234240
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15041206882304
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15057342369792
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15069833007104
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15087906263040
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15101952987136
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15115714498560
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15134798581760
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15226389598208
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 15243410083840
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 20157217574912
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 20397333090304
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 42841469030400
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 42896687042560
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 44395194421248
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 44859512262656
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 44881184231424
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45040202878976
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45087611097088
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45114177818624
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45158897487872
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45191755665408
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45219198996480
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45288354680832
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45324320837632
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 45385423458304
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 46353615622144
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 48372246056960
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 48606523101184
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 48620955701248
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 49367860580352
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 49401037524992
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 49521275637760
+          m_TableCodes:
+          - en
+          - es
+        m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null

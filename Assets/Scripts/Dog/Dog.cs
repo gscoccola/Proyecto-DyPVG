@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System;
 
 // This class represents a dog character that can move on a grid, follow paths, and interact with distractions.
@@ -12,6 +13,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     [Header("Reference")]
     [SerializeField] private Animator _animator;
+    [SerializeField] private Animator _distractionVFX;
 
     [Header("Debug")]
     [SerializeField, ReadOnly] public DogState CurrentState;
@@ -30,6 +32,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
     private bool _seesDistractions;
     private float _distractionDetectionDist;
     private bool _isPathInterrupted;
+
+    private bool _vfxActive;
 
     private AudioClip[] _actionSFX;
 
@@ -117,7 +121,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         if (StatusHistory.Count < turnIndex) Debug.LogError("Trying to skip a turn in history");
         if (deleteFuturePoints && StatusHistory.Count >= turnIndex)
             StatusHistory.RemoveRange(turnIndex, StatusHistory.Count - turnIndex);
-        StatusHistory.Add(new DogHistoryPoint(LevelGrid.Instance.WorldToGridPos(transform.position), Path));
+        StatusHistory.Add(new DogHistoryPoint(LevelGrid.Instance.WorldToGridPos(transform.position), Path, _vfxActive));
         Drawer.IsDrawingEnabled = true;
     }
 
@@ -134,6 +138,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         Drawer.IsDrawingEnabled = true;
         if (Path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
         Drawer.RedrawFinishedPath(Path);
+        _vfxActive = StatusHistory[turnIndex].VFXActive;
+        if (_distractionVFX != null) _distractionVFX.SetBool("Active", _vfxActive);
     }
     #endregion
 
@@ -207,27 +213,40 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         if (!_seesDistractions || CurrentState == DogState.MovingToDistraction) return;
         foreach (var distraction in LevelManager.Instance.DistractionList)
         {
-            if (distraction.IsDisabled) continue;
-            if (Vector3.Distance(transform.position, distraction.transform.position) < _distractionDetectionDist + 3f)
+            // Check if distraction is enabled and in euclidian distance range
+            if (distraction.IsDisabled ||
+                Vector3.Distance(transform.position, distraction.transform.position) >= _distractionDetectionDist + 3f) continue;
+            
+            _isPathInterrupted = true;
+            var path = LevelGrid.Instance.CalculatePath(TraversableTiles, _gridPosition,
+                LevelGrid.Instance.WorldToGridPos(distraction.transform.position), false, default, true);
+            // Check if path to distraction exists and is short enough
+            if (path.Count == 0 || path.Count > _distractionDetectionDist + 1) continue;
+            //Trigger distraction
+            if (_distractionVFX != null) 
             {
-                _isPathInterrupted = true;
-                var path = LevelGrid.Instance.CalculatePath(TraversableTiles, _gridPosition,
-                    LevelGrid.Instance.WorldToGridPos(distraction.transform.position), false, default, true);
-                if (path.Count == 0 || path.Count > _distractionDetectionDist + 1) continue;
-                SFXPlayer.Instance.PlayClip(WorldSounds.Instance.SDogTrash, 1f, true);
-                _stateMachine.ChangeState(DogState.MovingToDistraction, distraction);
-                path.RemoveAt(path.Count - 1);
-                if (path.Count == 0)
-                {
-                    //OnPathFinished(false);
-                    _gridMovement.EndPath();
-                    return;
-                }
-                _gridMovement.StartMovement(path);
-                Path = path;
+                _vfxActive = true;
+                StartCoroutine(IEnableVFX());
+            } 
+            SFXPlayer.Instance.PlayClip(WorldSounds.Instance.SDogTrash, 1f, true);
+            _stateMachine.ChangeState(DogState.MovingToDistraction, distraction);
+            path.RemoveAt(path.Count - 1);
+            if (path.Count == 0)
+            {
+                _gridMovement.EndPath();
                 return;
             }
+            _gridMovement.StartMovement(path);
+            Path = path;
+            return;
+            
         }
+    }
+
+    private IEnumerator IEnableVFX()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _distractionVFX.SetBool("Active", true);
     }
 
 
@@ -287,6 +306,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
 
     private void SetAnimatorBool(bool value)
     {
+        
             if (_animator == null) return;
         _animator.SetBool("IsRunning", value);
     }
@@ -320,10 +340,12 @@ public class DogHistoryPoint
 {
     public Vector2Int GridPosition;
     public List<Vector2Int> DrawnPath;
+    public bool VFXActive;
 
-    public DogHistoryPoint(Vector2Int gridPosition, List<Vector2Int> drawnPath)
+    public DogHistoryPoint(Vector2Int gridPosition, List<Vector2Int> drawnPath, bool vfxActive) 
     {
         GridPosition = gridPosition;
         DrawnPath = drawnPath;
+        VFXActive = vfxActive;
     }
 }

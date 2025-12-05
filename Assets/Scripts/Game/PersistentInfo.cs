@@ -69,6 +69,24 @@ public class PersistentInfo : MonoBehaviour
     {
         Save();
     }
+
+    public void ResetData()
+    {
+        for (int i = 0; i < LevelsInfoSO.LevelsInfo.Count; i++)
+        {
+            CompletionInfo[i] = new LevelCompletionInfo(false, 0);
+        }
+        Save();
+    }
+
+    public void UnlockAll()
+    {
+        for (int i = 0; i < LevelsInfoSO.LevelsInfo.Count; i++)
+        {
+            CompletionInfo[i] = new LevelCompletionInfo(true, 1);
+        }
+        Save();
+    }
 }
 
 [System.Serializable]

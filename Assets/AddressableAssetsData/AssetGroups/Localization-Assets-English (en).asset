@@ -1,0 +1,365 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-English (en)
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-Assets-English (en)
+  m_GUID: 58c91a28107ef0f478dccf4fafac8e68
+  m_SerializeEntries:
+  - m_GUID: 0807742a44323164caeeca1f68e5f5f0
+    m_Address: level_4
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1152016f725582f47ad96ae34ca5747c
+    m_Address: level_select_fondo_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1836e277a98431748a118b037f6c0e53
+    m_Address: tutoriales_how_to_play_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 187aaabec52b6be4483b050dd186c4d6
+    m_Address: level_5 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1afdbda19427596499852b97f902765b
+    m_Address: tutoriales_doors
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ec604381caa14f46936486d86263279
+    m_Address: level_8 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2229ef0304c980e4b89ecd811cd2fce2
+    m_Address: level_3_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f2b5f73c297b9d4f98ea74f389df1b1
+    m_Address: level_5
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34007ec499357a34da6866eecc76b090
+    m_Address: level_4 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37688e5d421b86a46a25c34794521797
+    m_Address: level_select_como_jugar_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b1b40cfdd1c1a042a5356a3c5c74d4e
+    m_Address: perfil_canino_reina_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4313eaa4533132b40848947b310a7b88
+    m_Address: tutoriales_profile_reina
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 483224e78e549434c96bd414663f750d
+    m_Address: level_select_back_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52a748dab008c4548836f37607ab1c88
+    m_Address: tutorial_timeline_fondo_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 565dbc4c06c86e140a8af218e75a4ab6
+    m_Address: level_7_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58780d096fc94a644bb612ef83b00176
+    m_Address: tutoriales_doors_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5efdd5f188a58944ea028300d105d9e0
+    m_Address: level_6 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61212bc552d41bd468e0f8113246465a
+    m_Address: level_9
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d7edd55845099b44b5f772e2c8e2c9b
+    m_Address: level_8_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70dd8f55ad59ae24ab090eb4262c8be2
+    m_Address: level_3
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ab646fcc61faee4285ad8eaa7723dd8
+    m_Address: perfil_canino_capitan_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ad574c47fc3f0f4a86d9d1be1ba6eb7
+    m_Address: tutoriales_how_to_play
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84409a0b014a9644fba55b03b11e6863
+    m_Address: perfil_canino_bruto_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 862f97e6e58672347b35afea9be011f3
+    m_Address: level_7 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91a4c11c80a1366419de55a85eb67129
+    m_Address: level_10
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 958e1443663a7044f82749a47402c29b
+    m_Address: level_3 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9604371f07e69fe4d9be9cab4fdc053f
+    m_Address: tutoriales_profile_bruto_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4d94e0fc6c404a4ab3628dbc755b6b9
+    m_Address: tutorial_como_jugar_fondo_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a799666c1ecea0a4992fd2127d059c67
+    m_Address: tutoriales_profile_bruto
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac07110908b8041428e43c78c090e919
+    m_Address: level_select_back
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae6e8282e8fc80d45805187cb4aac4fd
+    m_Address: level_1 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aeeeb7f2480ac0f4ba6f60ad78c4e2a2
+    m_Address: tutoriales_profile_reina_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0a88882c7ae5384fb6c287ca7af564c
+    m_Address: tutoriales_profile_capitan_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbb49c0eabad84f4e8715585e8682bd3
+    m_Address: level_7
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be3a758ec90ca4f49a094a6581719fe0
+    m_Address: tutoriales_timeline_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c25f6196a582b2c40bfbfff1909760a2
+    m_Address: start_1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c36f7402a3a8de645b8610565e4b8841
+    m_Address: level_2_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5bd0c1d9bafc3743adb88a0bff70d0c
+    m_Address: start_click
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c88c74a4ee6aa0f418ffa534353976cb
+    m_Address: level_1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb37e933953fe954385e6c9d361f280c
+    m_Address: level_6
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce294c5314b934148b965ddaf362c820
+    m_Address: level_6_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf46ea4437dbbf648a28f02a32e31bb6
+    m_Address: level_4_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0f25377bd1fe284bbf133d7a3b050ad
+    m_Address: level_2 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d13f940fb6a97aa4d9d7db7bcd64b8ea
+    m_Address: level_9_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5064a51cd8e99f4f8947bdf9423ae8d
+    m_Address: tutoriales_profile_capitan
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db97fb73a4f5f6246a6391a016acc7d2
+    m_Address: level_1_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e2dc88adbca21b7448a861782406bc38
+    m_Address: level_9 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e50a2b3787efe7d4c853d853995fb070
+    m_Address: start_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5a40087abefcd24fb305f775b8f1ef5
+    m_Address: level_2
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9a652665442aab4081d3c947963a050
+    m_Address: level_5_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: edea61ae19b63d843b65d44737fd88ab
+    m_Address: tutoriales_fondo_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6505e5c6a734644598ba61b011159c0
+    m_Address: level_10_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6a3c58383654884d8a011c92bc91dc6
+    m_Address: level_8
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f97eaef88421143449bbb80d30d6c2fb
+    m_Address: level_select_como_jugar
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fcc0c6d865815544f846caf400629804
+    m_Address: tutoriales_timeline_ingles_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ffb3274a178fdef4b881a0869eaab596
+    m_Address: level_10 1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ffc4f0c0469767641a2abda5c6a07110
+    m_Address: tutorial_puertas_fondo_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 9b7440a1c08a55f478bfde58aa63a806, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a88886cd0d134074e817ff2774e998bd, type: 2}
+    - {fileID: 11400000, guid: e9cd75bf83ff0314db6186b471d7a22c, type: 2}

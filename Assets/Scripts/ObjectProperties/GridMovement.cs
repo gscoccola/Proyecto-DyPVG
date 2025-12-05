@@ -106,7 +106,6 @@ public class GridMovement : MonoBehaviour
         if (!dontTruncate)
         {
             _currentPath.RemoveRange(CurrentPathIndex, _currentPath.Count - CurrentPathIndex);
-            Debug.Log("Path truncated to current position.");
         }
     }
 

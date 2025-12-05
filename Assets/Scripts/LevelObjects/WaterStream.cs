@@ -8,6 +8,8 @@ public class WaterStream : MonoBehaviour, IRevertable
     [SerializeField] private RuntimeAnimatorController _middleSprite;
     [SerializeField] private RuntimeAnimatorController _endSprite;
 
+    [SerializeField] private Vector2Int _direction;
+
     private float SoundCooldown = 0.4f;
 
     private float _soundTimer; 
@@ -16,9 +18,10 @@ public class WaterStream : MonoBehaviour, IRevertable
     //private float _blockedTimer;
     private AudioSource _loopingSource;
 
-    public List<int> _lengthHistory = new();
+    public List<StreamInformation> _history = new();
 
     public int _activeLength;
+    public Dog InterruptingDog;
 
     private void Awake()
     {
@@ -34,15 +37,15 @@ public class WaterStream : MonoBehaviour, IRevertable
             waterTile.Triggered.AddListener(value => UpdateStream(value));
             waterTile.Untriggered.AddListener(value => UpdateStream(value));
         }
-        _lengthHistory.Add(_activeLength);
+        _history.Add(new StreamInformation(_activeLength, null));
         UpdateStream(false);
     }
 
     private void Update()
     {
+        //UpdateStream(true);
         _soundTimer -= Time.deltaTime;
-        //_blockedTimer -= Time.deltaTime;
-        if (_isBlocked /*&& _blockedTimer <= 0f*/)
+        if (_isBlocked)
         {
             _loopingSource.volume += Time.deltaTime * 0.8f;
         }
@@ -57,11 +60,24 @@ public class WaterStream : MonoBehaviour, IRevertable
                 if (playSFX && i < _activeLength) TryPlaySound();
                 _activeLength = i;
                 CutStreamAt(_activeLength);
+                if (_waterTiles[i].OccupyingDogs.Count > 0)
+                {
+                    Dog newInterruptingDog = _waterTiles[i].OccupyingDogs[0];
+                    if (InterruptingDog != newInterruptingDog)
+                    {
+                        if (InterruptingDog != null) InterruptingDog.GetComponent<SplashVFXManager>().ToggleVFX(false, _direction);
+                        newInterruptingDog.GetComponent<SplashVFXManager>().ToggleVFX(true, _direction);
+                        InterruptingDog = newInterruptingDog;
+                    }
+                    
+                }
                 SetBlocked(true);
                 return;
             }
             _activeLength = _waterTiles.Length;
             CutStreamAt(_waterTiles.Length);
+            if (InterruptingDog != null) InterruptingDog.GetComponent<SplashVFXManager>().ToggleVFX(false, _direction);
+            InterruptingDog = null;
             SetBlocked(false);
         }
     }
@@ -95,7 +111,8 @@ public class WaterStream : MonoBehaviour, IRevertable
             {
                 if (i == index - 1)
                 {
-                    _waterTiles[i].GetComponent<Animator>().runtimeAnimatorController = _endSprite;
+                    _waterTiles[i].GetComponent<Animator>().runtimeAnimatorController = 
+                        i == _waterTiles.Length - 1 ? _endSprite: _middleSprite;
                 }
                 else
                 {
@@ -108,19 +125,41 @@ public class WaterStream : MonoBehaviour, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
-        CutStreamAt(_lengthHistory[turnIndex]);
+        if (InterruptingDog != null)
+            InterruptingDog.GetComponent<SplashVFXManager>().ToggleVFX(false, _direction);
+        InterruptingDog = _history[turnIndex].InterruptingDog;
+        if (InterruptingDog != null)
+            InterruptingDog.GetComponent<SplashVFXManager>().ToggleVFX(true, _direction);
+        _activeLength = _history[turnIndex].ActiveLength;
+        CutStreamAt(_activeLength);
     }
 
     public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
     {
         if (deleteFuturePoints)
         {
-            while (_lengthHistory.Count > turnIndex)
-                _lengthHistory.RemoveAt(_lengthHistory.Count - 1);
+            while (_history.Count > turnIndex)
+                _history.RemoveAt(_history.Count - 1);
         }
-        if (_lengthHistory.Count == turnIndex)
-            _lengthHistory.Add(_activeLength);
+        if (_history.Count == turnIndex)
+            _history.Add(new StreamInformation(_activeLength, InterruptingDog));
         else
-            _lengthHistory[turnIndex] = _activeLength;
+        {
+            _history[turnIndex].ActiveLength = _activeLength;
+            _history[turnIndex].InterruptingDog = InterruptingDog;
+        }
+    }
+}
+
+
+public class StreamInformation
+{
+    public int ActiveLength;
+    public Dog InterruptingDog;
+
+    public StreamInformation(int activeLength, Dog interruptingDog)
+    {
+        ActiveLength = activeLength;
+        InterruptingDog = interruptingDog;
     }
 }
