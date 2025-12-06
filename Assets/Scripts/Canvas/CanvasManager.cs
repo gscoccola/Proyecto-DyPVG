@@ -21,8 +21,7 @@ public class CanvasManager : Singleton<CanvasManager>
     public GameObject TutorialPanel;
 
     public GameObject PausePanel;
-    public Image GOLosePopup;
-    public Sprite[] GOLosePopupSprites;
+    public Image[] GOLosePopups;
 
     public GameObject DogChipPrefab;
     public GameObject ChipPlacePrefab;
@@ -292,7 +291,17 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void SetLosePanel(bool isActive)
     {
-        GOLosePopup.sprite = isActive ? GOLosePopupSprites[1] : GOLosePopupSprites[0];
+        //GOLosePopups.sprite = isActive ? GOLosePopupSprites[1] : GOLosePopupSprites[0];
+        if (isActive)
+        {
+            GOLosePopups[0].gameObject.SetActive(true);
+            GOLosePopups[1].gameObject.SetActive(false);
+        }
+        else
+        {
+            GOLosePopups[0].gameObject.SetActive(false);
+            GOLosePopups[1].gameObject.SetActive(true);
+        }
     }
 
 

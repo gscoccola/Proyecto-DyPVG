@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization;
+
 
 public class MainMenu : Singleton<MainMenu>
 {
@@ -17,8 +16,7 @@ public class MainMenu : Singleton<MainMenu>
     [SerializeField] private UnityEngine.UI.Button _argButton;
     [SerializeField] private UnityEngine.UI.Button _USButton;
 
-    [SerializeField] private Locale _argLocale;
-    [SerializeField] private Locale _engLocale;
+
 
     private void Start()
     {
@@ -45,6 +43,16 @@ public class MainMenu : Singleton<MainMenu>
         // Setup Locale buttons
         _argButton.onClick.AddListener(SetLocaleEsp);
         _USButton.onClick.AddListener(SetLocaleEng);
+        if (PersistentInfo.Instance.CurrentLocale == "eng")
+        {
+            _USButton.interactable = false;
+            _argButton.interactable = true;
+        }
+        else
+        {
+            _USButton.interactable = true;
+            _argButton.interactable = false;
+        }
 
     }
 
@@ -85,14 +93,14 @@ public class MainMenu : Singleton<MainMenu>
 
     private void SetLocaleEsp()
     {
-        LocalizationSettings.SelectedLocale = _argLocale;
+        PersistentInfo.Instance.SetLocaleEsp();
         _argButton.interactable = false;
         _USButton.interactable = true;
     }
 
     private void SetLocaleEng()
     {
-        LocalizationSettings.SelectedLocale = _engLocale;
+        PersistentInfo.Instance.SetLocaleEng();
         _USButton.interactable = false;
         _argButton.interactable = true;
     }

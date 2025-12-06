@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SaveAndLoader : MonoBehaviour
 {
-    public void SaveData(List<LevelCompletionInfo> CompletionInfo, int musicVolume, int sFXVolume)
+    public void SaveData(List<LevelCompletionInfo> CompletionInfo, int musicVolume, int sFXVolume, string Locale)
     {
         string serializedScores = "";
         string serializedSeenStatus = "";
@@ -19,6 +19,7 @@ public class SaveAndLoader : MonoBehaviour
         PlayerPrefs.SetString("SeenLevels", serializedSeenStatus);
         PlayerPrefs.SetString("MusicVolume", musicVolume.ToString());
         PlayerPrefs.SetString("SFXVolume", sFXVolume.ToString());
+        PlayerPrefs.SetString("Locale", Locale);
 
     }
 
@@ -75,5 +76,15 @@ public class SaveAndLoader : MonoBehaviour
             return 4;
         }
         return sFXVolume;
+    }
+
+    public string LoadLocale()
+    {
+        if (!PlayerPrefs.HasKey("Locale"))
+        {
+            Debug.Log("No saved locale found. Using default.");
+            return "eng";
+        }
+        return PlayerPrefs.GetString("Locale");
     }
 }

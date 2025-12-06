@@ -160,8 +160,8 @@ MonoBehaviour:
   - {fileID: 9169436233286687318}
   - {fileID: 5554317075666166559}
   - {fileID: 6808405096967234723}
-  - {fileID: 8888799082670768392}
   - {fileID: 2730177125160226764}
+  - {fileID: 8888799082670768392}
   - {fileID: 7822891474111064920}
   _select: {fileID: 3754503195129780638}
   _closeAllButton: {fileID: 0}
@@ -461,6 +461,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 364296137428597497}
     m_Modifications:
+    - target: {fileID: 1720275239381268960, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1051.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1720275239381268960, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 972.4321
+      objectReference: {fileID: 0}
     - target: {fileID: 2402641898177128007, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1429,11 +1437,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1720275239381268960, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1051.5
+      value: 1549.286
       objectReference: {fileID: 0}
     - target: {fileID: 1720275239381268960, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 972.4321
+      value: 941.4482
       objectReference: {fileID: 0}
     - target: {fileID: 2402641898177128007, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
       propertyPath: m_Pivot.x

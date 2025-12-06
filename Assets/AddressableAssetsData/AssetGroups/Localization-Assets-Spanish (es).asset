@@ -21,8 +21,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a6693416fc342f4994c109c6b881e6c
+    m_Address: tutoriales_timeline
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1099aef6c5540a545b32a5b225122df8
+    m_Address: si_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 127755a6ced2faa46be1186e49f94e8e
     m_Address: tutorial_timeline
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13693c9cbc420cb40b2cbe0f15910395
+    m_Address: victoria_reintentar_nivel_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14e3b6f389b4a874ca5fa51dc23a0e96
+    m_Address: pausa_menuprincipal_hover
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -33,8 +57,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ad4bbbcc82d7014c9e313218ffd89aa
+    m_Address: no_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1de6fcd360187fe44a87a8f5ea0eaaa8
     m_Address: comenzar_1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 279f007fc2af95f46a2cf16aa421abdd
+    m_Address: go_hover_no_dibujaste
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -47,6 +83,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2fd9dbbfb9151f449978a6bee08802c2
     m_Address: pausa_tutoriales_fondo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 336c5ae9db11e7e4cb4c0ed4579166cc
+    m_Address: "deafio_fondo_espa\xF1ol"
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -75,8 +117,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 409d2e6b48289634ca813f00a822d91a
+    m_Address: pausa_menuprincipal
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 425a8c0660c3ff24fa79161fa515cb15
     m_Address: nivel_8_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 439f078a4ab3972489a1eb5088aeba2a
+    m_Address: pausa_tutoriales_hover
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -87,8 +141,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48e03ea27cff8684897343787083773e
+    m_Address: desafio_bien
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4aa3b6aed86d67248aab2cd3540bcd48
     m_Address: tutoriales_puertas
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ae1c30b305ed02459c6893e2ec5e577
+    m_Address: pausa_tutoriales
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -135,6 +201,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69521987feac71549a14f1a0b4552f76
+    m_Address: pausa_fondo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f39cdf6c87a9194bbc449fd60aea670
     m_Address: tutoriales_puertas_hover
     m_ReadOnly: 1
@@ -165,6 +237,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 800b63898ea1fb64982cf04865e8c0b2
+    m_Address: restart_advertencia_fondo-03
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8529383d9ac485e40aa1c83d23b13d0a
     m_Address: tutoriales_perfil_capitan
     m_ReadOnly: 1
@@ -179,6 +257,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8a8d909745250014e9d0c2ec68596792
     m_Address: tutorial_como_jugar
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90f503d6334b1474ebbf5e34aa004c1c
+    m_Address: victoria_popup
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -201,8 +285,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 991c9baf06d13f141aedf86705953927
+    m_Address: victoria_reintentar_nivel
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ab9a7003792e4143a3021fd5c483371
     m_Address: nivel_2
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f58703cefaadb54c96f8280e4203631
+    m_Address: turno_pasado_hover_texto
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a019fb3c2d038aa4f87975a762eba535
+    m_Address: timeline_fondo-11
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -249,6 +351,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be82b5ceaadfa8d44b67f4bcbc0be548
+    m_Address: turno_siguiente_hover_texto
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf9263bf8ef31b040acb5bad68c35494
     m_Address: nivel_4 1
     m_ReadOnly: 1
@@ -291,14 +399,62 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d18ea464609b259478d80aebbc09c5e0
+    m_Address: victoria_proximo_nivel
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4cc7c46bb975b04984fa8cadfeb30ce
     m_Address: nivel_1_hover
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d620e14b1b0fba445b2e993f720b5dde
+    m_Address: go_hover_0_turnos
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d737673dafc99f94ca1baf660dce08ce
+    m_Address: tutorial_puertas
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d81c1da7715056a4ca612e421e50b7cf
     m_Address: tutorial_perfil_bruto
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8ba7dcb4b281694e8d67e25ce66fb95
+    m_Address: turnos_1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfe181b785d115542afa2d34b19c6ded
+    m_Address: si_1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5881bcbed8ed3043847a6d681688ad1
+    m_Address: victoria_proximo_nivel_hover-51
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e667f82f813681d47b810608855a646d
+    m_Address: borrar_datos_fondo
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6f7f607d9e784b49be9945fd01e9d8a
+    m_Address: no_1
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -323,6 +479,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea16337d400d2e54e813ab087d3384e5
     m_Address: nivel_4
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed3fb24601ca3f0499f44141a6943c40
+    m_Address: inicio_borrar_datos_hover_texto
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es

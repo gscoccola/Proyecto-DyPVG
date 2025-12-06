@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization;
 
 public class PersistentInfo : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class PersistentInfo : MonoBehaviour
 
     public int MusicVolume = 4;
     public int SFXVolume = 4;
+    public string CurrentLocale;
+
+    [SerializeField] private Locale _argLocale;
+    [SerializeField] private Locale _engLocale;
 
     [HideInInspector] public static PersistentInfo Instance;
     private SaveAndLoader _saveAndLoader;
@@ -24,6 +30,7 @@ public class PersistentInfo : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         _saveAndLoader = GetComponent<SaveAndLoader>();
         Load();
         
@@ -33,6 +40,7 @@ public class PersistentInfo : MonoBehaviour
     {
         GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
         GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
+        
     }
 
     public int HighestAvailableLevel()
@@ -49,7 +57,7 @@ public class PersistentInfo : MonoBehaviour
 
     public void Save()
     {
-        _saveAndLoader.SaveData(CompletionInfo, MusicVolume, SFXVolume);
+        _saveAndLoader.SaveData(CompletionInfo, MusicVolume, SFXVolume, CurrentLocale);
     }
 
     public void Load()
@@ -63,6 +71,8 @@ public class PersistentInfo : MonoBehaviour
         SFXVolume = _saveAndLoader.LoadSFXVolume();
         GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
         GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
+        CurrentLocale = _saveAndLoader.LoadLocale();
+        LocalizationSettings.SelectedLocale = CurrentLocale == "esp" ? _argLocale : _engLocale;
     }
 
     private void OnApplicationQuit()
@@ -83,9 +93,22 @@ public class PersistentInfo : MonoBehaviour
     {
         for (int i = 0; i < LevelsInfoSO.LevelsInfo.Count; i++)
         {
-            CompletionInfo[i] = new LevelCompletionInfo(true, 1);
+            CompletionInfo[i] = new LevelCompletionInfo(false, 1);
         }
         Save();
+    }
+
+    public void SetLocaleEsp()
+    {
+        CurrentLocale = "esp";
+        LocalizationSettings.SelectedLocale = _argLocale;
+        
+    }
+
+    public void SetLocaleEng()
+    {
+        CurrentLocale = "eng";
+        LocalizationSettings.SelectedLocale = _engLocale;
     }
 }
 
@@ -101,3 +124,4 @@ public class LevelCompletionInfo
         Score = score;
     }
 }
+

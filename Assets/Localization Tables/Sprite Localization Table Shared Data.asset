@@ -257,9 +257,114 @@ MonoBehaviour:
     m_Key: Tut Display 6
     m_Metadata:
       m_Items: []
+  - m_Id: 59019390291968
+    m_Key: TurnsLeft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59664679768064
+    m_Key: NoTurnsRemaining
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59746477084672
+    m_Key: 'NoDrawnPath
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61757763293184
+    m_Key: TimelineBackground
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63547388923904
+    m_Key: PreviousTurn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63622852841472
+    m_Key: NextTurn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63660282810368
+    m_Key: ResetPopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65337379459072
+    m_Key: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65379662237696
+    m_Key: No Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65407554359296
+    m_Key: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65445688971264
+    m_Key: Yes Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 66131805802496
+    m_Key: PausePanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67335252283392
+    m_Key: VictoryBanner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67706511101952
+    m_Key: Next Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67730343137280
+    m_Key: Play Again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67807606411264
+    m_Key: Next Level Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67829211271168
+    m_Key: Play Again Hover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69291865739264
+    m_Key: Challenges
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69677020286976
+    m_Key: Great
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361709831917568
+    m_Key: 'DeleteData
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 367057028452352
+    m_Key: DeleteDataPopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369071569440768
+    m_Key: TutorialsButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369093363044352
+    m_Key: TutorialsButtonHover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369120483414016
+    m_Key: MainMenuButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369140863537152
+    m_Key: MainMenuButtonHover
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items:
     - rid: 6326717558856876336
+    - rid: 6326717558856876678
   m_KeyGenerator:
     rid: 6326717558856876335
   references:
@@ -501,5 +606,111 @@ MonoBehaviour:
           m_TableCodes:
           - en
           - es
+        - m_KeyId: 59019390291968
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 59664679768064
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 59746477084672
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 61757763293184
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 63547388923904
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 63622852841472
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 63660282810368
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 65337379459072
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 65379662237696
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 65407554359296
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 65445688971264
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 66131805802496
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 67335252283392
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 67730343137280
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 67829211271168
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 67807606411264
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 67706511101952
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 69677020286976
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 361709831917568
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 367057028452352
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 369120483414016
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 369071569440768
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 369093363044352
+          m_TableCodes:
+          - en
+          - es
+        - m_KeyId: 369140863537152
+          m_TableCodes:
+          - en
+          - es
         m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - rid: 6326717558856876678
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 69291865739264
+          m_TableCodes:
+          - en
+          - es
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
