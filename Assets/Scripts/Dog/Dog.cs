@@ -139,7 +139,7 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
         if (Path.Count > 1) CanvasManager.Instance.ChangeActivePaths(1);
         Drawer.RedrawFinishedPath(Path);
         _vfxActive = StatusHistory[turnIndex].VFXActive;
-        if (_distractionVFX != null) _distractionVFX.SetBool("Active", _vfxActive);
+        if (_distractionVFX != null)  _distractionVFX.SetBool("Active", _vfxActive);
     }
     #endregion
 

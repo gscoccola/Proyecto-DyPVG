@@ -597,6 +597,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d737673dafc99f94ca1baf660dce08ce, type: 3}
+    - target: {fileID: 5816037117856608565, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1095.5798
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816037117856608565, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 87.63464
+      objectReference: {fileID: 0}
     - target: {fileID: 6753707469992545159, guid: 4e8af1d24af690e4cb0a73357171434e, type: 3}
       propertyPath: m_Sprite
       value: 

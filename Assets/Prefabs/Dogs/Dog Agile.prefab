@@ -611,7 +611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DogParameters: {fileID: 11400000, guid: 18adf2a5e6d4f4c4ca08e8d50a4d5d68, type: 2}
   _animator: {fileID: 6899471482813522227}
-  _distractionVFX: {fileID: 0}
+  _distractionVFX: {fileID: 2438416120505188998}
   CurrentState: 0
   _gridPosition: {x: 0, y: 0}
   StatusHistory: []
@@ -632,6 +632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SplashVFXManager
   _frontSplash: {fileID: 2145261651135090227}
   _backSplash: {fileID: 3708023493908808307}
+  IsBackSplash: 0
 --- !u!114 &3617321176358988092
 MonoBehaviour:
   m_ObjectHideFlags: 0
