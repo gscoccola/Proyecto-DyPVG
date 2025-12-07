@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PersistentInfo : MonoBehaviour
 {
@@ -71,8 +73,8 @@ public class PersistentInfo : MonoBehaviour
         SFXVolume = _saveAndLoader.LoadSFXVolume();
         GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
         GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
-        CurrentLocale = _saveAndLoader.LoadLocale();
-        LocalizationSettings.SelectedLocale = CurrentLocale == "esp" ? _argLocale : _engLocale;
+        /*CurrentLocale = _saveAndLoader.LoadLocale();
+        LocalizationSettings.SelectedLocale = CurrentLocale == "esp" ? _argLocale : _engLocale;*/
     }
 
     private void OnApplicationQuit()
@@ -101,14 +103,24 @@ public class PersistentInfo : MonoBehaviour
     public void SetLocaleEsp()
     {
         CurrentLocale = "esp";
-        LocalizationSettings.SelectedLocale = _argLocale;
-        
+        //LocalizationSettings.SelectedLocale = _argLocale;
+        StartCoroutine(ISetLocale(_argLocale));
     }
 
     public void SetLocaleEng()
     {
         CurrentLocale = "eng";
-        LocalizationSettings.SelectedLocale = _engLocale;
+        //LocalizationSettings.SelectedLocale = _engLocale;
+        StartCoroutine(ISetLocale(_engLocale));
+    }
+
+    public IEnumerator ISetLocale(Locale locale)
+    {
+        yield return new WaitForEndOfFrame();
+        LocalizationSettings.SelectedLocale = locale;
+        /*yield return LocalizationSettings.InitializationOperation;
+        */
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
 

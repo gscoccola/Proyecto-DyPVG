@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class MainMenu : Singleton<MainMenu>
@@ -15,12 +16,14 @@ public class MainMenu : Singleton<MainMenu>
 
     [SerializeField] private UnityEngine.UI.Button _argButton;
     [SerializeField] private UnityEngine.UI.Button _USButton;
+    [SerializeField] private GameObject _loadingScreen;
 
 
 
     private void Start()
     {
         // Setup level buttons
+        //_levelsMenu.SetActive(true);
         for (int i = 0; i < _levelButtons.Length; i++)
         {
             if (i > PersistentInfo.Instance.HighestAvailableLevel())
@@ -40,6 +43,7 @@ public class MainMenu : Singleton<MainMenu>
                 else _levelButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = _stamps[0];
             }
         }
+        //_levelsMenu.SetActive(false);
         // Setup Locale buttons
         _argButton.onClick.AddListener(SetLocaleEsp);
         _USButton.onClick.AddListener(SetLocaleEng);
@@ -59,6 +63,20 @@ public class MainMenu : Singleton<MainMenu>
     public void ActivateLevelMenu()
     {
         _mainMenu.SetActive(false);
+        _levelsMenu.SetActive(true);
+        /*for (int i = 0; i < _levelButtons.Length; i++)
+        {
+            if (i > PersistentInfo.Instance.HighestAvailableLevel())
+            {
+                _levelButtons[i].interactable = false;
+            }
+        }*/
+    }
+
+    private IEnumerator DelayLevelsOpen()
+    {
+        _levelsMenu.SetActive(false);
+        yield return new WaitForEndOfFrame();
         _levelsMenu.SetActive(true);
     }
 
@@ -93,16 +111,30 @@ public class MainMenu : Singleton<MainMenu>
 
     private void SetLocaleEsp()
     {
-        PersistentInfo.Instance.SetLocaleEsp();
+        _loadingScreen.SetActive(true);
         _argButton.interactable = false;
         _USButton.interactable = true;
+        //PersistentInfo.Instance.SetLocaleEsp();
+        StartCoroutine(DelayLocaleChange(1));
     }
 
     private void SetLocaleEng()
     {
-        PersistentInfo.Instance.SetLocaleEng();
+        _loadingScreen.SetActive(true);
         _USButton.interactable = false;
         _argButton.interactable = true;
+        //PersistentInfo.Instance.SetLocaleEng();
+        StartCoroutine(DelayLocaleChange(0));
+    }
+
+    private IEnumerator DelayLocaleChange(int index)
+    {
+        _loadingScreen.SetActive(true);
+        yield return new WaitForEndOfFrame();
+        if (index == 0)
+            PersistentInfo.Instance.SetLocaleEng();
+        else
+            PersistentInfo.Instance.SetLocaleEsp();
     }
 
 }

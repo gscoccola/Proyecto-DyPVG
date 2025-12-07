@@ -267,12 +267,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 91afdb528d9f2e44286be38c88e986c3
-    m_Address: "z_mock_up_selecci\xF3n de nivel"
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-es
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 938f0bd05dd87e94e972addaa6879b6a
     m_Address: nivel_10
     m_ReadOnly: 1
@@ -431,6 +425,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8ba7dcb4b281694e8d67e25ce66fb95
     m_Address: turnos_1
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc941212844ab4f48b392473825ad3ce
+    m_Address: Selecicion de nivel
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
