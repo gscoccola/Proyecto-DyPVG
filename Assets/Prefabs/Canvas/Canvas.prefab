@@ -2581,6 +2581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popupOnDisabled: 0
+  _popup: {fileID: 0}
 --- !u!114 &3552613610703228324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4295,6 +4296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popupOnDisabled: 0
+  _popup: {fileID: 0}
 --- !u!114 &984568207891643399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7010,6 +7012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonPopup
   _popupOnDisabled: 1
+  _popup: {fileID: 0}
 --- !u!1 &8612272740265692685
 GameObject:
   m_ObjectHideFlags: 0

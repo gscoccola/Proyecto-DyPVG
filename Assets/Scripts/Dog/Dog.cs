@@ -223,11 +223,8 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
             // Check if path to distraction exists and is short enough
             if (path.Count == 0 || path.Count > _distractionDetectionDist + 1) continue;
             //Trigger distraction
-            if (_distractionVFX != null) 
-            {
-                _vfxActive = true;
-                StartCoroutine(IEnableVFX());
-            } 
+            if (_distractionVFX != null) SetDistractedVFX(true);
+            distraction.DistractedDog = this;
             SFXPlayer.Instance.PlayClip(WorldSounds.Instance.SDogTrash, 1f, true);
             _stateMachine.ChangeState(DogState.MovingToDistraction, distraction);
             path.RemoveAt(path.Count - 1);
@@ -238,9 +235,15 @@ public class Dog : MonoBehaviour, IRevertable, IActionable, IGridCollider, IPath
             }
             _gridMovement.StartMovement(path);
             Path = path;
-            return;
-            
+            return; 
         }
+    }
+
+    public void SetDistractedVFX(bool enabled)
+    {
+        _vfxActive = enabled;
+        if (enabled) StartCoroutine(IEnableVFX());
+        else _distractionVFX.SetBool("Active", false);
     }
 
     private IEnumerator IEnableVFX()

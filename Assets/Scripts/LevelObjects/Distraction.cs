@@ -7,8 +7,9 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
     [Header("Debug")]
     [ReadOnly] public bool IsDisabled;
     [HideInInspector] public UnityEvent OnDistractionDisabled;
-    [HideInInspector] public List<bool> OccupiedHistory = new();
+    [HideInInspector] public List<DistractionData> History = new();
     [SerializeField] private GameObject _eatSFX;
+    public Dog DistractedDog;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -19,7 +20,7 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
 
     private void Start()
     {
-        OccupiedHistory.Add(false);
+        History.Add(new DistractionData(null, false));
     }
 
     #region GRID COLLIDER INTERFACE
@@ -29,6 +30,8 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
         if (IsDisabled) return;
         if (other.GetComponent<Dog>() == null || other.GetComponent<Dog>().DogParameters.Type != DogType.Bully) return;
         Toggle(true);
+        if (DistractedDog != null) DistractedDog.SetDistractedVFX(false);
+        DistractedDog = null;
         OnDistractionDisabled?.Invoke();
         Instantiate(_eatSFX, transform.position, Quaternion.identity);
         SFXPlayer.Instance.PlayClip(WorldSounds.Instance.BDogTrash, 1f, true);
@@ -44,20 +47,21 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
 
     public void RevertToHistoryPoint(int turnIndex)
     {
-        Toggle(OccupiedHistory[turnIndex]);
+        Toggle(History[turnIndex].IsDisabled);
+        DistractedDog = History[turnIndex].DistractedDog;
     }
 
     public void SaveHistoryPoint(int turnIndex, bool deleteFuturePoints = true)
     {
         if (deleteFuturePoints)
         {
-            while (OccupiedHistory.Count > turnIndex)
-                OccupiedHistory.RemoveAt(OccupiedHistory.Count - 1);
+            while (History.Count > turnIndex)
+                History.RemoveAt(History.Count - 1);
         }
-        if (OccupiedHistory.Count == turnIndex)
-            OccupiedHistory.Add(IsDisabled);
+        if (History.Count == turnIndex)
+            History.Add(new DistractionData(DistractedDog, IsDisabled));
         else
-            OccupiedHistory[turnIndex] = IsDisabled;
+            History[turnIndex] = new DistractionData(DistractedDog, IsDisabled);
     }
     #endregion
 
@@ -65,5 +69,19 @@ public class Distraction : MonoBehaviour, IGridCollider, IRevertable
     {
         _spriteRenderer.enabled = !disabled;
         IsDisabled = disabled;
+    }
+
+
+}
+
+public class DistractionData
+{
+    public bool IsDisabled;
+    public Dog DistractedDog;
+
+    public DistractionData(Dog distractedDog, bool isDisabled)
+    {
+        DistractedDog = distractedDog;
+        IsDisabled = isDisabled;
     }
 }

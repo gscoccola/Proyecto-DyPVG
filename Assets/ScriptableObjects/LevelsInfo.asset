@@ -50,6 +50,6 @@ MonoBehaviour:
     ParTurns: 3
     SkipTutorial: 1
   - Index: 10
-    MaxTurns: 4
-    ParTurns: 3
+    MaxTurns: 6
+    ParTurns: 5
     SkipTutorial: 1
