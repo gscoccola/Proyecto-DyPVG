@@ -26,7 +26,7 @@ public class CanvasManager : Singleton<CanvasManager>
     public GameObject DogChipPrefab;
     public GameObject ChipPlacePrefab;
 
-    public TextMeshProUGUI turnParText;
+    public TextMeshProUGUI[] TurnParTexts;
     public Image turnParPanel;
     public GameObject[] ChallengePanels;
 
@@ -60,11 +60,11 @@ public class CanvasManager : Singleton<CanvasManager>
         }
         if (ChipPlaces.Count > listIndex) ChipPlaces.RemoveRange(listIndex, ChipPlaces.Count - (listIndex));
 
-        if (!PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].SkipTutorial &&
-            !PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Seen)
+        if (!PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex -2 ].SkipTutorial &&
+            !PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 2].Seen)
         {
             ToggleTutorial();
-            PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Seen = true;
+            PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 2].Seen = true;
         }
         else
         {
@@ -254,7 +254,7 @@ public class CanvasManager : Singleton<CanvasManager>
     public void UpdateDisplayedValues(bool isPlanningPhase)
     {
         int turnsLeft = 
-        PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].MaxTurns - TurnManager.Instance.CurrentTurnIndex;
+        PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 2].MaxTurns - TurnManager.Instance.CurrentTurnIndex;
         TurnText.text = turnsLeft.ToString();
         if (turnsLeft == 0) TurnText.color = Color.red;
         else TurnText.color = Color.white;
@@ -266,27 +266,46 @@ public class CanvasManager : Singleton<CanvasManager>
         TurnManager.Instance.CurrentTurnIndex++;
         UpdateDisplayedValues(false);
         WinPanel.SetActive(true);
-        int targetTurns = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 1].ParTurns;
+        int targetTurns = PersistentInfo.Instance.LevelsInfoSO.LevelsInfo[SceneManager.GetActiveScene().buildIndex - 2].ParTurns;
         bool challengeAchieved = targetTurns >= TurnManager.Instance.CurrentTurnIndex;
 
-        if (challengeAchieved) ChallengePanels[1].SetActive(true);
-        else ChallengePanels[0].SetActive(true);
+        /*if (challengeAchieved) ChallengePanels[1].SetActive(true);
+        else ChallengePanels[0].SetActive(true);*/
 
-        turnParText.color = challengeAchieved ? Color.black : Color.white;
         if (challengeAchieved) SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WinWithChallenge);
         else SFXPlayer.Instance.PlayClip(WorldSounds.Instance.WinNoChallenge);
-        string lastWord = targetTurns == 1 ? " turno" : " turnos";
-        turnParText.text = "Ganá en " + targetTurns + lastWord;
-        MusicPlayer.Instance.DestroyPlayer();
-        if (challengeAchieved) StartCoroutine(IShowWinPanelDelayed());
+        foreach (var text in TurnParTexts)
+        {
+            if (PersistentInfo.Instance.CurrentLocale == "esp")
+            {
+                string lastWord = targetTurns == 1 ? " turno" : " turnos";
+                text.text = "Ganá en " + targetTurns + lastWord;
+            }
+            else
+            {
+                string lastWord = targetTurns == 1 ? " turn" : " turns";
+                text.text = "Win in " + targetTurns + lastWord;
+            }
+        }
+            MusicPlayer.Instance.DestroyPlayer();
+        if (challengeAchieved)
+        {
+
+            WinPanel.GetComponent<Animator>().SetTrigger("WithChallenge");
+            StartCoroutine(IWinPanelCoRoutine());
+        }
+        else
+        {
+            WinPanel.GetComponent<Animator>().SetTrigger("WithoutChallenge");
+        }
     }
 
-    private IEnumerator IShowWinPanelDelayed()
+    private IEnumerator IWinPanelCoRoutine()
     {
+
         yield return new WaitForSeconds(2f);
         SFXPlayer.Instance.PlayClip(WorldSounds.Instance.Stamp);
-        yield return new WaitForSeconds(0.1f);
-        ChallengePanels[1].transform.GetChild(2).gameObject.SetActive(true);
+
     }
 
     public void SetLosePanel(bool isActive)

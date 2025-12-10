@@ -21,6 +21,6 @@ public class MusicPlayer : MonoBehaviour
 
     public void DestroyPlayer()
     {
-        Destroy(gameObject);
+        if (gameObject !=null) Destroy(gameObject);
     }
 }

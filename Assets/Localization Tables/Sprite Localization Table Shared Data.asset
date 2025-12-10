@@ -361,6 +361,22 @@ MonoBehaviour:
     m_Key: MainMenuButtonHover
     m_Metadata:
       m_Items: []
+  - m_Id: 1762067405099008
+    m_Key: FinishGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1762142764158976
+    m_Key: FinishGameHover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1771125453377536
+    m_Key: EndingPanelIncomplete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1771170705723392
+    m_Key: EndingPanelComplete
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items:
     - rid: 6326717558856876336
@@ -532,8 +548,8 @@ MonoBehaviour:
           - en
         - m_KeyId: 44395194421248
           m_TableCodes:
-          - en
           - es
+          - en
         - m_KeyId: 44859512262656
           m_TableCodes:
           - en
@@ -702,6 +718,20 @@ MonoBehaviour:
           m_TableCodes:
           - en
           - es
+        - m_KeyId: 1762067405099008
+          m_TableCodes:
+          - es
+        - m_KeyId: 1762142764158976
+          m_TableCodes:
+          - es
+        - m_KeyId: 1771125453377536
+          m_TableCodes:
+          - es
+          - en
+        - m_KeyId: 1771170705723392
+          m_TableCodes:
+          - es
+          - en
         m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
     - rid: 6326717558856876678

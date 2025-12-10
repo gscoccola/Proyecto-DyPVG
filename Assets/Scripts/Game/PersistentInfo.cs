@@ -4,6 +4,7 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Localization;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class PersistentInfo : MonoBehaviour
 {
@@ -73,8 +74,9 @@ public class PersistentInfo : MonoBehaviour
         SFXVolume = _saveAndLoader.LoadSFXVolume();
         GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
         GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
-        /*CurrentLocale = _saveAndLoader.LoadLocale();
-        LocalizationSettings.SelectedLocale = CurrentLocale == "esp" ? _argLocale : _engLocale;*/
+        /*CurrentLocale = _saveAndLoader.LoadLocale();*/
+        //LocalizationSettings.SelectedLocale = CurrentLocale == "esp" ? _argLocale : _engLocale;
+        CurrentLocale = "esp";
     }
 
     private void OnApplicationQuit()
@@ -118,9 +120,24 @@ public class PersistentInfo : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         LocalizationSettings.SelectedLocale = locale;
+        AsyncOperationHandle<LocalizationSettings> operation = LocalizationSettings.InitializationOperation;
+        yield return operation;
         /*yield return LocalizationSettings.InitializationOperation;
         */
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public int TotalChallengesCompleted()
+    {
+        int total = 0;
+        for (int i = 0; i < CompletionInfo.Count; i++)
+        {
+            if (CompletionInfo[i].Score > 0 && CompletionInfo[i].Score <= LevelsInfoSO.LevelsInfo[i].ParTurns)
+            {
+                total++;
+            }
+        }
+        return total;
     }
 }
 

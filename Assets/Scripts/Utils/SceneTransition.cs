@@ -16,7 +16,7 @@ public class SceneTransition : Singleton<SceneTransition>
 
     public void LoadScene(int index)
     {
-        StartCoroutine(ILoadScene(index));
+        StartCoroutine(ILoadScene(index + 1));
     }
 
     public IEnumerator ILoadScene(int index)
@@ -24,7 +24,11 @@ public class SceneTransition : Singleton<SceneTransition>
         PersistentInfo.Instance.Save();
         _animator.SetTrigger("FadeIn");
         yield return new WaitForSeconds(transitionDuration);
-        if (index == 0 && SceneManager.GetActiveScene().buildIndex != 0 || index !=0 && SceneManager.GetActiveScene().buildIndex == 0) MusicPlayer.Instance.DestroyPlayer(); 
+        if (index == 0 && SceneManager.GetActiveScene().buildIndex != 0 || index !=0 && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+
+           if (MusicPlayer.Instance != null)   MusicPlayer.Instance.DestroyPlayer(); 
+        }
         SceneManager.LoadScene(index);
     }
 }

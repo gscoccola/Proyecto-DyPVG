@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d56a785cd37f3b42a778325e32d8392
+    m_Address: fin_del_juego_mock_up2
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1152016f725582f47ad96ae34ca5747c
     m_Address: level_select_fondo_ingles
     m_ReadOnly: 1
@@ -81,12 +87,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 37688e5d421b86a46a25c34794521797
-    m_Address: level_select_como_jugar_hover
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3b1b40cfdd1c1a042a5356a3c5c74d4e
     m_Address: perfil_canino_reina_ingles
     m_ReadOnly: 1
@@ -99,6 +99,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40a442b0fd7585d4598702081127d01f
+    m_Address: "how_to_play_tama\xF1oreal"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4313eaa4533132b40848947b310a7b88
     m_Address: tutoriales_profile_reina
     m_ReadOnly: 1
@@ -107,12 +113,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46423097a71442a4ba35fdc3a706ca73
     m_Address: no_1
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 483224e78e549434c96bd414663f750d
-    m_Address: level_select_back_hover
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -267,6 +267,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d34638c920a9794a9e45d235b5c007a
+    m_Address: "back_tama\xF1oreal"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f6a0c8df4a67df49a67e048cb014c6f
     m_Address: go_hover_sin caminos_ingles
     m_ReadOnly: 1
@@ -291,8 +297,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ac07110908b8041428e43c78c090e919
-    m_Address: level_select_back
+  - m_GUID: acef41f9484f1b2498b9c49ab96960fb
+    m_Address: "how_to_play_hover_tama\xF1oreal"
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -317,6 +323,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b60038da1211fb2449a4a449bbfcc6e2
     m_Address: turnos_restantes_ingles
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b83747c60a7ea8146ba64a7daee6cb06
+    m_Address: "back_hover_tama\xF1oreal"
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -453,6 +465,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e71237a70b2a47546a06cc17b451e698
+    m_Address: fin_del_juego_TODOS_LOS_DEASDIOS_INGLES
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e9a652665442aab4081d3c947963a050
     m_Address: level_5_hover
     m_ReadOnly: 1
@@ -473,12 +491,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6a3c58383654884d8a011c92bc91dc6
     m_Address: level_8
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f97eaef88421143449bbb80d30d6c2fb
-    m_Address: level_select_como_jugar
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1165e9972ec10ad4b8bb36cbb5c46dc4
+    m_Address: "como_jugar_hover_tama\xF1oreal"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 127755a6ced2faa46be1186e49f94e8e
     m_Address: tutorial_timeline
     m_ReadOnly: 1
@@ -47,6 +53,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 14e3b6f389b4a874ca5fa51dc23a0e96
     m_Address: pausa_menuprincipal_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14f4f9d8ee78a1a4fabf454505944ad4
+    m_Address: fin_del_juego_mock_up1
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -93,12 +105,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 372d77e136f448641a749aa7de95fdf7
-    m_Address: como_jugar_boton_hover
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-es
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 380bb3ff814f36146881385a7e7aa345
     m_Address: nivel_8
     m_ReadOnly: 1
@@ -131,6 +137,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 439f078a4ab3972489a1eb5088aeba2a
     m_Address: pausa_tutoriales_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44c54ac4f0849df4b801102c26e31009
+    m_Address: "volver_hover_tama\xF1oreal"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 457ccdabf9ef3d449b4eadace39908f1
+    m_Address: fin_del_juego_TODOS_LOS_DEASDIOS
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -315,14 +333,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a4e76e885d8f2c244b9075dee1d0498e
-    m_Address: como_jugar_boton
+  - m_GUID: a9dbd2e3cae3e90438c7d132e49b42b3
+    m_Address: tutoriales_perfil_capitan_hover
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9dbd2e3cae3e90438c7d132e49b42b3
-    m_Address: tutoriales_perfil_capitan_hover
+  - m_GUID: b51f51b9aa40e6d42b5f3ded9f9809a3
+    m_Address: "volver_tama\xF1oreal"
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -351,6 +369,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bec50a8c5c272c4488411ac747cffedf
+    m_Address: victoria_fin_del_juego-52
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf9263bf8ef31b040acb5bad68c35494
     m_Address: nivel_4 1
     m_ReadOnly: 1
@@ -375,6 +399,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cefded1aa9cde504dbec7cf1884a9e75
+    m_Address: "como_jugar_tama\xF1oreal"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf28450ca84f0764290ed132edaa03c6
     m_Address: nivel_6_hover
     m_ReadOnly: 1
@@ -383,12 +413,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf56c715a397d3a47bda8bb7f8a13b8c
     m_Address: perfil_canino_capitan
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-es
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cf7ab3d16b2f04241b556ba624aac511
-    m_Address: seleccion_de_nivel_volver_hover
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
@@ -471,12 +495,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e993faf689eeb05439725c9e165d1159
-    m_Address: seleccion_de_nivel_volver
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-es
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea16337d400d2e54e813ab087d3384e5
     m_Address: nivel_4
     m_ReadOnly: 1
@@ -497,6 +515,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa74f83c60a42c14090a0e4823807acb
     m_Address: nivel_9
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb18ade003be5e843955fa6ef5d678d1
+    m_Address: victoria_fin_del_juego-53
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es

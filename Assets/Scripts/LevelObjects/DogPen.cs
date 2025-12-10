@@ -55,10 +55,10 @@ public class DogPen : MonoBehaviour
     private IEnumerator TriggerWinCondition()
     {
         // if current turn index is less than the stored score for this level, or score is zero, update it
-        int previousScore = PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Score;
+        int previousScore = PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 2].Score;
         if (TurnManager.Instance.CurrentTurnIndex < previousScore ||
             previousScore == 0)
-            PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 1].Score = TurnManager.Instance.CurrentTurnIndex;
+            PersistentInfo.Instance.CompletionInfo[SceneManager.GetActiveScene().buildIndex - 2].Score = TurnManager.Instance.CurrentTurnIndex;
         PersistentInfo.Instance.Save();
         TurnManager.Instance.CurrentTurnIndex--;
         yield return new WaitForSecondsRealtime(1f);

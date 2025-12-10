@@ -16,7 +16,8 @@ public class MainMenu : Singleton<MainMenu>
 
     [SerializeField] private UnityEngine.UI.Button _argButton;
     [SerializeField] private UnityEngine.UI.Button _USButton;
-    [SerializeField] private GameObject _loadingScreen;
+    [SerializeField] private GameObject _loadingScreenEng;
+    [SerializeField] private GameObject _loadingScreenEsp;
 
 
 
@@ -73,13 +74,6 @@ public class MainMenu : Singleton<MainMenu>
         }*/
     }
 
-    private IEnumerator DelayLevelsOpen()
-    {
-        _levelsMenu.SetActive(false);
-        yield return new WaitForEndOfFrame();
-        _levelsMenu.SetActive(true);
-    }
-
     public void BackToMainMenu()
     {
         _mainMenu.SetActive(true);
@@ -111,7 +105,7 @@ public class MainMenu : Singleton<MainMenu>
 
     private void SetLocaleEsp()
     {
-        _loadingScreen.SetActive(true);
+        _loadingScreenEsp.SetActive(true);
         _argButton.interactable = false;
         _USButton.interactable = true;
         //PersistentInfo.Instance.SetLocaleEsp();
@@ -120,7 +114,7 @@ public class MainMenu : Singleton<MainMenu>
 
     private void SetLocaleEng()
     {
-        _loadingScreen.SetActive(true);
+        _loadingScreenEng.SetActive(true);
         _USButton.interactable = false;
         _argButton.interactable = true;
         //PersistentInfo.Instance.SetLocaleEng();
@@ -129,7 +123,6 @@ public class MainMenu : Singleton<MainMenu>
 
     private IEnumerator DelayLocaleChange(int index)
     {
-        _loadingScreen.SetActive(true);
         yield return new WaitForEndOfFrame();
         if (index == 0)
             PersistentInfo.Instance.SetLocaleEng();
