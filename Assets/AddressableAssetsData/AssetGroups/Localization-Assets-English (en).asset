@@ -45,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19428ae10be85704ebc9d8ba69cfa4b6
+    m_Address: victoria_end_game_hover
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1ab51ae7d79c16546beec176291f2625
     m_Address: "desaf\xEDos_fondo_inlges"
     m_ReadOnly: 1
@@ -167,6 +173,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61212bc552d41bd468e0f8113246465a
     m_Address: level_9
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 612ba120dd6c33b409162214676d1581
+    m_Address: victoria_end_game_1
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

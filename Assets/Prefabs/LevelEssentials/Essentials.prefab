@@ -330,7 +330,10 @@ MonoBehaviour:
   MetalDoorInterrupt: {fileID: 8300000, guid: e5a1bb8b03ac49e4dafb107abac07b49, type: 3}
   WoodDoorOpen: {fileID: 8300000, guid: 49c7d247ae8c7194ab5d1c33f134b74d, type: 3}
   WoodDoorInterrupt: {fileID: 8300000, guid: 50c3a944a88c6254883ec76bbbfbf4c0, type: 3}
-  WaterCross: {fileID: 8300000, guid: 01e9540a0db2511419ec702b60af5782, type: 3}
+  WaterCross:
+  - {fileID: 8300000, guid: eb3eb409dcc26a347b50284bc898c91d, type: 3}
+  - {fileID: 8300000, guid: 34dac14243331ba43b14448a9f6fedd4, type: 3}
+  - {fileID: 8300000, guid: 058206cd644914e41b23feae0c063f25, type: 3}
   WaterMaintain: {fileID: 8300000, guid: eb3eb409dcc26a347b50284bc898c91d, type: 3}
   PathEnd: {fileID: 8300000, guid: 6832c4330e3902543a8b13f504afca18, type: 3}
   WinWithChallenge: {fileID: 8300000, guid: f366dc7aa384e25469f9f2f434d3c909, type: 3}

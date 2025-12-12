@@ -68,7 +68,7 @@ public class TurnManager : Singleton<TurnManager>
 
     public void ReloadLevel()
     {
-        SceneTransition.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneTransition.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void NextLevel()
@@ -77,7 +77,7 @@ public class TurnManager : Singleton<TurnManager>
     }
     public void PreviousLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1 - 1);
     }
 
     #endregion

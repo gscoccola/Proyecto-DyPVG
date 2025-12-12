@@ -721,9 +721,11 @@ MonoBehaviour:
         - m_KeyId: 1762067405099008
           m_TableCodes:
           - es
+          - en
         - m_KeyId: 1762142764158976
           m_TableCodes:
           - es
+          - en
         - m_KeyId: 1771125453377536
           m_TableCodes:
           - es

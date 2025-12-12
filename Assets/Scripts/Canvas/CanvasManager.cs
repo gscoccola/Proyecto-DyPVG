@@ -262,7 +262,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void ShowWinPanel()
     {
-
+        if (SFXPlayer.Instance.transform.GetChild(0) != null) SFXPlayer.Instance.transform.GetChild(0).gameObject.SetActive(false);
         TurnManager.Instance.CurrentTurnIndex++;
         UpdateDisplayedValues(false);
         WinPanel.SetActive(true);
@@ -292,19 +292,52 @@ public class CanvasManager : Singleton<CanvasManager>
         {
 
             WinPanel.GetComponent<Animator>().SetTrigger("WithChallenge");
-            StartCoroutine(IWinPanelCoRoutine());
+            StartCoroutine(IWinPanelCoRoutine(true));
         }
         else
         {
             WinPanel.GetComponent<Animator>().SetTrigger("WithoutChallenge");
+            StartCoroutine(IWinPanelCoRoutine(false));
         }
     }
 
-    private IEnumerator IWinPanelCoRoutine()
-    {
+    /* 
+    VictoryBanner;
+    VictoryBannerSlide;
+    ChallengePanel;
+    GoodJob;
+    FinalButtons;
+    */
 
-        yield return new WaitForSeconds(2f);
-        SFXPlayer.Instance.PlayClip(WorldSounds.Instance.Stamp);
+    private IEnumerator IWinPanelCoRoutine(bool challengeAchieved)
+    {
+        if (challengeAchieved)
+        {
+            SFXPlayer.Instance.PlayClip(_sounds.VictoryBanner);
+            yield return new WaitForSeconds(1f);
+            SFXPlayer.Instance.PlayClip(_sounds.VictoryBannerSlide);
+            yield return new WaitForSeconds(0.3f);
+            SFXPlayer.Instance.PlayClip(_sounds.ChallengePanel);
+            yield return new WaitForSeconds(0.7f);
+            SFXPlayer.Instance.PlayClip(WorldSounds.Instance.Stamp);
+            yield return new WaitForSeconds(0.3f);
+            SFXPlayer.Instance.PlayClip(_sounds.GoodJob);
+
+            yield return new WaitForSeconds(1f);
+            SFXPlayer.Instance.PlayClip(_sounds.FinalButtons);
+        }
+        else
+        {
+            SFXPlayer.Instance.PlayClip(_sounds.VictoryBanner);
+            yield return new WaitForSeconds(1f);
+            SFXPlayer.Instance.PlayClip(_sounds.VictoryBannerSlide);
+            yield return new WaitForSeconds(0.3f);
+            SFXPlayer.Instance.PlayClip(_sounds.ChallengePanel);
+
+            yield return new WaitForSeconds(1f);
+            SFXPlayer.Instance.PlayClip(_sounds.FinalButtons);
+        }
+        
 
     }
 

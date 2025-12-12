@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CompletionInfo: []
   LevelsInfoSO: {fileID: 11400000, guid: 71182a524f0b3ab4692284548467078f, type: 2}
-  MusicVolume: 4
+  MusicVolume: 3
   SFXVolume: 4
   CurrentLocale: 
   _argLocale: {fileID: 11400000, guid: 6077c6a24221d6544bd9fadf5653e819, type: 2}

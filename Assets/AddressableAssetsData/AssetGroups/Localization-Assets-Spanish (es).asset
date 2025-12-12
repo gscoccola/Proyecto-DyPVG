@@ -100,7 +100,7 @@ MonoBehaviour:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 336c5ae9db11e7e4cb4c0ed4579166cc
-    m_Address: "deafio_fondo_espa\xF1ol"
+    m_Address: deafio_fondo_espanol
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es

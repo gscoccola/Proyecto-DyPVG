@@ -53,12 +53,12 @@ public class SaveAndLoader : MonoBehaviour
         if (!PlayerPrefs.HasKey("MusicVolume"))
         {
             Debug.Log("No saved music volume found. Using default.");
-            return 4;
+            return 3;
         }
         if (!int.TryParse(PlayerPrefs.GetString("MusicVolume"), out int musicVolume))
         {
             Debug.LogWarning("Failed to parse music volume. Using default.");
-            return 4;
+            return 3;
         }
         return musicVolume;
     }

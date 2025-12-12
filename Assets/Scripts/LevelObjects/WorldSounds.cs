@@ -18,7 +18,7 @@ public class WorldSounds : Singleton<WorldSounds>
     [SerializeField] public AudioClip WoodDoorInterrupt;
 
     [Header("Water")]
-    [SerializeField] public AudioClip WaterCross;
+    [SerializeField] public AudioClip[] WaterCross;
     [SerializeField] public AudioClip WaterMaintain;
 
     [Header("Misc")]

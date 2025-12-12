@@ -11,5 +11,10 @@ public class CanvasSounds : MonoBehaviour
     [SerializeField] public AudioClip AcceptOrCancel;
     [SerializeField] public AudioClip[] ChipHover;
 
-
+    [Header("Victory")]
+    [SerializeField] public AudioClip VictoryBanner;
+    [SerializeField] public AudioClip VictoryBannerSlide;
+    [SerializeField] public AudioClip ChallengePanel;
+    [SerializeField] public AudioClip GoodJob;
+    [SerializeField] public AudioClip FinalButtons;
 }
