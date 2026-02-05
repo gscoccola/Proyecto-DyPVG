@@ -75,8 +75,8 @@ public class PersistentInfo : MonoBehaviour
         GetComponent<VolumeControl>().SetVolume(false, MusicVolume);
         GetComponent<VolumeControl>().SetVolume(true, SFXVolume);
         /*CurrentLocale = _saveAndLoader.LoadLocale();*/
-        //LocalizationSettings.SelectedLocale = CurrentLocale == "esp" ? _argLocale : _engLocale;
-        CurrentLocale = "esp";
+        //LocalizationSettings.SelectedLocale = _engLocale;
+        CurrentLocale = "eng";
     }
 
     private void OnApplicationQuit()

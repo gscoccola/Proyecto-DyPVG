@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Localization Settings
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Settings.LocalizationSettings
   m_StartupSelectors:
-  - rid: 6326717558856876311
-  - rid: 6326717558856876312
   - rid: 6326717558856876313
   m_AvailableLocales:
     rid: 6326717558856876314
@@ -25,21 +23,14 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_ProjectLocaleIdentifier:
-    m_Code: es
-  m_PreloadBehavior: 3
+    m_Code: en
+  m_PreloadBehavior: 1
   m_InitializeSynchronously: 1
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6326717558856876311
-      type: {class: CommandLineLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_CommandLineArgument: -language=
-    - rid: 6326717558856876312
-      type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data: 
     - rid: 6326717558856876313
       type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
@@ -57,7 +48,7 @@ MonoBehaviour:
           rid: -2
         m_CustomTablePostprocessor:
           rid: -2
-        m_AsynchronousBehaviour: 1
+        m_AsynchronousBehaviour: 0
         m_UseFallback: 0
     - rid: 6326717558856876316
       type: {class: LocalizedStringDatabase, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}

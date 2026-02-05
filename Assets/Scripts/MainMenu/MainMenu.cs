@@ -29,7 +29,7 @@ public class MainMenu : Singleton<MainMenu>
         {
             if (i > PersistentInfo.Instance.HighestAvailableLevel())
             {
-                _levelButtons[i].interactable = false;
+                //_levelButtons[i].interactable = false;
             }
             else
             {
@@ -65,13 +65,13 @@ public class MainMenu : Singleton<MainMenu>
     {
         _mainMenu.SetActive(false);
         _levelsMenu.SetActive(true);
-        /*for (int i = 0; i < _levelButtons.Length; i++)
+        for (int i = 0; i < _levelButtons.Length; i++)
         {
             if (i > PersistentInfo.Instance.HighestAvailableLevel())
             {
                 _levelButtons[i].interactable = false;
             }
-        }*/
+        }
     }
 
     public void BackToMainMenu()

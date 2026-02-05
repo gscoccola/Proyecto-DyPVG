@@ -105,6 +105,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-es
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3715f0e6ce0d4b045a99ae45845efa34
+    m_Address: "fin_del_juego_TODOS_LOS_DEASD\xCDOS"
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-es
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 380bb3ff814f36146881385a7e7aa345
     m_Address: nivel_8
     m_ReadOnly: 1
@@ -143,12 +149,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 44c54ac4f0849df4b801102c26e31009
     m_Address: "volver_hover_tama\xF1oreal"
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-es
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 457ccdabf9ef3d449b4eadace39908f1
-    m_Address: fin_del_juego_TODOS_LOS_DEASDIOS
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-es
