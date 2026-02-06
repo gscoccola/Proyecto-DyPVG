@@ -5,6 +5,7 @@ using UnityEngine.Localization;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.AddressableAssets;
 
 public class PersistentInfo : MonoBehaviour
 {
@@ -118,12 +119,22 @@ public class PersistentInfo : MonoBehaviour
 
     public IEnumerator ISetLocale(Locale locale)
     {
+        Debug.Log(LocalizationSettings.InitializationOperation.Status);
         yield return new WaitForEndOfFrame();
+
+
+
+
+
+        //Addressables.Release(LocalizationSettings.InitializationOperation);
         LocalizationSettings.SelectedLocale = locale;
+
+
         AsyncOperationHandle<LocalizationSettings> operation = LocalizationSettings.InitializationOperation;
         yield return operation;
-        /*yield return LocalizationSettings.InitializationOperation;
-        */
+
+        
+        //Debug.Log(LocalizationSettings.InitializationOperation.Status);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

@@ -451,7 +451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1de6fcd360187fe44a87a8f5ea0eaaa8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -832,7 +832,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 938f0bd05dd87e94e972addaa6879b6a, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -1117,7 +1117,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cefded1aa9cde504dbec7cf1884a9e75, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CARGANDO....
+  m_text: CARGANDO...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03b8bd110609b804c8dab077fc4f6221, type: 2}
   m_sharedMaterial: {fileID: -3615359451413722731, guid: 03b8bd110609b804c8dab077fc4f6221, type: 2}
@@ -1468,7 +1468,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e89003dd02842f649aa704c4382bc6f5, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -2030,7 +2030,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 380bb3ff814f36146881385a7e7aa345, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -2430,7 +2430,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ac07110908b8041428e43c78c090e919, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -2808,7 +2808,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ea16337d400d2e54e813ab087d3384e5, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -3417,7 +3417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ed3fb24601ca3f0499f44141a6943c40, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3570,7 +3570,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9ab9a7003792e4143a3021fd5c483371, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -4358,7 +4358,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fee13fbbdaef9d84991e46291b674e3d, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -5484,7 +5484,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fa74f83c60a42c14090a0e4823807acb, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -5693,7 +5693,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 54657b731a20ba54abf5f7d9a3436c7f, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -5940,7 +5940,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a2ca2014226658e458c32d36e531ece0, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
@@ -7472,7 +7472,7 @@ PrefabInstance:
     - target: {fileID: 2358425565550172628, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b76ecf75f11921e499ab71b723fa2fc2, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5588775167979756898, guid: 10b5e59a60826bc4c9ea9991473249a2, type: 3}
       propertyPath: m_Transition
       value: 2
